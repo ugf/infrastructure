@@ -1,0 +1,359 @@
+{
+  "name": "deploy",
+  "description": "Deploys the UGF software to the environment",
+  "long_description": "",
+  "maintainer": "Cloud Infrastructure",
+  "maintainer_email": "csf@ultimatesoftware.com",
+  "license": "our license",
+  "platforms": {
+    "ubuntu": ">= 0.0.0"
+  },
+  "dependencies": {
+    "rightscale": ">= 0.0.0",
+    "core": ">= 0.0.0",
+    "appfabric": ">= 0.0.0"
+  },
+  "recommendations": {
+  },
+  "suggestions": {
+  },
+  "conflicting": {
+  },
+  "providing": {
+  },
+  "replacing": {
+  },
+  "attributes": {
+    "core/api_infrastructure_url": {
+      "display_name": "api infrastructure url",
+      "required": "required",
+      "recipes": [
+        "deploy::foundation_services"
+      ],
+      "choice": [
+
+      ],
+      "calculated": false,
+      "type": "string"
+    },
+    "core/aws_access_key_id": {
+      "display_name": "aws access key id",
+      "required": "required",
+      "recipes": [
+        "deploy::download_binaries",
+        "deploy::download_infrastructure",
+        "deploy::provision",
+        "deploy::mongo"
+      ],
+      "choice": [
+
+      ],
+      "calculated": false,
+      "type": "string"
+    },
+    "core/aws_secret_access_key": {
+      "display_name": "aws secret access key",
+      "required": "required",
+      "recipes": [
+        "deploy::download_binaries",
+        "deploy::download_infrastructure",
+        "deploy::provision",
+        "deploy::mongo"
+      ],
+      "choice": [
+
+      ],
+      "calculated": false,
+      "type": "string"
+    },
+    "core/deployment_uri": {
+      "display_name": "deployment uri",
+      "required": "required",
+      "recipes": [
+        "deploy::foundation_services"
+      ],
+      "choice": [
+
+      ],
+      "calculated": false,
+      "type": "string"
+    },
+    "core/s3_bucket": {
+      "display_name": "s3 bucket for the UGF platform",
+      "required": "optional",
+      "default": "ugfgate1",
+      "recipes": [
+        "deploy::download_binaries",
+        "deploy::download_infrastructure",
+        "deploy::mongo",
+        "deploy::provision"
+      ],
+      "choice": [
+
+      ],
+      "calculated": false,
+      "type": "string"
+    },
+    "core/s3_repository": {
+      "display_name": "s3 repository for the UGF platform",
+      "required": "optional",
+      "default": "GlobalIncite",
+      "recipes": [
+        "deploy::download_binaries",
+        "deploy::provision"
+      ],
+      "choice": [
+
+      ],
+      "calculated": false,
+      "type": "string"
+    },
+    "deploy/admin_password_mongo": {
+      "display_name": "admin password for mongo",
+      "required": "required",
+      "recipes": [
+        "deploy::add_admin_replica_set",
+        "deploy::foundation_services",
+        "deploy::provision"
+      ],
+      "choice": [
+
+      ],
+      "calculated": false,
+      "type": "string"
+    },
+    "deploy/admin_user_mongo": {
+      "display_name": "admin user for mongo",
+      "required": "required",
+      "recipes": [
+        "deploy::add_admin_replica_set",
+        "deploy::foundation_services",
+        "deploy::provision"
+      ],
+      "choice": [
+
+      ],
+      "calculated": false,
+      "type": "string"
+    },
+    "deploy/app_server": {
+      "display_name": "app server",
+      "required": "required",
+      "recipes": [
+        "deploy::provision"
+      ],
+      "choice": [
+
+      ],
+      "calculated": false,
+      "type": "string"
+    },
+    "deploy/binaries_artifacts": {
+      "display_name": "binaries artifacts",
+      "required": "required",
+      "recipes": [
+        "deploy::download_binaries"
+      ],
+      "choice": [
+
+      ],
+      "calculated": false,
+      "type": "string"
+    },
+    "deploy/binaries_revision": {
+      "display_name": "binaries revision",
+      "required": "required",
+      "recipes": [
+        "deploy::download_binaries",
+        "deploy::tag_data_version"
+      ],
+      "choice": [
+
+      ],
+      "calculated": false,
+      "type": "string"
+    },
+    "deploy/cache_server": {
+      "display_name": "cache server",
+      "required": "required",
+      "recipes": [
+        "deploy::foundation_services",
+        "deploy::register_cache_hostname"
+      ],
+      "choice": [
+
+      ],
+      "calculated": false,
+      "type": "string"
+    },
+    "deploy/db_server": {
+      "display_name": "db server",
+      "required": "required",
+      "recipes": [
+        "deploy::foundation_services",
+        "deploy::provision"
+      ],
+      "choice": [
+
+      ],
+      "calculated": false,
+      "type": "string"
+    },
+    "deploy/deployment_name": {
+      "display_name": "deployment name",
+      "required": "required",
+      "recipes": [
+        "deploy::initiate_replica_set_via_tags",
+        "deploy::register_cache_hostname",
+        "deploy::wait_for_secondary_dbs"
+      ],
+      "choice": [
+
+      ],
+      "calculated": false,
+      "type": "string"
+    },
+    "deploy/infrastructure_artifacts": {
+      "display_name": "infrastructure artifacts",
+      "required": "required",
+      "recipes": [
+        "deploy::download_infrastructure"
+      ],
+      "choice": [
+
+      ],
+      "calculated": false,
+      "type": "string"
+    },
+    "deploy/infrastructure_revision": {
+      "display_name": "infrastructure revision",
+      "required": "required",
+      "recipes": [
+        "deploy::download_infrastructure"
+      ],
+      "choice": [
+
+      ],
+      "calculated": false,
+      "type": "string"
+    },
+    "deploy/is_primary_db": {
+      "display_name": "is primary db server",
+      "description": "This db is primary server (true/false)",
+      "required": "required",
+      "recipes": [
+        "deploy::add_admin_replica_set",
+        "deploy::initiate_replica_set_via_tags",
+        "deploy::wait_for_secondary_dbs"
+      ],
+      "choice": [
+
+      ],
+      "calculated": false,
+      "type": "string"
+    },
+    "deploy/mongo_version": {
+      "display_name": "mongo version",
+      "required": "optional",
+      "default": "2.0.1",
+      "recipes": [
+        "deploy::mongo"
+      ],
+      "choice": [
+
+      ],
+      "calculated": false,
+      "type": "string"
+    },
+    "deploy/metadata_artifacts": {
+      "display_name": "metadata artifacts",
+      "required": "required",
+      "recipes": [
+        "deploy::provision"
+      ],
+      "choice": [
+
+      ],
+      "calculated": false,
+      "type": "string"
+    },
+    "deploy/metadata_revision": {
+      "display_name": "metadata revision",
+      "required": "required",
+      "recipes": [
+        "deploy::provision"
+      ],
+      "choice": [
+
+      ],
+      "calculated": false,
+      "type": "string"
+    },
+    "deploy/s3_api_repository": {
+      "display_name": "s3 repository for the services api",
+      "required": "optional",
+      "default": "Infrastructure",
+      "recipes": [
+        "deploy::download_infrastructure"
+      ],
+      "choice": [
+
+      ],
+      "calculated": false,
+      "type": "string"
+    },
+    "deploy/server_name": {
+      "display_name": "server name",
+      "required": "required",
+      "recipes": [
+        "deploy::initiate_replica_set_via_tags"
+      ],
+      "choice": [
+
+      ],
+      "calculated": false,
+      "type": "string"
+    },
+    "deploy/tenant": {
+      "display_name": "tenant",
+      "required": "required",
+      "recipes": [
+        "deploy::provision"
+      ],
+      "choice": [
+
+      ],
+      "calculated": false,
+      "type": "string"
+    },
+    "deploy/use_replication": {
+      "display_name": "use replication",
+      "description": "Should use replication set (true/false)",
+      "required": "required",
+      "recipes": [
+        "deploy::add_admin_replica_set",
+        "deploy::initiate_replica_set_via_tags"
+      ],
+      "choice": [
+
+      ],
+      "calculated": false,
+      "type": "string"
+    }
+  },
+  "groupings": {
+  },
+  "recipes": {
+    "deploy::add_admin_replica_set": "Add admin user for mongo with replica set",
+    "deploy::download_binaries": "Downloads binaries",
+    "deploy::download_infrastructure": "Downloads infrastructure api",
+    "deploy::foundation_services": "Deploys the foundation rest services",
+    "deploy::initiate_replica_set_via_tags": "Initiate replica set via tags for mongodb",
+    "deploy::mongo": "Deploys mongodb",
+    "deploy::provision": "Provisions basic system data",
+    "deploy::register_cache_hostname": "Registers the cache hostname and ip in the hosts file",
+    "deploy::tag_data_version": "Writes a tag denoting what data version has been applied to this server",
+    "deploy::wait_for_secondary_dbs": "Waits for secondary db servers to become operational"
+  },
+  "version": "0.0.1"
+}

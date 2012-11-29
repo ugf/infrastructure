@@ -1,0 +1,45 @@
+require 'rake'
+require 'json'
+
+require '<%= node[:binaries_directory] %>/CI/BuildScripts/Helpers/configuration'
+require '<%= node[:binaries_directory] %>/CI/BuildScripts/Helpers/io_utils'
+
+settings = JSON.parse(File.read('<%= node['deployment_settings_json'] %>'))
+
+FileList['/Websites/**'].each { |f| FileUtils.remove_entry(f, true) }
+
+FileUtils.cp_r('<%= node[:binaries_directory] %>/Models', '/Websites')
+FileUtils.cp_r('<%= node[:binaries_directory] %>/AppServer/Websites/UltimateSoftware.Gateway.Active/.', '/Websites/ActiveSTS')
+FileUtils.cp_r('<%= node[:binaries_directory] %>/AppServer/Websites/UltimateSoftware.Services/.', '/Websites/Services')
+
+FileUtils.mkdir_p('/logs')
+
+configs = FileList['/Websites/**/*.config']
+puts "found #{configs.count} config files"
+
+def thumbprint
+  `powershell -Command "((dir cert:\\localmachine\\Root -rec | where-object {$_.Subject -eq 'CN=localhost'}) | select-object thumbprint).thumbprint"`.strip
+end
+
+
+Helpers::add_services_thumbprint("/Websites/Services/Web.config", thumbprint)
+Helpers::change_cert_repo_thumbprint("/Websites/ActiveSTS/configuration/CertificateRepository.config", thumbprint)
+Helpers::change_cert_repo_thumbprint("/Websites/Services/configuration/CertificateRepository.config", thumbprint)
+
+Helpers::change_all_app_settings(configs, "SigningCertificateName", "CN=localhost")
+Helpers::change_all_app_settings(configs, "DeploymentUri", "<%= @api_infrastructure_url %>/<%= @deployment_uri %>")
+Helpers::change_all_app_settings(configs, "ConnectionString", "Server=<%= @db_server %>:#{settings['database_port']};username=<%= @admin_user_mongo %>(admin);password=<%= @admin_password_mongo %>")
+Helpers::change_all_app_settings(configs, "EntityFramework.ModelFolder", "C:\\WebSites\\Models\\")
+
+IOUtils::replace_text_in_files(configs, '<%= '<host name="localhost"' %>', "<%= '<host name=\"' %><%= @cache_server %>\"")
+IOUtils::replace_text_in_files(configs, '<\/hosts>', '</hosts><securityProperties mode="None" protectionLevel="None"/>')
+
+active_sts = '/Websites/ActiveSTS/configuration/ActiveSTS.config'
+IOUtils::replace_text_in_file(active_sts, /localhost:2702/, 'localhost:81')
+IOUtils::replace_text_in_file(active_sts, /:81\/sts/, ':81/')
+
+FileUtils.cp_r('/Websites/Services/.', '/Websites/Services.Help')
+
+Helpers::change_service_authorization_type("/Websites/Services.Help/Web.config",
+  "UltimateSoftware.Foundation.IdentityModel.STS.AuthorizationManagers.USWebRequestDevAuthorizationManager, UltimateSoftware.Foundation.IdentityModel.STS")
+

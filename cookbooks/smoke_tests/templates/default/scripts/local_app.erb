@@ -1,0 +1,18 @@
+require 'rake'
+require 'rspec/core/rake_task'
+require 'json'
+
+settings = JSON.parse(File.read('<%= node['deployment_settings_json'] %>'))
+
+ENV['domain.name'] = ''
+ENV['app_server'] = '<%= @app_server %>'
+ENV['db_server'] = '<%= @db_server %>'
+ENV['db_port'] = settings['database_port']
+
+ENV['rightscale_account'] = ENV['rightscale_account']
+
+RSpec::Core::RakeTask.new(:spec) do |t|
+  t.pattern = '<%= node[:binaries_directory] %>/CI/spec/Smoke/deploy_<%= @server_type %>_spec.rb'
+end
+
+task :default => [:spec]

@@ -1,0 +1,50 @@
+require 'fog'
+require 'fileutils'
+
+s3_repository = '<%= @s3_repository %>'
+product = '<%= @product %>'
+version = '<%= @version %>'
+target_directory = '<%= @target_directory %>'
+unzip = <%= @unzip %>
+
+puts "downloading #{product} (#{version}) to #{target_directory}"
+
+storage = Fog::Storage.new(
+  :provider => 'AWS',
+  :aws_access_key_id => '<%= @aws_access_key_id %>',
+  :aws_secret_access_key => '<%= @aws_secret_access_key %>'
+)
+
+s3_files = storage.directories.find { |d| d.key == '<%= @s3_bucket %>' }.files
+
+install_files = '<%= @artifacts %>'.split(',')
+
+if File.exist?("#{target_directory}/#{product}")
+  puts "Found #{product} (#{version}) already on the system"
+  exit 0
+end
+
+Dir.mkdir(target_directory) unless target_directory.empty? || File.exist?(target_directory)
+missing_files = []
+
+s3_path = "#{s3_repository}/#{product}/#{version}"
+
+install_files.each do |f|
+  file = s3_files.get("#{s3_path}/#{f}.zip")
+  if file.nil?
+    missing_files << "#{s3_path}/#{f}.zip"
+  else
+    File.open("#{target_directory}/#{f}.zip", 'wb') do |local_file|
+      local_file.write(file.body)
+    end
+    if unzip
+      <% if node[:platform] == 'ubuntu' -%>
+        `unzip -d #{target_directory}/#{f} #{target_directory}/#{f}.zip`
+      <% else -%>
+        `"#{ENV['ProgramFiles(x86)']}\\7-Zip\\7z.exe" x -y -o#{target_directory}/#{f} -r #{target_directory}/#{f}.zip`
+      <% end -%>
+    end
+  end
+end
+
+raise "could not find the following files: #{missing_files}" unless missing_files.empty?
