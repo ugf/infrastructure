@@ -51,7 +51,37 @@ action :run do
       Chef::Log.info "#{@new_resource} task ran"
     end
   else
-    Chef::Log.debug "#{@new_resource} task doesn't exists - nothing to do"
+    Chef::Log.debug "#{@new_resource} task does not exist - nothing to do"
+  end
+end
+
+action :enable do
+  if @current_resource.exists
+    if @current_resource.enabled
+      Chef::Log.info "#{@new_resource} task is already enabled, skipping run"
+    else
+      cmd = "schtasks /Change /Enable /TN \"#{@current_resource.name}\""
+      shell_out!(cmd, {:returns => [0]})
+      @new_resource.updated_by_last_action true
+      Chef::Log.info "#{@new_resource} task enabled"
+    end
+  else
+    Chef::Log.debug "#{@new_resource} task does not exist - nothing to do"
+  end
+end
+
+action :disable do
+  if @current_resource.exists
+    if @current_resource.enabled
+      cmd = "schtasks /Change /Disable /TN \"#{@current_resource.name}\""
+      shell_out!(cmd, {:returns => [0]})
+      @new_resource.updated_by_last_action true
+      Chef::Log.info "#{@new_resource} task disabled"
+    else
+      Chef::Log.info "#{@new_resource} task is already disabled, skipping run"
+    end
+  else
+    Chef::Log.debug "#{@new_resource} task does not exist - nothing to do"
   end
 end
 
@@ -62,7 +92,7 @@ action :delete do
     @new_resource.updated_by_last_action true
     Chef::Log.info "#{@new_resource} task deleted"
   else
-    Chef::Log.debug "#{@new_resource} task doesn't exists - nothing to do"
+    Chef::Log.debug "#{@new_resource} task does not exist - nothing to do"
   end
 end
 
@@ -73,9 +103,8 @@ def load_current_resource
   task_hash = load_task_hash(@current_resource.name)
   if task_hash
     @current_resource.exists = true
-    if task_hash[:Status] == "Running"
-      @current_resource.status = :running
-    end
+    @current_resource.status = :running if task_hash[:Status] == "Running"
+    @current_resource.enabled = task_hash[:ScheduledTaskState] == "Enabled"
     @current_resource.cwd(task_hash[:Folder])
     @current_resource.command(task_hash[:TaskToRun])
     @current_resource.user(task_hash[:RunAsUser])

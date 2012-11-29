@@ -20,7 +20,7 @@
 
 # Passwords can't be loaded for existing tasks, making :modify both confusing
 # and not very useful
-actions :create, :delete, :run
+actions :create, :delete, :disable, :enable, :run
 
 attribute :name, :kind_of => String, :name_attribute => true
 attribute :command, :kind_of => String, :required => true
@@ -38,7 +38,7 @@ attribute :frequency, :equal_to => [:minute,
                                     :on_logon,
                                     :on_idle], :default => :hourly
 
-attr_accessor :exists, :status
+attr_accessor :exists, :status, :enabled
 
 def initialize(name, run_context=nil)
   super

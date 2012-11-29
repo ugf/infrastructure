@@ -154,6 +154,8 @@
   "recipes": {
     "teamcity::web_configure": "Configures the web server to use a database server",
     "teamcity::web_backup_volumes": "Backups up TeamCity web server",
+    "teamcity::web_disable_backups": "Disables backups for the TeamCity web server",
+    "teamcity::web_enable_backups": "Enables backups for the TeamCity web server",
     "teamcity::web_schedule_backups": "Schedules backups for the TeamCity web server",
     "teamcity::web_setup_volumes": "Sets up TeamCity web server volumes",
     "teamcity::db_configure": "Configures the database"

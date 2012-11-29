@@ -10,6 +10,8 @@ depends 'windows'
 
 recipe 'teamcity::web_configure', 'Configures the web server to use a database server'
 recipe 'teamcity::web_backup_volumes', 'Backups up TeamCity web server'
+recipe 'teamcity::web_disable_backups', 'Disables backups for the TeamCity web server'
+recipe 'teamcity::web_enable_backups', 'Enables backups for the TeamCity web server'
 recipe 'teamcity::web_schedule_backups', 'Schedules backups for the TeamCity web server'
 recipe 'teamcity::web_setup_volumes', 'Sets up TeamCity web server volumes'
 
