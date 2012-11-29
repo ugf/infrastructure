@@ -8,16 +8,11 @@ version '0.0.1'
 depends 'rightscale'
 depends 'windows'
 
-#agent
-recipe 'teamcity::configure', 'Configures TeamCity build agent properties file'
-
-#web server
 recipe 'teamcity::web_configure', 'Configures the web server to use a database server'
 recipe 'teamcity::web_backup_volumes', 'Backups up TeamCity web server'
 recipe 'teamcity::web_schedule_backups', 'Schedules backups for the TeamCity web server'
 recipe 'teamcity::web_setup_volumes', 'Sets up TeamCity web server volumes'
 
-#database server
 recipe 'teamcity::db_configure', 'Configures the database'
 
 attribute 'core/aws_access_key_id',
@@ -30,30 +25,10 @@ attribute 'core/aws_secret_access_key',
   :required => 'required',
   :recipes => ['teamcity::web_setup_volumes']
 
-attribute 'deploy/admin_password_mongo',
-  :display_name => 'administrator password for mongo',
-  :required => 'required',
-  :recipes => ['teamcity::configure']
-
-attribute 'deploy/admin_user_mongo',
-  :display_name => 'administrator user for mongo',
-  :required => 'required',
-  :recipes => ['teamcity::configure']
-
 attribute 'windows/administrator_password',
   :display_name => 'administrator password',
   :required => 'required',
   :recipes => ['teamcity::web_schedule_backups']
-
-attribute 'teamcity/agent_name',
-  :display_name => 'build agent name',
-  :required => 'required',
-  :recipes => ['teamcity::configure']
-
-attribute 'teamcity/agent_type',
-  :display_name => 'agent type',
-  :required => 'required',
-  :recipes => ['teamcity::configure']
 
 attribute 'teamcity/database_server',
   :display_name => 'database server',
@@ -93,19 +68,3 @@ attribute 'teamcity/logs_volume_size',
   :required => 'optional',
   :default => '300',
   :recipes => ['teamcity::web_setup_volumes']
-
-attribute 'teamcity/instance_name',
-  :display_name => 'instance name',
-  :required => 'required',
-  :recipes => ['teamcity::configure']
-
-attribute 'teamcity/web_ip',
-  :display_name => 'web ip',
-  :required => 'optional',
-  :default => '',
-  :recipes => ['teamcity::configure']
-
-attribute 'teamcity/web_server_ip',
-  :display_name => 'teamcity server ip',
-  :required => 'required',
-  :recipes => ['teamcity::configure']
