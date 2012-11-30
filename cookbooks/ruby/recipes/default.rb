@@ -100,7 +100,7 @@ else
     cmd /c ruby -rubygems c:\\RubyScripts\\download_ruby.rb
 EOF
     source(script)
-    not_if { File.exist?('/installs/ruby_windows.zip') }
+    not_if { File.exist?('/Ruby192') }
   end
 
   powershell 'Install ruby' do
