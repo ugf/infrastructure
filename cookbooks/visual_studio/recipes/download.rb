@@ -12,7 +12,7 @@ template "#{node[:ruby_scripts_dir]}/download_visual_studio.rb" do
     :s3_repository => 'Vendor',
     :product => 'visualstudio',
     :version => '2012',
-    :artifacts => 'VS_2012_Premium.zip',
+    :artifacts => 'VS_2012_Premium',
     :target_directory => '',
     :unzip => true
   )
