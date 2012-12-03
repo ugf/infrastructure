@@ -1,0 +1,58 @@
+{
+  "name": "visual_studio",
+  "description": "Installs visual studio",
+  "long_description": "",
+  "maintainer": "Cloud Infrastructure",
+  "maintainer_email": "csf@ultimatesoftware.com",
+  "license": "our license",
+  "platforms": {
+    "windows": ">= 0.0.0"
+  },
+  "dependencies": {
+    "rightscale": ">= 0.0.0",
+    "core": ">= 0.0.0"
+  },
+  "recommendations": {
+  },
+  "suggestions": {
+  },
+  "conflicting": {
+  },
+  "providing": {
+  },
+  "replacing": {
+  },
+  "attributes": {
+    "core/aws_access_key_id": {
+      "display_name": "aws access key id",
+      "required": "required",
+      "recipes": [
+        "visual_studio::download"
+      ],
+      "choice": [
+
+      ],
+      "calculated": false,
+      "type": "string"
+    },
+    "core/aws_secret_access_key": {
+      "display_name": "aws secret access key",
+      "required": "required",
+      "recipes": [
+        "visual_studio::download"
+      ],
+      "choice": [
+
+      ],
+      "calculated": false,
+      "type": "string"
+    }
+  },
+  "groupings": {
+  },
+  "recipes": {
+    "visual_studio::download": "Downloads visual studio",
+    "visual_studio::install": "Installs visual studio"
+  },
+  "version": "0.0.1"
+}
