@@ -27,7 +27,6 @@ powershell 'Installing visual studio' do
     & "c:\VS2012\vs_premium.exe" "/noweb" "/full" "/log" "c:\VS2012\log.txt" "/quiet" "/forcerestart"
   EOF
   source(script)
-  not_if { File.exist?(install_directory) }
 end
 
 rightscale_marker :end
