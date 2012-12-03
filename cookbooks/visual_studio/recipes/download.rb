@@ -64,8 +64,8 @@ powershell 'downloading visual studio' do
 
     Write-Output 'Unzip package'
 
-    mkdir -force c:\vs2012
-    cmd /c "${env:\ProgramFiles(x86)}\\7-Zip\\7z.exe" x -y -oc:\vs2012 -r "c:\\installs\\VS_2012_Premium.zip"
+    mkdir -force c:\\vs2012
+    cmd /c "${env:\ProgramFiles(x86)}\\7-Zip\\7z.exe" x -y -oc:\\vs2012 -r "c:\\installs\\VS_2012_Premium.zip"
   EOF
   source(script)
 end
