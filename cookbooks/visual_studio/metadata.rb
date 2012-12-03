@@ -22,10 +22,3 @@ attribute "core/aws_secret_access_key",
   :display_name => "aws secret access key",
   :required => "required",
   :recipes => ["visual_studio::download"]
-
-attribute "core/s3_bucket",
-  :display_name => "s3 bucket for the UGF platform",
-  :description => "i.e. ugfartifacts, ugfproduction",
-  :required => "optional",
-  :default  => "ugfgate1",
-  :recipes => ["visual_studio::download"]

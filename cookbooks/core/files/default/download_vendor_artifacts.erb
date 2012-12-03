@@ -6,7 +6,6 @@ product = '<%= @product %>'
 version = '<%= @version %>'
 target_directory = '<%= @target_directory %>'
 unzip = <%= @unzip %>
-is_large_download = <%= @is_large_download %>
 
 puts "downloading #{product} (#{version}) to #{target_directory}"
 
@@ -31,32 +30,21 @@ missing_files = []
 s3_path = "#{s3_repository}/#{product}/#{version}"
 
 install_files.each do |f|
-  if is_large_download
-    File.open("#{target_directory}/#{f}.zip", File::RDWR|File::CREAT) do |local_file|
-      s3_files.get("#{s3_path}/#{f}.zip") do |chunk, remaining_bytes, total_bytes|
-        local_file.write(chunk)
-        p "Writing file: #{remaining_bytes} / #{total_bytes} remaining"
-      end
-    end
+  file = s3_files.get("#{s3_path}/#{f}.zip")
+  if file.nil?
+    missing_files << "#{s3_path}/#{f}.zip"
   else
-    file = s3_files.get("#{s3_path}/#{f}.zip")
-    if file.nil?
-      missing_files << "#{s3_path}/#{f}.zip"
-    else
-      File.open("#{target_directory}/#{f}.zip", 'wb') do |local_file|
-        local_file.write(file.body)
-      end
+    File.open("#{target_directory}/#{f}.zip", 'wb') do |local_file|
+      local_file.write(file.body)
+    end
+    if unzip
+      <% if node[:platform] == 'ubuntu' -%>
+        `unzip -d #{target_directory}/#{f} #{target_directory}/#{f}.zip`
+      <% else -%>
+        `"#{ENV['ProgramFiles(x86)']}\\7-Zip\\7z.exe" x -y -o#{target_directory}/#{f} -r #{target_directory}/#{f}.zip`
+      <% end -%>
     end
   end
-
-  if unzip
-    <% if node[:platform] == 'ubuntu' -%>
-      `unzip -d #{target_directory}/#{f} #{target_directory}/#{f}.zip`
-    <% else -%>
-      `"#{ENV['ProgramFiles(x86)']}\\7-Zip\\7z.exe" x -y -o#{target_directory}/#{f} -r #{target_directory}/#{f}.zip`
-    <% end -%>
-  end
-
 end
 
 raise "could not find the following files: #{missing_files}" unless missing_files.empty?
