@@ -38,7 +38,7 @@ powershell 'downloading visual studio' do
     $scripts_path = 'c:' + '#{node[:ruby_scripts_dir]}'.replace("/", "\\")
 
     # Load Utility Functions
-    . "$scripts_path\UtilityFunctions.ps1"
+    . "$scripts_path\\UtilityFunctions.ps1"
 
     # Load the AWS SDK for .NET assembly
     LoadAwsSDK
