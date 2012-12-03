@@ -65,7 +65,7 @@
   "groupings": {
   },
   "recipes": {
-    "download": "Downloads visual studio"
+    "visual_studio::download": "Downloads visual studio"
   },
   "version": "0.0.1"
 }

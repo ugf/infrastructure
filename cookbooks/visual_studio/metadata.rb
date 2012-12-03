@@ -10,7 +10,7 @@ supports "windows"
 depends 'rightscale'
 depends 'core'
 
-recipe "download", "Downloads visual studio"
+recipe "visual_studio::download", "Downloads visual studio"
 
 attribute "core/aws_access_key_id",
   :display_name => "aws access key id",
