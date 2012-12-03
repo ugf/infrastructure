@@ -9,7 +9,7 @@ powershell 'Installing visual studio' do
        exit 0
     }
 
-    if (test-path "c:\VS2012\log.txt")
+    if (test-path "c:\\VS2012\\log.txt")
     {
       Write-Output "VS2012 is in a reboot cycle, let it finish on it's own."
 
@@ -24,7 +24,7 @@ powershell 'Installing visual studio' do
       exit 0
     }
 
-    & "c:\VS2012\vs_premium.exe" "/noweb" "/full" "/log" "c:\VS2012\log.txt" "/quiet" "/forcerestart"
+    & "c:\\VS2012\\vs_premium.exe" "/noweb" "/full" "/log" "c:\\VS2012\\log.txt" "/quiet" "/forcerestart"
   EOF
   source(script)
 end
