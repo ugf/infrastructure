@@ -45,6 +45,7 @@ install_files.each do |f|
     else
       File.open("#{target_directory}/#{f}.zip", 'wb') do |local_file|
         local_file.write(file.body)
+      end
     end
   end
 
