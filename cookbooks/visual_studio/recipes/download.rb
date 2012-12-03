@@ -14,7 +14,8 @@ template "#{node[:ruby_scripts_dir]}/download_visual_studio.rb" do
     :version => '2012',
     :artifacts => 'VS_2012_Premium',
     :target_directory => '',
-    :unzip => true
+    :unzip => true,
+    :is_large_download => true
   )
 end
 
