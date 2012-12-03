@@ -47,9 +47,10 @@ powershell 'downloading visual studio' do
       Write-Output "c:\\installs already created"
     }
     else {
-      New-Item c:\installs -type directory
+      New-Item c:\\installs -type directory
     }
-    cd c:\installs
+
+    cd c:\\installs
 
     Write-Output 'Start download'
     # Get the signed URL from S3 and download packages
@@ -59,13 +60,12 @@ powershell 'downloading visual studio' do
         -awsAccessKey "$env:AWS_ACCESS_KEY_ID" `
         -awsSecretKey "$env:AWS_SECRET_ACCESS_KEY"
 
-    DownloadFile -url `"$packageUrl`" -threads 10
-
+    DownloadFile -url `"$packageUrl`" -threads 15
 
     Write-Output 'Unzip package'
 
     mkdir -force c:\vs2012
-    cmd /c "${env:\ProgramFiles(x86)}\\7-Zip\\7z.exe" x -y -oc:\vs2012 -r c:\installs\VS_2012_Premium.zip
+    cmd /c "${env:\ProgramFiles(x86)}\\7-Zip\\7z.exe" x -y -oc:\vs2012 -r "c:\\installs\\VS_2012_Premium.zip"
   EOF
   source(script)
 end
