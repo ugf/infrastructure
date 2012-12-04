@@ -35,16 +35,16 @@ end
 powershell 'Installing teamcity agent' do
   parameters({ 'PASSWORD' => node[:windows][:administrator_password] })
   script = <<-EOF
-    #copy-item c:\\installs\\buildAgent.properties c:\\BuildAgent\\conf\\buildAgent.properties
+    copy-item c:\\installs\\buildAgent.properties c:\\BuildAgent\\conf\\buildAgent.properties
 
     cd c:\\BuildAgent\\bin
 
-    #cmd /c service.install.bat
+    cmd /c service.install.bat
     cmd /c "sc config TCBuildAgent obj= .\\Administrator password= $env:PASSWORD TYPE= own"
     cmd /c service.start.bat
   EOF
   source(script)
-  #not_if { File.exist?('c:\BuildAgent\conf\buildAgent.properties') }
+  not_if { File.exist?('c:\BuildAgent\conf\buildAgent.properties') }
 end
 
 rightscale_marker :end
