@@ -8,5 +8,6 @@ version          '0.0.1'
 supports 'windows'
 
 depends 'rightscale'
+depends 'windows'
 
 recipe 'aria2::default', 'Installs aria2'
