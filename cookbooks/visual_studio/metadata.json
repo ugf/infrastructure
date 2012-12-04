@@ -27,7 +27,7 @@
       "display_name": "aws access key id",
       "required": "required",
       "recipes": [
-        "visual_studio::download"
+        "visual_studio::default"
       ],
       "choice": [
 
@@ -39,7 +39,7 @@
       "display_name": "aws secret access key",
       "required": "required",
       "recipes": [
-        "visual_studio::download"
+        "visual_studio::default"
       ],
       "choice": [
 
@@ -51,8 +51,7 @@
   "groupings": {
   },
   "recipes": {
-    "visual_studio::download": "Downloads visual studio",
-    "visual_studio::install": "Installs visual studio"
+    "visual_studio::default": "Downloads and installs visual studio"
   },
   "version": "0.0.1"
 }
