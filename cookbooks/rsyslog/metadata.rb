@@ -7,8 +7,9 @@ version          "0.0.1"
 
 supports 'windows'
 
-depends 'rightscale'
 depends 'core'
+depends 'rightscale'
+depends 'windows'
 
 recipe "rsyslog::default", "Downloads and installs rsyslog on windows"
 recipe "rsyslog::configure", "Configures rsyslog on windows"

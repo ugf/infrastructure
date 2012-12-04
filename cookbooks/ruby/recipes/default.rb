@@ -22,8 +22,7 @@ if node[:platform] == "ubuntu"
         :product => 'ruby',
         :version => ruby_version,
         :artifacts => 'ruby',
-        :target_directory => '/root/src',
-        :unzip => true
+        :target_directory => '/root/src'
       )
     end
 
@@ -36,7 +35,8 @@ if node[:platform] == "ubuntu"
 
     bash 'Download ruby' do
       code <<-EOF
-      /opt/rightscale/sandbox/bin/ruby -rubygems #{node[:ruby_scripts_dir]}/download_ruby.rb
+        /opt/rightscale/sandbox/bin/ruby -rubygems #{node[:ruby_scripts_dir]}/download_ruby.rb
+        unzip -d /root/src/ruby /root/src/ruby.zip
       EOF
     end
 
@@ -87,8 +87,7 @@ else
       :product => 'ruby',
       :version => ruby_version,
       :artifacts => 'ruby_windows',
-      :target_directory => '/installs',
-      :unzip => true
+      :target_directory => '/installs'
     )
     not_if { File.exist?('/installs/ruby_windows.zip') }
   end
@@ -101,6 +100,12 @@ else
 EOF
     source(script)
     not_if { File.exist?('/Ruby192') }
+  end
+
+  windows_zipfile '/installs/ruby_windows' do
+    source '/installs/ruby_windows.zip'
+    action :unzip
+    not_if { File.exist?('/installs/ruby_windows') }
   end
 
   powershell 'Install ruby' do
