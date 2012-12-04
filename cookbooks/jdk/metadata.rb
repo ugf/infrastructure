@@ -8,8 +8,9 @@ version          "0.0.1"
 supports "ubuntu"
 supports "windows"
 
-depends 'rightscale'
 depends 'core'
+depends 'rightscale'
+depends 'windows'
 
 recipe "jdk::default", "Downloads and installs the jdk"
 

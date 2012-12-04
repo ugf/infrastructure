@@ -8,8 +8,9 @@ version          "0.0.1"
 supports "ubuntu"
 supports "windows"
 
-depends "rightscale"
 depends 'core'
+depends "rightscale"
+depends "windows"
 
 recipe "ruby::default", "Downloads and installs ruby"
 recipe "ruby::gems", "Installs ruby gems"

@@ -5,7 +5,6 @@ s3_repository = '<%= @s3_repository %>'
 product = '<%= @product %>'
 version = '<%= @version %>'
 target_directory = '<%= @target_directory %>'
-unzip = <%= @unzip %>
 
 puts "downloading #{product} (#{version}) to #{target_directory}"
 
@@ -36,13 +35,6 @@ install_files.each do |f|
   else
     File.open("#{target_directory}/#{f}.zip", 'wb') do |local_file|
       local_file.write(file.body)
-    end
-    if unzip
-      <% if node[:platform] == 'ubuntu' -%>
-        `unzip -d #{target_directory}/#{f} #{target_directory}/#{f}.zip`
-      <% else -%>
-        `"#{ENV['ProgramFiles(x86)']}\\7-Zip\\7z.exe" x -y -o#{target_directory}/#{f} -r #{target_directory}/#{f}.zip`
-      <% end -%>
     end
   end
 end
