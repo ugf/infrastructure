@@ -1,11 +1,15 @@
 rightscale_marker :begin
 
-cookbook_file 'c:/installs/aria2.zip' do
+installs_directory = 'c:/installs'
+
+Dir.mkdir(installs_directory) unless File.exist? installs_directory
+
+cookbook_file "#{installs_directory}/aria2.zip" do
   source 'aria2.zip'
 end
 
 windows_zipfile 'c:/aria2' do
-  source 'c:/installs/aria2.zip'
+  source "#{installs_directory}/aria2.zip"
   action :unzip
 end
 
