@@ -26,7 +26,8 @@
       "display_name": "aws access key id",
       "required": "required",
       "recipes": [
-        "teamcity::web_setup_volumes"
+        "teamcity::web_setup_volumes",
+        "teamcity::agent_install"
       ],
       "choice": [
 
@@ -38,7 +39,22 @@
       "display_name": "aws secret access key",
       "required": "required",
       "recipes": [
-        "teamcity::web_setup_volumes"
+        "teamcity::web_setup_volumes",
+        "teamcity::agent_install"
+      ],
+      "choice": [
+
+      ],
+      "calculated": false,
+      "type": "string"
+    },
+    "core/s3_bucket": {
+      "display_name": "s3 bucket for the UGF platform",
+      "description": "i.e. ugfartifacts, ugfproduction",
+      "required": "optional",
+      "default": "ugfgate1",
+      "recipes": [
+        "teamcity::agent_install"
       ],
       "choice": [
 
@@ -50,7 +66,8 @@
       "display_name": "administrator password",
       "required": "required",
       "recipes": [
-        "teamcity::web_schedule_backups"
+        "teamcity::web_schedule_backups",
+        "teamcity::agent_install"
       ],
       "choice": [
 
@@ -158,7 +175,8 @@
     "teamcity::web_enable_backups": "Enables backups for the TeamCity web server",
     "teamcity::web_schedule_backups": "Schedules backups for the TeamCity web server",
     "teamcity::web_setup_volumes": "Sets up TeamCity web server volumes",
-    "teamcity::db_configure": "Configures the database"
+    "teamcity::db_configure": "Configures the database",
+    "teamcity::agent_install": "Installs the agent"
   },
   "version": "0.0.1"
 }

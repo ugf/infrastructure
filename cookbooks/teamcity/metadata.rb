@@ -17,20 +17,29 @@ recipe 'teamcity::web_setup_volumes', 'Sets up TeamCity web server volumes'
 
 recipe 'teamcity::db_configure', 'Configures the database'
 
+recipe 'teamcity::agent_install', 'Installs the agent'
+
 attribute 'core/aws_access_key_id',
   :display_name => 'aws access key id',
   :required => 'required',
-  :recipes => ['teamcity::web_setup_volumes']
+  :recipes => ['teamcity::web_setup_volumes', 'teamcity::agent_install']
 
 attribute 'core/aws_secret_access_key',
   :display_name => 'aws secret access key',
   :required => 'required',
-  :recipes => ['teamcity::web_setup_volumes']
+  :recipes => ['teamcity::web_setup_volumes', 'teamcity::agent_install']
+
+attribute 'core/s3_bucket',
+  :display_name => 's3 bucket for the UGF platform',
+  :description => 'i.e. ugfartifacts, ugfproduction',
+  :required => 'optional',
+  :default  => 'ugfgate1',
+  :recipes => ['teamcity::agent_install']
 
 attribute 'windows/administrator_password',
   :display_name => 'administrator password',
   :required => 'required',
-  :recipes => ['teamcity::web_schedule_backups']
+  :recipes => ['teamcity::web_schedule_backups', 'teamcity::agent_install']
 
 attribute 'teamcity/database_server',
   :display_name => 'database server',
