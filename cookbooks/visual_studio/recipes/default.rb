@@ -3,7 +3,7 @@ rightscale_marker :begin
 Dir.mkdir(node[:ruby_scripts_dir]) unless File.exist? node[:ruby_scripts_dir]
 
 cookbook_file "#{node[:ruby_scripts_dir]}/UtilityFunctions.ps1" do
-  source UtilityFunctions.ps1
+  source 'UtilityFunctions.ps1'
 end
 
 powershell 'downloading visual studio' do
