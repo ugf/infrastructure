@@ -1,5 +1,5 @@
 action :unzip do
-  raise '7zip is not installed' unless File.exist?("#{ENV['ProgramFiles(x86)']}/7-Zip/7z.exe")
+  raise '7zip is not installed' unless ::File.exist?("#{ENV['ProgramFiles(x86)']}/7-Zip/7z.exe")
 
   Chef::Log.debug("unzip #{@new_resource.source} => #{@new_resource.path}")
 
