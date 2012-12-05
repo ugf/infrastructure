@@ -79,11 +79,9 @@ powershell 'Installing visual studio' do
         write-host 'Waiting for visual studio...'
         start-sleep 5
       }
-      while (( get-process | where-object {$_.name -eq 'vs_premium'} ).count -gt 0)
+      until ((Get-Content c:\\vs2012\\log.txt | Select-Object -last 1).Contains('Exit code: 0x0, restarting: No'))
 
       write-host 'Visual Studio successfully installed'
-
-      rename-item "c:\\VS2012\\log.txt" "c:\\VS2012\\log_complete.txt"
 
       exit 0
     }
