@@ -4,13 +4,11 @@ powershell('Setup volumes') do
   parameters(
     {
       'DATA_VOLUME_SIZE' => node[:teamcity][:data_volume_size],
-      'LOGS_VOLUME_SIZE' => node[:teamcity][:logs_volume_size],
       'FORCE_CREATE_VOLUMES' => node[:teamcity][:force_create_volumes],
       'LINEAGE_NAME' => node[:teamcity][:lineage_name],
       'RESTORE_TIMESTAMP' => '',
       'AWS_ACCESS_KEY_ID' => node[:core][:aws_access_key_id],
-      'AWS_SECRET_ACCESS_KEY' => node[:core][:aws_secret_access_key],
-      'NUMBER_STRIPES' => 1
+      'AWS_SECRET_ACCESS_KEY' => node[:core][:aws_secret_access_key]
     }
   )
   script = <<-EOF
@@ -28,13 +26,11 @@ $rsLibDstDirPath = "$env:rs_sandbox_home\\RightScript\\lib"
 . "$rsLibDstDirPath\\ros\\RosBackups.ps1"
 . "$rsLibDstDirPath\\ebs\\EbsRestoreVolumes.ps1"
 . "$rsLibDstDirPath\\ebs\\EbsCreateAttachVolume.ps1"
-. "$rsLibDstDirPath\\ebs\\EbsCreateAttachStripe.ps1"
 
 # Helper function to create env variables
-function SetDrivesEnvVars($dataLetter, $logsLetter, $dataDevices, $logsDevices)
+function SetDrivesEnvVars($dataLetter, $dataDevices)
 {
     $dataDevices = $dataDevices -join ','
-    $logsDevices = $logsDevices -join ','
 
     Write-Host "Setting environment variables:"
     [Environment]::SetEnvironmentVariable("RS_SQLS_DATA_VOLUME", $dataLetter, "Machine")
@@ -42,25 +38,16 @@ function SetDrivesEnvVars($dataLetter, $logsLetter, $dataDevices, $logsDevices)
     [Environment]::SetEnvironmentVariable("DATA_DEVICES", $dataDevices, "Machine")
     Write-Host "RS_SQLS_DATA_VOLUME=${dataLetter}"
     Write-Host "DATA_DEVICES=${dataDevices}"
-
-    [Environment]::SetEnvironmentVariable("RS_SQLS_LOGS_VOLUME", $logsLetter, "Machine")
-    [Environment]::SetEnvironmentVariable("RS_SQLS_LOGS_VOLUME", $logsLetter, "Process")
-    [Environment]::SetEnvironmentVariable("LOGS_DEVICES", $logsDevices, "Machine")
-    Write-Host "RS_SQLS_LOGS_VOLUME=${logsLetter}"
-    Write-Host "LOGS_DEVICES=${logsDevices}"
 }
 
 try
 {
     $dataVolExists = $env:RS_SQLS_DATA_VOLUME -and (Test-Path "${env:RS_SQLS_DATA_VOLUME}:\")
-    $logsVolExists = $env:RS_SQLS_LOGS_VOLUME -and (Test-Path "${env:RS_SQLS_LOGS_VOLUME}:\")
-    if ($dataVolExists -or $logsVolExists)
+    if ($dataVolExists)
     {
-        Write-Host "Skipping: data and/or log volumes exist already."
+        Write-Host "Skipping: data volume already exists."
         exit 0
     }
-
-    # Check and process input values
 
     # Force create volumes if mirror (databases to be imported from principal or specific input is set)
     if ($env:FORCE_CREATE_VOLUMES -eq 'True')
@@ -70,25 +57,6 @@ try
     }
 
     $dataDriveLetter = 'D'
-    $logsDriveLetter = 'E'
-
-    $newVolumes = $False
-
-    # Create drive letter exceptions for striped volumes creation to make possible
-    # further attachments of backup and temporary volumes
-    $dataReservedLetters = @($logsDriveLetter)
-    $logsReservedLetters = @()
-    $bl = 'G'
-    $dataReservedLetters += $bl.SubString(0,1).ToUpper()
-    $logsReservedLetters += $bl.SubString(0,1).ToUpper()
-    $tl = 'F'
-    $dataReservedLetters += $tl.SubString(0,1).ToUpper()
-    $logsReservedLetters += $tl.SubString(0,1).ToUpper()
-
-    # Declare AWS credentials needed by EbsRestoreVolumes and EbsCreateAttachVolume
-    # $env:AWS_ACCESS_KEY_ID
-    # $env:AWS_SECRET_ACCESS_KEY
-
     $lineageName = $env:LINEAGE_NAME
     $timestamp = $env:RESTORE_TIMESTAMP
 
@@ -99,31 +67,17 @@ try
     }
 
     # Create volumes if not restored
-    if (!$env:RS_SQLS_DATA_VOLUME -and !$env:RS_SQLS_LOGS_VOLUME)
+    if (!$env:RS_SQLS_DATA_VOLUME)
     {
-        Write-Host "Creating new data and log volumes..."
+        Write-Host "Creating new data volume..."
         CheckInputInt 'DATA_VOLUME_SIZE' $False 1 | Out-Null
-        CheckInputInt 'LOGS_VOLUME_SIZE' $False 1 | Out-Null
-        CheckInputInt 'NUMBER_STRIPES' $False 1 6 | Out-Null
 
-        if ($env:NUMBER_STRIPES -eq 1)
-        {
-            write-host 'Creating volumes via EbsCreateAttachVolume'
-            EbsCreateAttachVolume $dataDriveLetter $env:DATA_VOLUME_SIZE
-            EbsCreateAttachVolume $logsDriveLetter $env:LOGS_VOLUME_SIZE
-            $dataDevices = "xvd${dataDriveLetter}".ToLower()
-            $logsDevices = "xvd${logsDriveLetter}".ToLower()
-        }
-        else
-        {
-            $dataDevices = EbsCreateAttachStripedVolume $env:NUMBER_STRIPES $env:DATA_VOLUME_SIZE $dataDriveLetter $dataReservedLetters $env:EC2_INSTANCE_ID $env:AWS_ACCESS_KEY_ID $env:AWS_SECRET_ACCESS_KEY | ExtractReturn
-            $logsDevices = EbsCreateAttachStripedVolume $env:NUMBER_STRIPES $env:LOGS_VOLUME_SIZE $logsDriveLetter $logsReservedLetters $env:EC2_INSTANCE_ID $env:AWS_ACCESS_KEY_ID $env:AWS_SECRET_ACCESS_KEY | ExtractReturn
-            Write-Host "Devices: `n${dataDevices}`n---`n${logsDevices}"
-        }
-        SetDrivesEnvVars $dataDriveLetter $logsDriveLetter $dataDevices $logsDevices
-        $newVolumes = $True
+        write-host 'Creating volume via EbsCreateAttachVolume'
+        EbsCreateAttachVolume $dataDriveLetter $env:DATA_VOLUME_SIZE
+        $dataDevices = "xvd${dataDriveLetter}".ToLower()
+
+        SetDrivesEnvVars $dataDriveLetter $dataDevices
     }
-
     $error.Clear()
 }
 catch
