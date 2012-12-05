@@ -13,7 +13,6 @@ powershell('Delete volumes') do
     . "$rsLibDstDirPath\\rs\\RsApiCallWithRetry.ps1"
 
     EbsDeleteVolume 'D'
-    EbsDeleteVolume 'E'
   EOF
   source(script)
 end
