@@ -26,6 +26,7 @@
       "display_name": "aws access key id",
       "required": "required",
       "recipes": [
+        "teamcity::web_delete_volumes",
         "teamcity::web_setup_volumes",
         "teamcity::agent_install"
       ],
@@ -39,6 +40,7 @@
       "display_name": "aws secret access key",
       "required": "required",
       "recipes": [
+        "teamcity::web_delete_volumes",
         "teamcity::web_setup_volumes",
         "teamcity::agent_install"
       ],
@@ -183,6 +185,7 @@
   "recipes": {
     "teamcity::web_configure": "Configures the web server to use a database server",
     "teamcity::web_backup_volumes": "Backups up TeamCity web server",
+    "teamcity::web_delete_volumes": "Deletes TeamCity web server volumes",
     "teamcity::web_disable_backups": "Disables backups for the TeamCity web server",
     "teamcity::web_enable_backups": "Enables backups for the TeamCity web server",
     "teamcity::web_schedule_backups": "Schedules backups for the TeamCity web server",
