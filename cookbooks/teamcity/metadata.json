@@ -164,6 +164,18 @@
       ],
       "calculated": false,
       "type": "string"
+    },
+    "teamcity/web_server": {
+      "display_name": "web server",
+      "required": "required",
+      "recipes": [
+        "teamcity::agent_install"
+      ],
+      "choice": [
+
+      ],
+      "calculated": false,
+      "type": "string"
     }
   },
   "groupings": {

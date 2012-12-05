@@ -30,6 +30,7 @@ end
 
 template '/installs/buildAgent.properties' do
   source 'buildAgent.properties.erb'
+  variables(:web_server => node[:teamcity][:web_server])
 end
 
 powershell 'Installing teamcity agent' do

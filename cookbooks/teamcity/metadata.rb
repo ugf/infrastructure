@@ -79,3 +79,8 @@ attribute 'teamcity/logs_volume_size',
   :required => 'optional',
   :default => '300',
   :recipes => ['teamcity::web_setup_volumes']
+
+attribute 'teamcity/web_server',
+  :display_name => 'web server',
+  :required => 'required',
+  :recipes => ['teamcity::agent_install']
