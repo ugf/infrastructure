@@ -23,8 +23,7 @@ function EbsRestoreVolumes($dbLineageName, $timestamp = '')
 {
 <#
 .SYNOPSIS
-    Restores data and log volumes from EBS snapshots. Supports simple and
-    striped volumes.
+    Restores data volume from EBS snapshots. Supports simple volumes.
 .PARAMETER dbLineageName
     Name of the backup lineage to restore from.
 .PARAMETER timestamp
@@ -60,7 +59,7 @@ function EbsRestoreVolumes($dbLineageName, $timestamp = '')
     # Don't automatically mount new volumes
     "automount disable" | diskpart
 
-    $snapCount = $ebsSnapshots.Count
+    $snapCount = 1
     $numberStripes = 1
     Write-Host "Found $snapCount snapshots in the backup"
 
