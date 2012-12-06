@@ -38,6 +38,10 @@ template "#{teamcity_path}\\config\\license.keys" do
   source 'license.keys.erb'
 end
 
+template "#{teamcity_path}\\config\\_notifications\\jabber\\jabber-config.xml" do
+  source 'jabber-config.xml.erb'
+end
+
 template "#{node[:ruby_scripts_dir]}/setup_ldap.rb" do
   source 'scripts/setup_ldap.erb'
   variables(:config_file => "#{teamcity_path}\\config\\main-config.xml")
