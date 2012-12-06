@@ -55,7 +55,7 @@ attribute 'windows/administrator_password',
 
 attribute 'teamcity/database_server',
   :display_name => 'database server',
-  :required => 'optional',
+  :required => 'required',
   :recipes => ['teamcity::web_configure']
 
 attribute 'teamcity/database_user',

@@ -32,7 +32,6 @@ template "#{teamcity_path}\\config\\database.properties" do
     :database_user => node[:teamcity][:database_user],
     :database_password => node[:teamcity][:database_password]
   )
-  not_if { node[:teamcity][:database_server].nil? }
 end
 
 template "#{teamcity_path}\\config\\license.keys" do
@@ -74,7 +73,6 @@ end
 
 powershell('Restart TeamCity') do
   source('Restart-Service TeamCity')
-  not_if { node[:teamcity][:database_server].nil? }
 end
 
 rightscale_marker :end
