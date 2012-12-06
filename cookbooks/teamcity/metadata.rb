@@ -89,4 +89,4 @@ attribute 'teamcity/lineage_name',
 attribute 'teamcity/web_server',
   :display_name => 'web server',
   :required => 'required',
-  :recipes => ['teamcity::agent_install']
+  :recipes => ['teamcity::agent_install', 'teamcity::web_configure']

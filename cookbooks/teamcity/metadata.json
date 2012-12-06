@@ -162,7 +162,8 @@
       "display_name": "web server",
       "required": "required",
       "recipes": [
-        "teamcity::agent_install"
+        "teamcity::agent_install",
+        "teamcity::web_configure"
       ],
       "choice": [
 

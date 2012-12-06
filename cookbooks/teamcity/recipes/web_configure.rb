@@ -48,6 +48,15 @@ powershell('Setup ldap') do
   not_if { File.read("#{teamcity_path}\\config\\main-config.xml").include?('login-module') }
 end
 
+template "#{node[:ruby_scripts_dir]}/setup_server_url.rb" do
+  source 'scripts/setup_server_url.erb'
+  variables(:config_file => "#{teamcity_path}\\config\\main-config.xml", :web_server => node[:teamcity][:webserver])
+end
+
+powershell('Setup server url') do
+  source("ruby #{node[:ruby_scripts_dir]}/setup_server_url.rb")
+end
+
 template "#{teamcity_path}\\config\\ldap-config.properties" do
   source 'ldap-config.properties.erb'
 end

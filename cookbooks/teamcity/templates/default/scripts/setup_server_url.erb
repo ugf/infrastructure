@@ -1,0 +1,14 @@
+require 'xmlsimple'
+
+config_file = '<%= @config_file %>'
+
+xs = XmlSimple.new({
+  :RootName => 'server',
+  :XmlDeclaration => "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<!DOCTYPE server SYSTEM \"main-config.dtd\">"
+})
+
+ref = xs.xml_in(File.read(config_file))
+ref['rootURL'] = 'http://<%= @web_server %>'
+
+File.open(config_file, 'w+') { |f| f.puts xs.xml_out(ref) }
+
