@@ -75,12 +75,6 @@ attribute 'teamcity/lineage_name',
   :default => 'TeamCity Web',
   :recipes => ['teamcity::web_backup_volumes', 'teamcity::web_setup_volumes']
 
-attribute 'teamcity/logs_volume_size',
-  :display_name => 'logs volume size',
-  :required => 'optional',
-  :default => '300',
-  :recipes => ['teamcity::web_setup_volumes']
-
 attribute 'teamcity/web_server',
   :display_name => 'web server',
   :required => 'required',
