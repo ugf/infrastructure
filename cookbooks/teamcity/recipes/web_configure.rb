@@ -50,7 +50,7 @@ end
 
 template "#{node[:ruby_scripts_dir]}/setup_server_url.rb" do
   source 'scripts/setup_server_url.erb'
-  variables(:config_file => "#{teamcity_path}\\config\\main-config.xml", :web_server => node[:teamcity][:webserver])
+  variables(:config_file => "#{teamcity_path}\\config\\main-config.xml", :web_server => node[:teamcity][:web_server])
 end
 
 powershell('Setup server url') do
