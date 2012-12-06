@@ -82,7 +82,7 @@
     },
     "teamcity/database_server": {
       "display_name": "database server",
-      "required": "required",
+      "required": "optional",
       "recipes": [
         "teamcity::web_configure"
       ],

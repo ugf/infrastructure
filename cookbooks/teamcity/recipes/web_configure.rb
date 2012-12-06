@@ -32,6 +32,7 @@ template "#{teamcity_path}\\config\\database.properties" do
     :database_user => node[:teamcity][:database_user],
     :database_password => node[:teamcity][:database_password]
   )
+  not_if { node[:teamcity][:database_server].nil? }
 end
 
 template "#{teamcity_path}\\config\\license.keys" do
@@ -61,15 +62,19 @@ template "#{teamcity_path}\\config\\ldap-config.properties" do
   source 'ldap-config.properties.erb'
 end
 
-powershell('Restart TeamCity') do
+powershell('Configure TeamCity service') do
   script = <<'EOF'
     $service = 'TeamCity'
 
     Set-Service -name $service -startupType manual
     sc.exe failure $service reset= 86400 actions= restart/5000
-    Restart-Service $service
 EOF
   source(script)
+end
+
+powershell('Restart TeamCity') do
+  source('Restart-Service TeamCity')
+  not_if { node[:teamcity][:database_server].nil? }
 end
 
 rightscale_marker :end
