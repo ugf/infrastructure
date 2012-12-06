@@ -146,6 +146,7 @@
       "required": "optional",
       "default": "TeamCity Web",
       "recipes": [
+        "teamcity::web_backup_volumes",
         "teamcity::web_setup_volumes"
       ],
       "choice": [
