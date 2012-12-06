@@ -1,5 +1,12 @@
 rightscale_marker :begin
 
+lib_directory = "#{ENV['rs_sandbox_home']}/RightScript/lib/overrides"
+Dir.mkdir(lib_directory) unless File.exist?(lib_directory)
+
+cookbook_file "#{lib_directory}/EbsRestoreVolumes.ps1" do
+  source 'EbsRestoreVolumes.ps1'
+end
+
 powershell('Setup volumes') do
   parameters(
     {
@@ -24,7 +31,7 @@ $rsLibDstDirPath = "$env:rs_sandbox_home\\RightScript\\lib"
 . "$rsLibDstDirPath\\tools\\ExtractReturn.ps1"
 . "$rsLibDstDirPath\\ros\\Ros.ps1"
 . "$rsLibDstDirPath\\ros\\RosBackups.ps1"
-. "$rsLibDstDirPath\\ebs\\EbsRestoreVolumes.ps1"
+. "$rsLibDstDirPath\\overrides\\EbsRestoreVolumes.ps1"
 . "$rsLibDstDirPath\\ebs\\EbsCreateAttachVolume.ps1"
 
 # Helper function to create env variables
