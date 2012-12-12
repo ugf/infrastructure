@@ -38,6 +38,10 @@ template "#{teamcity_path}\\config\\license.keys" do
   source 'license.keys.erb'
 end
 
+template "#{teamcity_path}\\config\\_notifications\\jabber\\jabber-config.xml" do
+  source 'jabber-config.xml.erb'
+end
+
 template "#{node[:ruby_scripts_dir]}/setup_ldap.rb" do
   source 'scripts/setup_ldap.erb'
   variables(:config_file => "#{teamcity_path}\\config\\main-config.xml")
@@ -50,7 +54,7 @@ end
 
 template "#{node[:ruby_scripts_dir]}/setup_server_url.rb" do
   source 'scripts/setup_server_url.erb'
-  variables(:config_file => "#{teamcity_path}\\config\\main-config.xml", :web_server => node[:teamcity][:webserver])
+  variables(:config_file => "#{teamcity_path}\\config\\main-config.xml", :web_server => node[:teamcity][:web_server])
 end
 
 powershell('Setup server url') do
@@ -61,15 +65,18 @@ template "#{teamcity_path}\\config\\ldap-config.properties" do
   source 'ldap-config.properties.erb'
 end
 
-powershell('Restart TeamCity') do
+powershell('Configure TeamCity service') do
   script = <<'EOF'
     $service = 'TeamCity'
 
     Set-Service -name $service -startupType manual
     sc.exe failure $service reset= 86400 actions= restart/5000
-    Restart-Service $service
 EOF
   source(script)
+end
+
+powershell('Restart TeamCity') do
+  source('Restart-Service TeamCity')
 end
 
 rightscale_marker :end
