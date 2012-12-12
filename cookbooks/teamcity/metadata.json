@@ -80,6 +80,19 @@
       "calculated": false,
       "type": "string"
     },
+    "teamcity/configure_mstest": {
+      "display_name": "configure mstest",
+      "required": "optional",
+      "default": "false",
+      "recipes": [
+        "teamcity::agent_install"
+      ],
+      "choice": [
+
+      ],
+      "calculated": false,
+      "type": "string"
+    },
     "teamcity/database_server": {
       "display_name": "database server",
       "required": "required",

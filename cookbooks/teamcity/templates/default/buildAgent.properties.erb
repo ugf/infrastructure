@@ -5,3 +5,7 @@ tempDir=../temp
 systemDir=../system
 ownPort=9090
 authorizationToken=
+
+<% if @configure_mstest %>
+system.MSTest.11.0=C:\\Program Files (x86)\\Microsoft Visual Studio 11.0\\Common7\\IDE\\mstest.exe
+<% end %>

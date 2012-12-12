@@ -53,6 +53,12 @@ attribute 'windows/administrator_password',
   :required => 'required',
   :recipes => ['teamcity::web_schedule_backups', 'teamcity::agent_install']
 
+attribute 'teamcity/configure_mstest',
+  :display_name => 'configure mstest',
+  :required => 'optional',
+  :default => 'false',
+  :recipes => ['teamcity::agent_install']
+
 attribute 'teamcity/database_server',
   :display_name => 'database server',
   :required => 'required',
