@@ -27,7 +27,8 @@
       "display_name": "aws access key id",
       "required": "required",
       "recipes": [
-        "visual_studio::default"
+        "visual_studio::default",
+        "visual_studio::mstest"
       ],
       "choice": [
 
@@ -39,7 +40,8 @@
       "display_name": "aws secret access key",
       "required": "required",
       "recipes": [
-        "visual_studio::default"
+        "visual_studio::default",
+        "visual_studio::mstest"
       ],
       "choice": [
 
@@ -51,7 +53,8 @@
   "groupings": {
   },
   "recipes": {
-    "visual_studio::default": "Downloads and installs visual studio"
+    "visual_studio::default": "Downloads and installs visual studio",
+    "visual_studio::mstest": "Downloads and installs visual studio test framework"
   },
   "version": "0.0.1"
 }
