@@ -80,15 +80,16 @@
       "calculated": false,
       "type": "string"
     },
-    "teamcity/configure_mstest": {
-      "display_name": "configure mstest",
+    "teamcity/agent_type": {
+      "display_name": "agent type",
+      "choice": [
+        "unit",
+        "integration"
+      ],
       "required": "optional",
-      "default": "false",
+      "default": "unit",
       "recipes": [
         "teamcity::agent_install"
-      ],
-      "choice": [
-
       ],
       "calculated": false,
       "type": "string"
