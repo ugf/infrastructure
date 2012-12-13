@@ -1,7 +1,9 @@
 rightscale_marker :begin
 
-windows_feature "IIS-ApplicationDevelopment" do
-  action :install
+['IIS-WebServer', 'IIS-WebServerRole'].each do |feature|
+  windows_feature feature do
+    action :install
+  end
 end
 
 rightscale_marker :end
