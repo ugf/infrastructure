@@ -7,6 +7,7 @@ version          "0.0.1"
 
 supports "windows"
 
+depends "rightscale"
 depends "windows"
 
 recipe "mssql::set_sa_password", "sets sa password"
