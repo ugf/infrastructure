@@ -1,6 +1,6 @@
 rightscale_marker :begin
 
-windows_feature "IIS" do
+windows_feature "IIS-ApplicationDevelopment" do
   action :install
 end
 
