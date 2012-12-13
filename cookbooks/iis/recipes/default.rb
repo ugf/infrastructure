@@ -1,9 +1,9 @@
 rightscale_marker :begin
 
 [
+  'IIS-WebServerRole',
   'IIS-WebServer',
   'IIS-WebServerManagementTools',
-  'IIS-WebServerRole',
   'IIS-ApplicationDevelopment',
   'IIS-ASPNET',
   'IIS-CGI',
