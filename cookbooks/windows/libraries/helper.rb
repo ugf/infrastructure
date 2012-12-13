@@ -35,13 +35,7 @@ module Windows
     # especially important for 32-bit processes (like Ruby) on a 
     # 64-bit instance of Windows.
     def locate_sysnative_cmd(cmd)
-      if ::File.exists?("#{ENV['WINDIR']}\\sysnative\\#{cmd}")
-        "#{ENV['WINDIR']}\\sysnative\\#{cmd}"
-      elsif ::File.exists?("#{ENV['WINDIR']}\\system32\\#{cmd}")
-        "#{ENV['WINDIR']}\\system32\\#{cmd}"
-      else
-        cmd
-      end
+      ::File.exists?("#{ENV['WINDIR']}\\system32\\#{cmd}") ? "#{ENV['WINDIR']}\\system32\\#{cmd}" : cmd
     end
 
     # Create a feature provider dependent value object.
