@@ -55,6 +55,7 @@ if node[:platform] == 'ubuntu'
 
   template '/etc/init.d/start_teamcity_agent.sh' do
     source 'start_teamcity_agent.sh.erb'
+    mode '0700'
   end
 else
   powershell 'Downloading teamcity agent' do
