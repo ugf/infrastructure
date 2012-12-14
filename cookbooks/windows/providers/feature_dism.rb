@@ -23,7 +23,7 @@ include Chef::Mixin::ShellOut
 include Windows::Helper
 
 def install_feature(name)
-  result = `"cmd /c #{dism} /online /enable-feature /featurename:#{@new_resource.features.join(' /featurename:')} /norestart"`
+  result = `cmd /c "#{dism} /online /enable-feature /featurename:#{@new_resource.features.join(' /featurename:')} /norestart"`
   puts result
   #{:returns => [0,42,127]})
 end
