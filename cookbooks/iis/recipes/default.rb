@@ -1,6 +1,6 @@
 rightscale_marker :begin
 
-def feature_list
+feature_list =
   "/featurename:" + [
     'IIS-WebServerRole',
     'IIS-WebServer',
@@ -51,7 +51,6 @@ def feature_list
     'WAS-ProcessModel',
     'WAS-WindowsActivationService'
   ].join(' /featurename:')
-end
 
 powershell 'Install IIS' do
   source("dism.exe /online /enable-feature #{feature_list} /norestart")
