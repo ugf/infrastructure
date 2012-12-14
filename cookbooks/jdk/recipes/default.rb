@@ -48,6 +48,8 @@ if node[:platform] == 'ubuntu'
       ln -s /jdk_ubuntu/jdk1.7.0_07/jre/bin/java_vm /usr/bin/java_vm
       ln -s /jdk_ubuntu/jdk1.7.0_07/bin/javaws /usr/bin/javaws
       ln -s /jdk_ubuntu/jdk1.7.0_07/bin/jcontrol /usr/bin/jcontrol
+
+      echo '*** done installing sdk'
     EOF
     not_if { File.exist?("#{download_directory}/#{artifact}.zip") }
   end
