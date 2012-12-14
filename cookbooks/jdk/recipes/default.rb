@@ -25,11 +25,11 @@ if node[:platform] == 'ubuntu'
   bash 'Download and install jdk' do
     code <<-EOF
       ruby #{node[:ruby_scripts_dir]}/download_jdk.rb
-      unzip -d #{download_directory}/#{artifact} #{download_directory}/#{artifact}.zip
+      unzip -d /jdk #{download_directory}/#{artifact}.zip
 
-      echo "JAVA_HOME=/jdk_ubuntu/jdk1.7.0_07" >> /etc/profile
-      echo "JRE_HOME=/jdk_ubuntu/jdk1.7.0_07" >> /etc/profile
-      echo "PATH=\$PATH:/jdk_ubuntu/jdk1.7.0_07/bin" >> /etc/profile
+      echo "JAVA_HOME=/jdk/jdk1.7.0_07" >> /etc/profile
+      echo "JRE_HOME=/jdk/jdk1.7.0_07" >> /etc/profile
+      echo "PATH=\$PATH:/jdk/jdk1.7.0_07/bin" >> /etc/profile
 
       rm /usr/bin/java
       rm /usr/bin/javac
@@ -40,14 +40,14 @@ if node[:platform] == 'ubuntu'
       rm /usr/bin/javaws
       rm /usr/bin/jcontrol
 
-      ln -s /jdk_ubuntu/jdk1.7.0_07/bin/java /usr/bin/java
-      ln -s /jdk_ubuntu/jdk1.7.0_07/bin/javac /usr/bin/javac
-      ln -s /jdk_ubuntu/jdk1.7.0_07/bin/javadoc /usr/bin/javadoc
-      ln -s /jdk_ubuntu/jdk1.7.0_07/bin/javah /usr/bin/javah
-      ln -s /jdk_ubuntu/jdk1.7.0_07/bin/javap /usr/bin/javap
-      ln -s /jdk_ubuntu/jdk1.7.0_07/jre/bin/java_vm /usr/bin/java_vm
-      ln -s /jdk_ubuntu/jdk1.7.0_07/bin/javaws /usr/bin/javaws
-      ln -s /jdk_ubuntu/jdk1.7.0_07/bin/jcontrol /usr/bin/jcontrol
+      ln -s /jdk/jdk1.7.0_07/bin/java /usr/bin/java
+      ln -s /jdk/jdk1.7.0_07/bin/javac /usr/bin/javac
+      ln -s /jdk/jdk1.7.0_07/bin/javadoc /usr/bin/javadoc
+      ln -s /jdk/jdk1.7.0_07/bin/javah /usr/bin/javah
+      ln -s /jdk/jdk1.7.0_07/bin/javap /usr/bin/javap
+      ln -s /jdk/jdk1.7.0_07/jre/bin/java_vm /usr/bin/java_vm
+      ln -s /jdk/jdk1.7.0_07/bin/javaws /usr/bin/javaws
+      ln -s /jdk/jdk1.7.0_07/bin/jcontrol /usr/bin/jcontrol
 
       echo '*** done installing sdk'
     EOF
