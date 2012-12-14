@@ -1,6 +1,6 @@
 rightscale_marker :begin
 
-features = [
+feature_list = [
   'IIS-WebServerRole',
   'IIS-WebServer',
   'IIS-WebServerManagementTools',
@@ -52,7 +52,8 @@ features = [
 
 ]
 
-windows_feature features do
+windows_feature 'Install IIS' do
+  features feature_list
   action :install
 end
 
