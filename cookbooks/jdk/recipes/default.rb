@@ -2,7 +2,7 @@ rightscale_marker :begin
 
 include_recipe 'core::download_vendor_artifacts_prereqs'
 
-artifact = 'jdk_windows'
+artifact = node[:platform] == 'ubuntu' ? 'jdk_ubuntu' : 'jdk_windows'
 download_directory = '/download_jdk'
 install_directory = '/jdk'
 
@@ -19,36 +19,67 @@ template "#{node[:ruby_scripts_dir]}/download_jdk.rb" do
     :artifacts => artifact,
     :target_directory => download_directory
   )
-  not_if { File.exist?(install_directory) }
 end
 
-powershell 'Downloading jdk' do
-  source("ruby #{node[:ruby_scripts_dir]}/download_jdk.rb")
-  not_if { File.exist?("#{download_directory}/#{artifact}.zip") }
-end
+if node[:platform] == 'ubuntu'
+  bash 'Download and install jdk' do
+    code <<-EOF
+      ruby #{node[:ruby_scripts_dir]}/download_jdk.rb
+      unzip -d #{download_directory}/#{artifact} #{download_directory}/#{artifact}.zip
 
-windows_zipfile "#{download_directory}/#{artifact}" do
-  source "#{download_directory}/#{artifact}.zip"
-  action :unzip
-  not_if { File.exist?("#{download_directory}/#{artifact}") }
-end
+      echo "JAVA_HOME=/jdk_ubuntu/jdk1.7.0_07" >> /etc/profile
+      echo "JRE_HOME=/jdk_ubuntu/jdk1.7.0_07" >> /etc/profile
+      echo "PATH=\$PATH:/jdk_ubuntu/jdk1.7.0_07/bin" >> /etc/profile
 
-powershell 'Installing jdk' do
-  script = <<-EOF
-    cd /download_jdk/jdk_windows
-    cmd /c 'msiexec.exe /i jdk1.7.0_07.msi /qn INSTALLDIR=c:\\jdk'
-  EOF
-  source(script)
-  not_if { File.exist?(install_directory) }
-end
+      rm /usr/bin/java
+      rm /usr/bin/javac
+      rm /usr/bin/javadoc
+      rm /usr/bin/javah
+      rm /usr/bin/javap
+      rm /usr/bin/java_vm
+      rm /usr/bin/javaws
+      rm /usr/bin/jcontrol
 
-env('JAVA_HOME') { value 'c:\jdk\bin' }
-env('JRE_HOME') { value 'c:\jdk\bin' }
+      ln -s /jdk_ubuntu/jdk1.7.0_07/bin/java /usr/bin/java
+      ln -s /jdk_ubuntu/jdk1.7.0_07/bin/javac /usr/bin/javac
+      ln -s /jdk_ubuntu/jdk1.7.0_07/bin/javadoc /usr/bin/javadoc
+      ln -s /jdk_ubuntu/jdk1.7.0_07/bin/javah /usr/bin/javah
+      ln -s /jdk_ubuntu/jdk1.7.0_07/bin/javap /usr/bin/javap
+      ln -s /jdk_ubuntu/jdk1.7.0_07/jre/bin/java_vm /usr/bin/java_vm
+      ln -s /jdk_ubuntu/jdk1.7.0_07/bin/javaws /usr/bin/javaws
+      ln -s /jdk_ubuntu/jdk1.7.0_07/bin/jcontrol /usr/bin/jcontrol
+    EOF
+    not_if { File.exist?("#{download_directory}/#{artifact}.zip") }
+  end
+else
+  powershell 'Downloading jdk' do
+    source("ruby #{node[:ruby_scripts_dir]}/download_jdk.rb")
+    not_if { File.exist?("#{download_directory}/#{artifact}.zip") }
+  end
 
-env('PATH') do
-  action :modify
-  delim ::File::PATH_SEPARATOR
-  value 'C:\jdk\bin'
+  windows_zipfile "#{download_directory}/#{artifact}" do
+    source "#{download_directory}/#{artifact}.zip"
+    action :unzip
+    not_if { File.exist?("#{download_directory}/#{artifact}") }
+  end
+
+  powershell 'Installing jdk' do
+    script = <<-EOF
+      cd /download_jdk/jdk_windows
+      cmd /c 'msiexec.exe /i jdk1.7.0_07.msi /qn INSTALLDIR=c:\\jdk'
+    EOF
+    source(script)
+    not_if { File.exist?(install_directory) }
+  end
+
+  env('JAVA_HOME') { value 'c:\jdk\bin' }
+  env('JRE_HOME') { value 'c:\jdk\bin' }
+
+  env('PATH') do
+    action :modify
+    delim ::File::PATH_SEPARATOR
+    value 'C:\jdk\bin'
+  end
 end
 
 rightscale_marker :end
