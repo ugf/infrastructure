@@ -1,6 +1,6 @@
 rightscale_marker :begin
 
-[
+feature_list = [
   'IIS-WebServerRole',
   'IIS-WebServer',
   'IIS-WebServerManagementTools',
@@ -48,12 +48,14 @@ rightscale_marker :begin
   'WAS-ConfigurationAPI',
   'WAS-NetFxEnvironment',
   'WAS-ProcessModel',
-  'WAS-WindowsActivationService',
+  'WAS-WindowsActivationService'
 
-].each do |feature|
-  windows_feature feature do
-    action :install
-  end
+]
+
+windows_feature 'Install IIS' do
+  features feature_list
+  action :install
 end
+
 
 rightscale_marker :end

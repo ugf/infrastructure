@@ -22,7 +22,7 @@ include Windows::Helper
 
 actions :install, :remove
 
-attribute :feature_name, :kind_of => String, :name_attribute => true
+attribute :features, :kind_of => [ String, Array ]
 
 def initialize(name, run_context=nil)
   super

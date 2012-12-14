@@ -5,7 +5,7 @@ class Chef
 
         def action_install
           unless installed?
-            install_feature(@new_resource.feature_name)
+            install_feature(@new_resource.features)
             @new_resource.updated_by_last_action(true)
             Chef::Log.info("#{@new_resource} installed feature")
           else
@@ -15,7 +15,7 @@ class Chef
 
         def action_remove
           if installed?
-            remove_feature(@new_resource.feature_name)
+            remove_feature(@new_resource.features)
             @new_resource.updated_by_last_action(true)
             Chef::Log.info("#{@new_resource} removed")
           else
