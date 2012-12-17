@@ -48,15 +48,15 @@ if node[:platform] == 'ubuntu'
     not_if { File.exist?('/opt/buildagent') }
   end
 
-  template '/etc/init.d/start_teamcity_agent.sh' do
-    source 'start_teamcity_agent.sh.erb'
+  template '/etc/init.d/teamcity_agent' do
+    source 'teamcity_agent.erb'
     mode '0700'
   end
 
   bash 'Starting teamcity agent' do
     code <<-EOF
-      update-rc.d start_teamcity_agent defaults
-      /opt/buildagent/bin/agent.sh start
+      update-rc.d teamcity_agent defaults
+      service teamcity_agent start
     EOF
   end
 else
