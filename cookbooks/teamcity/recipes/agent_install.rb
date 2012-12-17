@@ -48,14 +48,16 @@ if node[:platform] == 'ubuntu'
     not_if { File.exist?('/opt/buildagent') }
   end
 
-  bash 'Starting teamcity agent' do
-    code '/opt/buildagent/bin/agent.sh start'
-    not_if { File.exist?('/etc/init.d/start_teamcity_agent.sh') }
-  end
-
   template '/etc/init.d/start_teamcity_agent.sh' do
     source 'start_teamcity_agent.sh.erb'
     mode '0700'
+  end
+
+  bash 'Starting teamcity agent' do
+    code <<-EOF
+      update-rc.d start_teamcity_agent defaults
+      /opt/buildagent/bin/agent.sh start
+    EOF
   end
 else
   powershell 'Downloading teamcity agent' do
