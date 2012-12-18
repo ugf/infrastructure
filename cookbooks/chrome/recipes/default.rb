@@ -17,7 +17,7 @@ windows_registry 'HKEY_LOCAL_MACHINE\Software\Policies\Google\Chrome' do
 end
 
 powershell 'Installing chrome' do
-  source("Msiexec /log #{installs_directory}\\install_chrome.log /q /I #{installs_directory}\\GoogleChromeStandaloneEnterprise.msi")
+  source("Msiexec /q /I #{installs_directory}\\GoogleChromeStandaloneEnterprise.msi")
   not_if { File.exist?("#{ENV['PROGRAMFILES(X86)']}\\Google\\Chrome") }
 end
 
