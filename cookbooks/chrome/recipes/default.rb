@@ -4,7 +4,7 @@ installs_directory = 'c:\\installs'
 
 Dir.mkdir(installs_directory) unless File.exist?(installs_directory)
 
-cookbook_file "#{installs_directory}/GoogleChromeStandaloneEnterprise.msi" do
+cookbook_file "#{installs_directory}\\GoogleChromeStandaloneEnterprise.msi" do
   source 'GoogleChromeStandaloneEnterprise.msi'
 end
 
