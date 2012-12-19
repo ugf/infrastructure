@@ -23,11 +23,24 @@
   "replacing": {
   },
   "attributes": {
+    "windows/administrator_password": {
+      "display_name": "administrator password",
+      "required": "required",
+      "recipes": [
+        "iis::create_deploy_website"
+      ],
+      "choice": [
+
+      ],
+      "calculated": false,
+      "type": "string"
+    }
   },
   "groupings": {
   },
   "recipes": {
-    "iis::default": "enables iis"
+    "iis::default": "enables iis",
+    "iis::create_deploy_website": "generates a template for deploying websites in iis"
   },
   "version": "0.0.1"
 }

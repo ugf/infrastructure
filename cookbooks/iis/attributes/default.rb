@@ -1,0 +1,1 @@
+default[:powershell_scripts_dir] = '/PowershellScripts'

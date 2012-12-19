@@ -1,0 +1,27 @@
+import-module WebAdministration
+iis:
+
+function has_site($name) {
+  Get-Item IIS:\Sites\* |
+  Select-Object name |
+  Where-Object { $_.name -eq $name }
+}
+
+function has_pool($name) {
+  Get-Item IIS:\AppPools\* |
+  Select-Object name |
+  Where-Object { $_.name -eq $name }
+}
+
+function deploy_website($name, $pool, $directory, $port) {
+  if (has_site($name)) { Remove-WebSite -Name $name }
+  if (has_pool($pool)) { Remove-WebAppPool -Name $pool }
+
+  New-WebAppPool -name $pool
+  Set-ItemProperty "IIS:\\AppPools\\$pool" -name processModel -value @{identityType='SpecificUser'; userName='administrator'; password='<%= @administrator_password %>'}
+  Set-ItemProperty "IIS:\\AppPools\\$pool" -name managedRuntimeVersion -value v4.0
+
+  New-Item "IIS:\\Sites\\$name" -physicalPath $directory -bindings @{protocol="http";bindingInformation=$port}
+  Set-ItemProperty "IIS:\\Sites\\$name" -name applicationPool -value $pool
+}
+
