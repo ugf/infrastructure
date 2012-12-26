@@ -1,3 +1,53 @@
+if File.exist?('/vagrant/.vagrant')
+  bash 'Ron testing' do
+    code 'echo "Found vagrant" > /rontest'
+  end
+
+  ruby_packages = ['libreadline-dev', 'libssl-dev', 'libyaml-dev', 'libffi-dev', 'libncurses-dev', 'libdb-dev' ,
+    'libgdbm-dev', 'tk-dev']
+
+  ruby_packages.each do |name|
+    package name do
+    end
+  end
+
+  bash 'Unzip ruby artifact' do
+    code <<-EOF
+      if [ ! -d ~/src/ruby ]; then mkdir -p ~/src/ruby; fi
+      unzip -d ~/src/ruby /vendor_artifacts/ruby.zip
+    EOF
+  end
+
+  ruby_version = '1.9.2-p320'
+  executables = ['ruby', 'gem', 'rake', 'rspec', 'rdoc', 'ri', 'bundle']
+
+  bash 'Install ruby from source' do
+    code <<-EOF
+      cd ~/src/ruby
+      chmod 777 configure
+      chmod 777 tool/ifchange
+
+      ./configure --enable-shared --prefix=/opt/ruby/#{ruby_version}
+
+      make all
+      make test
+      make install
+
+      cd /opt/ruby
+
+      rm -f active
+      rm /usr/bin/ruby
+      rm /usr/bin/gem
+      rm /usr/bin/rake
+
+      ln -fs #{ruby_version} active
+      #{executables.map { |exe| "ln -fs /opt/ruby/active/bin/#{exe} /usr/bin/#{exe} \n" }.join}
+    EOF
+  end
+
+
+else
+
 rightscale_marker :begin
 
 include_recipe 'core::download_vendor_artifacts_prereqs'
@@ -116,3 +166,4 @@ end
 
 rightscale_marker :end
 
+end
