@@ -37,12 +37,14 @@ if node[:platform] == "ubuntu"
     directory source_dir do
       recursive true
       action :delete
+      only_if { vagrant_exists? }
     end
 
     directory source_dir do
       recursive true
       mode 00777
       action :create
+      only_if { vagrant_exists? }
     end
 
     ruby_block 'Install fog' do
