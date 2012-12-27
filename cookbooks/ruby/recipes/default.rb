@@ -11,13 +11,13 @@ emit_marker :begin
 include_recipe 'core::download_vendor_artifacts_prereqs'
 
 ruby_version = '1.9.2-p320'
+install_dir = '/opt/ruby'
+source_dir = '/tmp/src/ruby'
 
 if node[:platform] == "ubuntu"
-  if File.exists?('/opt/ruby')
+  if File.exists?(install_dir)
     log 'Ruby already installed'
   else
-    ruby_version = '1.9.2-p320'
-    executables = ['ruby', 'gem', 'rake', 'rspec', 'rdoc', 'ri', 'bundle']
 
     template "#{node[:ruby_scripts_dir]}/download_ruby.rb" do
       local true
@@ -30,8 +30,19 @@ if node[:platform] == "ubuntu"
         :product => 'ruby',
         :version => ruby_version,
         :artifacts => 'ruby',
-        :target_directory => '/root/src'
+        :target_directory => '/tmp/src'
       )
+    end
+
+    directory source_dir do
+      recursive true
+      action :delete
+    end
+
+    directory source_dir do
+      recursive true
+      mode 00777
+      action :create
     end
 
     ruby_block 'Install fog' do
@@ -45,15 +56,15 @@ if node[:platform] == "ubuntu"
     bash 'Download ruby' do
       code <<-EOF
         /opt/rightscale/sandbox/bin/ruby -rubygems #{node[:ruby_scripts_dir]}/download_ruby.rb
-        unzip -d /root/src/ruby /root/src/ruby.zip
+        unzip -d #{source_dir} #{source_dir}.zip
       EOF
       not_if { vagrant_exists? }
     end
 
     bash 'Unzip ruby artifact' do
       code <<-EOF
-      if [ ! -d ~/src/ruby ]; then mkdir -p ~/src/ruby; fi
-      unzip -d ~/src/ruby /vendor_artifacts/ruby.zip
+      if [ ! -d #{source_dir} ]; then mkdir -p #{source_dir}; fi
+      unzip -d #{source_dir} /vendor_artifacts/ruby/#{ruby_version}/ruby.zip
       EOF
       only_if { vagrant_exists? }
     end
@@ -66,28 +77,49 @@ if node[:platform] == "ubuntu"
       end
     end
 
-    bash 'Install ruby from source' do
-      code <<-EOF
-      cd ~/src/ruby
-      chmod 777 configure
-      chmod 777 tool/ifchange
+    file "#{source_dir}/configure" do
+      mode 00777
+    end
 
-      ./configure --enable-shared --prefix=/opt/ruby/#{ruby_version}
+    file "#{source_dir}/tool/ifchange" do
+      mode 00777
+    end
 
-      make all
-      make test
-      make install
+    execute 'configure' do
+      command "./configure --enable-shared --prefix=#{install_dir}/#{ruby_version}"
+      cwd source_dir
+    end
 
-      cd /opt/ruby
+    make_commands = ['all', 'test', 'install']
+    make_commands.each do |cmd|
+      execute "make #{cmd}" do
+        command "make #{cmd}"
+        cwd source_dir
+      end
+    end
 
-      rm -f active
-      rm /usr/bin/ruby
-      rm /usr/bin/gem
-      rm /usr/bin/rake
+    link "#{install_dir}/active" do
+      action :delete
+      only_if "test -L #{install_dir}/active"
+    end
 
-      ln -fs #{ruby_version} active
-      #{executables.map { |exe| "ln -fs /opt/ruby/active/bin/#{exe} /usr/bin/#{exe} \n" }.join}
-      EOF
+    execute 'create sym link' do
+      command "ln -fs #{ruby_version} active"
+      cwd install_dir
+    end
+
+    executables = ['ruby', 'gem', 'rake', 'rspec', 'rdoc', 'ri', 'bundle']
+
+    executables.each do |exe|
+      file "/usr/bin/#{exe}" do
+        action :delete
+      end
+    end
+
+    executables.each do |exe|
+      link "/usr/bin/#{exe}" do
+        to "#{install_dir}/active/bin/#{exe}"
+      end
     end
   end
 else
