@@ -1,4 +1,12 @@
-rightscale_marker :begin
+class Chef::Resource
+  include DetectVagrant
+end
+
+class Chef::Recipe
+  include DetectVagrant
+end
+
+emit_marker :begin
 
 include_recipe 'core::download_vendor_artifacts_prereqs'
 
@@ -31,6 +39,7 @@ if node[:platform] == "ubuntu"
         ENV['RUBYGEMS_BINARY_PATH'] ||= 'gem'
         system("/opt/rightscale/sandbox/bin/gem install fog -v 1.1.1 --no-rdoc --no-ri")
       end
+      not_if { vagrant_exists? }
     end
 
     bash 'Download ruby' do
@@ -38,21 +47,27 @@ if node[:platform] == "ubuntu"
         /opt/rightscale/sandbox/bin/ruby -rubygems #{node[:ruby_scripts_dir]}/download_ruby.rb
         unzip -d /root/src/ruby /root/src/ruby.zip
       EOF
+      not_if { vagrant_exists? }
+    end
+
+    bash 'Unzip ruby artifact' do
+      code <<-EOF
+      if [ ! -d ~/src/ruby ]; then mkdir -p ~/src/ruby; fi
+      unzip -d ~/src/ruby /vendor_artifacts/ruby.zip
+      EOF
+      only_if { vagrant_exists? }
+    end
+
+    ruby_packages = ['libreadline-dev', 'libssl-dev', 'libyaml-dev', 'libffi-dev', 'libncurses-dev', 'libdb-dev' ,
+      'libgdbm-dev', 'tk-dev']
+
+    ruby_packages.each do |name|
+      package name do
+      end
     end
 
     bash 'Install ruby from source' do
       code <<-EOF
-      apt-get -y install \
-                 build-essential \
-                 libreadline-dev \
-                 libssl-dev \
-                 libyaml-dev \
-                 libffi-dev \
-                 libncurses-dev \
-                 libdb-dev \
-                 libgdbm-dev \
-                 tk-dev
-
       cd ~/src/ruby
       chmod 777 configure
       chmod 777 tool/ifchange
@@ -114,5 +129,4 @@ EOF
   end
 end
 
-rightscale_marker :end
-
+emit_marker :end
