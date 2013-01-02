@@ -16,11 +16,11 @@ template "#{node[:ruby_scripts_dir]}/download_infrastructure.rb" do
   variables(
     :aws_access_key_id => node[:core][:aws_access_key_id],
     :aws_secret_access_key => node[:core][:aws_secret_access_key],
-    :artifacts => node[:deploy][:infrastructure_artifacts],
+    :artifacts => node[:deployment_services][:infrastructure_artifacts],
     :target_directory => node[:infrastructure_directory],
-    :revision => node[:deploy][:infrastructure_revision],
+    :revision => node[:deployment_services][:infrastructure_revision],
     :s3_bucket => node[:core][:s3_bucket],
-    :s3_repository => node[:deploy][:s3_api_repository],
+    :s3_repository => node[:deployment_services][:s3_api_repository],
     :s3_directory => 'Services'
   )
 end
