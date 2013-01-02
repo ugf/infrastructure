@@ -1,0 +1,1 @@
+default[:infrastructure_directory] = '/deployscripts_infrastructure'
