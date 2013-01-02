@@ -8,7 +8,7 @@ version          "0.0.1"
 supports "ubuntu"
 
 depends "rightscale"
-#depends "logging"
+depends "logging"
 
 recipe "deployment_services::default", "Deploys Infrastructure api services"
 
