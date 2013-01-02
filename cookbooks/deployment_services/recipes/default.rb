@@ -1,3 +1,6 @@
+class Chef::Resource
+  include DetectVagrant
+end
 
 class Chef::Recipe
   include DetectVagrant
@@ -77,6 +80,9 @@ $InputFilePollingInterval 10
   not_if { File.read('/etc/rsyslog.conf').include?('rest.log') }
 end
 
-logging("default") { action :restart }
+logging('default') do
+  action :restart
+  not_if { vagrant_exists? }
+end
 
 emit_marker :end
