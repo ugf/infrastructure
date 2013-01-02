@@ -12,7 +12,7 @@ bash 'Set document root and configure Passenger' do
         exit 0
     fi
 
-    echo LoadModule passenger_module /usr/lib/apache2/modules/mod_passenger.so >> /etc/apache2/apache2.conf
+    echo LoadModule passenger_module /opt/ruby/1.9.2-p320/lib/ruby/gems/1.9.1/gems/passenger-3.0.18/ext/apache2/mod_passenger.so >> /etc/apache2/apache2.conf
     echo PassengerRoot /opt/ruby/1.9.2-p320/lib/ruby/gems/1.9.1/gems/passenger-3.0.18 >> /etc/apache2/apache2.conf
     echo PassengerRuby /usr/bin/ruby >> /etc/apache2/apache2.conf
     echo PassengerDefaultUser root >> /etc/apache2/apache2.conf
