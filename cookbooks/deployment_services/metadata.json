@@ -23,11 +23,86 @@
   "replacing": {
   },
   "attributes": {
+    "core/aws_access_key_id": {
+      "display_name": "aws access key id",
+      "required": "required",
+      "recipes": [
+        "deployment_services::download"
+      ],
+      "choice": [
+
+      ],
+      "calculated": false,
+      "type": "string"
+    },
+    "core/aws_secret_access_key": {
+      "display_name": "aws secret access key",
+      "required": "required",
+      "recipes": [
+        "deployment_services::download"
+      ],
+      "choice": [
+
+      ],
+      "calculated": false,
+      "type": "string"
+    },
+    "core/s3_bucket": {
+      "display_name": "s3 bucket for the UGF platform",
+      "required": "optional",
+      "default": "ugfgate1",
+      "recipes": [
+        "deployment_services::download"
+      ],
+      "choice": [
+
+      ],
+      "calculated": false,
+      "type": "string"
+    },
+    "deployment_services/infrastructure_artifacts": {
+      "display_name": "infrastructure artifacts",
+      "required": "required",
+      "recipes": [
+        "deployment_services::download"
+      ],
+      "choice": [
+
+      ],
+      "calculated": false,
+      "type": "string"
+    },
+    "deployment_services/infrastructure_revision": {
+      "display_name": "infrastructure revision",
+      "required": "required",
+      "recipes": [
+        "deployment_services::download"
+      ],
+      "choice": [
+
+      ],
+      "calculated": false,
+      "type": "string"
+    },
+    "deployment_services/s3_api_repository": {
+      "display_name": "s3 repository for the services api",
+      "required": "optional",
+      "default": "Infrastructure",
+      "recipes": [
+        "deployment_services::download"
+      ],
+      "choice": [
+
+      ],
+      "calculated": false,
+      "type": "string"
+    }
   },
   "groupings": {
   },
   "recipes": {
-    "deployment_services::default": "Deploys Infrastructure api services"
+    "deployment_services::default": "Deploys Infrastructure api services",
+    "deployment_services::download": "Downloads infrastructure api"
   },
   "version": "0.0.1"
 }
