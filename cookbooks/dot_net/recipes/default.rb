@@ -34,7 +34,7 @@ end
 powershell 'Installing dot_net' do
   script = <<-EOF
     cd /download_dot_net/dot_net
-    dotNetFx45_Full_setup.exe /q
+    .\dotNetFx45_Full_setup.exe /q
   EOF
   source(script)
 end
