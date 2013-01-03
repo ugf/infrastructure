@@ -9,6 +9,21 @@ end
 
 emit_marker :begin
 
+gems = {
+  'bundle' => '0.0.1',
+  'amazon-ec2' => '0.9.17',
+  'fog' => '1.1.2',
+  'mongo' => '1.3.1',
+  'bson' => '1.3.1',
+  'rest-client' => '1.6.7',
+  'xml-simple' => '1.1.1',
+  'rr' => '1.0.4',
+  'rspec' => '2.7.0',
+  'simplecov' => '0.6.1',
+  'libv8' => '3.11.8.4'
+}
+
+
 if node[:platform] == "ubuntu"
   package 'libyaml-dev' do
   end
@@ -34,19 +49,6 @@ if node[:platform] == "ubuntu"
     gem_binary('/usr/bin/gem')
     options('--no-rdoc --no-ri')
   end
-
-  gems = {
-    'bundle' => '0.0.1',
-    'amazon-ec2' => '0.9.17',
-    'fog' => '1.1.2',
-    'mongo' => '1.3.1',
-    'bson' => '1.3.1',
-    'rest-client' => '1.6.7',
-    'xml-simple' => '1.1.1',
-    'rr' => '1.0.4',
-    'rspec' => '2.7.0',
-    'simplecov' => '0.6.1'
-  }
 
   gems_to_install(gems).each do |gem, ver|
     gem_package gem do
