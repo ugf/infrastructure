@@ -1,12 +1,4 @@
-class Chef::Resource
-  include DetectVagrant
-end
-
-class Chef::Recipe
-  include DetectVagrant
-end
-
-emit_marker :begin
+rightscale_marker :begin
 
 include_recipe 'core::download_product_artifacts_prereqs'
 
@@ -30,7 +22,6 @@ if node[:platform] == "ubuntu"
     code <<-EOF
       ruby #{node[:ruby_scripts_dir]}/download_infrastructure.rb
     EOF
-    not_if { vagrant_exists? }
   end
 else
   powershell "Downloading artifacts" do
@@ -38,4 +29,4 @@ else
   end
 end
 
-emit_marker :end
+rightscale_marker :end
