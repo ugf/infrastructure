@@ -10,7 +10,7 @@ supports "windows"
 depends 'core'
 depends 'rightscale'
 
-#recipe "newgen::default", "Deploys Infrastructure api services"
+recipe "newgen::default", "Deploys New Gen websites"
 recipe "newgen::download", "Downloads binaries"
 
 # Attributes from core cookbook

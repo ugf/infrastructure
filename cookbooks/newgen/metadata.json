@@ -101,6 +101,7 @@
   "groupings": {
   },
   "recipes": {
+    "newgen::default": "Deploys New Gen websites",
     "newgen::download": "Downloads binaries"
   },
   "version": "0.0.1"
