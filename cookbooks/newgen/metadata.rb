@@ -7,7 +7,8 @@ version          "0.0.1"
 
 supports "windows"
 
-depends "rightscale"
+depends 'core'
+depends 'rightscale'
 
 #recipe "newgen::default", "Deploys Infrastructure api services"
 recipe "newgen::download", "Downloads binaries"
