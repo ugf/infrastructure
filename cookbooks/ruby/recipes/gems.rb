@@ -19,12 +19,13 @@ gems = {
   'xml-simple' => '1.1.1',
   'rr' => '1.0.4',
   'rspec' => '2.7.0',
-  'simplecov' => '0.6.1',
-  'libv8' => '3.11.8.4'
+  'simplecov' => '0.6.1'
 }
 
 
 if node[:platform] == "ubuntu"
+  gems['libv8'] = '3.11.8.4'  # libv8 needs a native ruby and is unnecessary on windows
+
   package 'libyaml-dev' do
   end
 
