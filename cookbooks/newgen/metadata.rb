@@ -9,8 +9,8 @@ supports "windows"
 
 depends "rightscale"
 
-recipe "newgen::default", "Deploys Infrastructure api services"
-recipe "newgen::download", "Downloads infrastructure api"
+#recipe "newgen::default", "Deploys Infrastructure api services"
+recipe "newgen::download", "Downloads binaries"
 
 # Attributes from core cookbook
 attribute "core/aws_access_key_id",

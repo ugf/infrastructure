@@ -100,8 +100,7 @@
   "groupings": {
   },
   "recipes": {
-    "newgen::default": "Deploys Infrastructure api services",
-    "newgen::download": "Downloads infrastructure api"
+    "newgen::download": "Downloads binaries"
   },
   "version": "0.0.1"
 }
