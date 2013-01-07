@@ -96,6 +96,18 @@
       ],
       "calculated": false,
       "type": "string"
+    },
+    "newgen/database_server": {
+      "display_name": "database server ip",
+      "required": "required",
+      "recipes": [
+        "newgen::default"
+      ],
+      "choice": [
+
+      ],
+      "calculated": false,
+      "type": "string"
     }
   },
   "groupings": {

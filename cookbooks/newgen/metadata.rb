@@ -47,5 +47,10 @@ attribute "newgen/binaries_revision",
   :required => "required",
   :recipes => ["newgen::download"]
 
+attribute "newgen/database_server",
+  :display_name => "database server ip",
+  :required => "required",
+  :recipes => ["newgen::default"]
+
 
 
