@@ -7,18 +7,18 @@ execute 'Adding certificate' do
   cwd "#{node[:binaries_directory]}/certificate"
 end
 
-def replace_text_in_files(list, source, target)
-  list.each { |file| replace_text_in_file(file, source, target) }
-end
-
-def replace_text_in_file(file, source, target)
-  text = File.read(file)
-  modified = text.gsub(/#{source}/, "#{target}")
-  File.open(file, 'w') { |f| f.puts(modified) }
-end
-
 ruby_block 'Updating config files' do
   block do
+    def replace_text_in_files(list, source, target)
+      list.each { |file| replace_text_in_file(file, source, target) }
+    end
+
+    def replace_text_in_file(file, source, target)
+      text = File.read(file)
+      modified = text.gsub(/#{source}/, "#{target}")
+      File.open(file, 'w') { |f| f.puts(modified) }
+    end
+
     configs = FileList["#{node[:binaries_directory]}/**/*.config"]
     puts "found #{configs.count} config files"
 
