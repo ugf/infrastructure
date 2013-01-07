@@ -1,4 +1,4 @@
-require 'fileutils'
+require 'rake'
 
 rightscale_marker :begin
 
