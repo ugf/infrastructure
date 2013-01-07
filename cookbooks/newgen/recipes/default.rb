@@ -36,7 +36,18 @@ execute 'Run migrate' do
   cwd "#{node[:binaries_directory]}"
 end
 
-
-
+#powershell '' do
+#  parameters({
+#    'POWERSHELL_SCRIPTS_DIR' => "c:#{node[:powershell_scripts_dir].gsub('/','\\')}",
+#    'BINARIES_DIRECTORY' => "c:#{node[:binaries_directory].gsub('/','\\')}"
+#  })
+#  script = <<-EOF
+#Import-Module '$env:POWERSHELL_SCRIPTS_DIR\\deploy_website.ps1'
+#
+#deploy_website 'main website' 'main_website' '$env:BINARIES_DIRECTORY\\main_website' ':55555:'
+#deploy_website 'sts website' 'sts_website' '$env:BINARIES_DIRECTORY\\sts_website' ':55556:'
+#  EOF
+#  source(script)
+#end
 
 rightscale_marker :end
