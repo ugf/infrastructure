@@ -23,6 +23,44 @@
   "replacing": {
   },
   "attributes": {
+    "core/aws_access_key_id": {
+      "display_name": "aws access key id",
+      "required": "required",
+      "recipes": [
+        "mssql::install_tools"
+      ],
+      "choice": [
+
+      ],
+      "calculated": false,
+      "type": "string"
+    },
+    "core/aws_secret_access_key": {
+      "display_name": "aws secret access key",
+      "required": "required",
+      "recipes": [
+        "mssql::install_tools"
+      ],
+      "choice": [
+
+      ],
+      "calculated": false,
+      "type": "string"
+    },
+    "core/s3_bucket": {
+      "display_name": "s3 bucket for the UGF platform",
+      "description": "i.e. ugfartifacts, ugfproduction",
+      "required": "optional",
+      "default": "ugfgate1",
+      "recipes": [
+        "mssql::install_tools"
+      ],
+      "choice": [
+
+      ],
+      "calculated": false,
+      "type": "string"
+    },
     "mssql/sa_password": {
       "display_name": "sa password",
       "required": "required",
@@ -39,7 +77,8 @@
   "groupings": {
   },
   "recipes": {
-    "mssql::set_sa_password": "sets sa password"
+    "mssql::set_sa_password": "sets sa password",
+    "mssql::install_tools": "installs sql tools"
   },
   "version": "0.0.1"
 }
