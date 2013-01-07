@@ -30,11 +30,11 @@ windows_zipfile "#{node[:installs_directory]}/#{artifact}" do
 end
 
 windows_package 'Installing sql native client' do
-  source "#{node[:installs_directory]}/sql_tools/sqlncli.msi"
+  source "#{node[:installs_directory]}\\sql_tools\\sqlncli.msi"
 end
 
 windows_package 'Installing sql command line tools' do
-  source "#{node[:installs_directory]}/sql_tools/SqlCmdLnUtils.msi"
+  source "#{node[:installs_directory]}\\sql_tools\\SqlCmdLnUtils.msi"
 end
 
 rightscale_marker :end
