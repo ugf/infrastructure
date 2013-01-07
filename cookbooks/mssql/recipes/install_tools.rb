@@ -41,7 +41,7 @@ end
 env('PATH') do
   action :modify
   delim ::File::PATH_SEPARATOR
-  value "#{ENV['ProgramFiles']}\\Microsoft SQL Server\\100\\Tools\\Binn"
+  value 'C:\Program Files\Microsoft SQL Server\100\Tools\Binn'
 end
 
 rightscale_marker :end
