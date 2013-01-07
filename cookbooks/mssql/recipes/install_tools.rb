@@ -12,7 +12,7 @@ template "#{node[:ruby_scripts_dir]}/download_sql_tools.rb" do
     :s3_bucket => node[:core][:s3_bucket],
     :s3_repository => 'Vendor',
     :product => 'sql_tools',
-    :version => 'sql_2008',
+    :version => 'sql2008',
     :artifacts => artifact,
     :target_directory => node[:installs_directory]
   )
