@@ -1,9 +1,9 @@
-actions :install
+action :install do
+  raise 'Could not find msi' unless ::File.exist?(@new_resource.source)
 
-attribute :description, :kind_of => String, :name_attribute => true
-attribute :source, :kind_of => String
+  Chef::Log.debug("msiexec /i #{@new_resource.source} /qn")
 
-def initialize(name, run_context=nil)
-  super
-  @action = :install
+  `msiexec /i "#{@new_resource.source}" /qn`
+
+  @new_resource.updated_by_last_action(true)
 end
