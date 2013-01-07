@@ -23,6 +23,7 @@ ruby_block 'Updating config files' do
     puts "found #{configs.count} config files"
 
     replace_text_in_files(configs, 'Data Source=.*?;', "Data Source=#{node[:newgen][:database_server]};")
+    replace_text_in_files(configs, 'Integrated Security=SSPI', "Integrated Security=false;User Id=#{node[:newgen][:database_user]};Password=#{node[:newgen][:database_password]}")
   end
 end
 

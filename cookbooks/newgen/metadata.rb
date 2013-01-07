@@ -52,5 +52,16 @@ attribute "newgen/database_server",
   :required => "required",
   :recipes => ["newgen::default"]
 
+attribute "newgen/database_user",
+  :display_name => "database user",
+  :required => "required",
+  :recipes => ["newgen::default"]
+
+attribute "newgen/database_password",
+  :display_name => "database password",
+  :required => "required",
+  :recipes => ["newgen::default"]
+
+
 
 
