@@ -27,5 +27,15 @@ ruby_block 'Updating config files' do
   end
 end
 
+execute 'Run migrate' do
+  command <<-EOF
+    copy migration/migrate* main_website/bin
+    main_website/bin/migrate.ci.with.username.bat #{node[:newgen][:database_server]} #{node[:newgen][:database_user]} #{node[:newgen][:database_password]}
+  EOF
+  cwd "#{node[:binaries_directory]}"
+end
+
+
+
 
 rightscale_marker :end
