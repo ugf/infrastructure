@@ -31,10 +31,17 @@ end
 
 windows_package 'Installing sql native client' do
   source "#{node[:installs_directory]}\\sql_tools\\sqlncli.msi"
+  options 'IACCEPTSQLNCLILICENSETERMS=YES'
 end
 
 windows_package 'Installing sql command line tools' do
   source "#{node[:installs_directory]}\\sql_tools\\SqlCmdLnUtils.msi"
+end
+
+env('PATH') do
+  action :modify
+  delim ::File::PATH_SEPARATOR
+  value "#{ENV['ProgramFiles']}\\Microsoft SQL Server\\100\\Tools\\Binn"
 end
 
 rightscale_marker :end
