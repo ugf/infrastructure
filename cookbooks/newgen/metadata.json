@@ -27,7 +27,9 @@
       "display_name": "aws access key id",
       "required": "required",
       "recipes": [
-        "newgen::download"
+        "newgen::default",
+        "newgen::download",
+        "newgen::migrate"
       ],
       "choice": [
 
@@ -39,7 +41,9 @@
       "display_name": "aws secret access key",
       "required": "required",
       "recipes": [
-        "newgen::download"
+        "newgen::default",
+        "newgen::download",
+        "newgen::migrate"
       ],
       "choice": [
 
@@ -52,7 +56,9 @@
       "required": "optional",
       "default": "ugfgate1",
       "recipes": [
-        "newgen::download"
+        "newgen::default",
+        "newgen::download",
+        "newgen::migrate"
       ],
       "choice": [
 
@@ -65,7 +71,9 @@
       "required": "optional",
       "default": "NewGen",
       "recipes": [
-        "newgen::download"
+        "newgen::default",
+        "newgen::download",
+        "newgen::migrate"
       ],
       "choice": [
 
@@ -77,7 +85,9 @@
       "display_name": "binaries artifacts",
       "required": "required",
       "recipes": [
-        "newgen::download"
+        "newgen::default",
+        "newgen::download",
+        "newgen::migrate"
       ],
       "choice": [
 
@@ -89,7 +99,9 @@
       "display_name": "binaries revision",
       "required": "required",
       "recipes": [
-        "newgen::download"
+        "newgen::default",
+        "newgen::download",
+        "newgen::migrate"
       ],
       "choice": [
 
@@ -98,10 +110,11 @@
       "type": "string"
     },
     "newgen/database_server": {
-      "display_name": "database server ip",
+      "display_name": "database server",
       "required": "required",
       "recipes": [
-        "newgen::default"
+        "newgen::default",
+        "newgen::migrate"
       ],
       "choice": [
 
@@ -113,7 +126,8 @@
       "display_name": "database user",
       "required": "required",
       "recipes": [
-        "newgen::default"
+        "newgen::default",
+        "newgen::migrate"
       ],
       "choice": [
 
@@ -125,7 +139,8 @@
       "display_name": "database password",
       "required": "required",
       "recipes": [
-        "newgen::default"
+        "newgen::default",
+        "newgen::migrate"
       ],
       "choice": [
 
@@ -138,7 +153,8 @@
   },
   "recipes": {
     "newgen::default": "Deploys New Gen websites",
-    "newgen::download": "Downloads binaries"
+    "newgen::download": "Downloads binaries",
+    "newgen::migrate": "Runs migrate"
   },
   "version": "0.0.1"
 }
