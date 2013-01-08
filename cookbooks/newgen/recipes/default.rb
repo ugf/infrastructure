@@ -47,10 +47,10 @@ powershell 'Deploying websites' do
     'WEBSITES_DIRECTORY' => "c:#{node[:websites_directory].gsub('/', '\\')}"
   })
   script = <<-EOF
-    Import-Module '$env:POWERSHELL_SCRIPTS_DIR\\deploy_website.ps1'
+    Import-Module "$env:POWERSHELL_SCRIPTS_DIR\\deploy_website.ps1"
 
-    deploy_website 'main website' 'main_website' '$env:WEBSITES_DIRECTORY\\main_website' ':55555:'
-    deploy_website 'sts website' 'sts_website' '$env:WEBSITES_DIRECTORY\\sts_website' ':55556:'
+    deploy_website 'main website' 'main_website' "$env:WEBSITES_DIRECTORY\\main_website" ':55555:'
+    deploy_website 'sts website' 'sts_website' "$env:WEBSITES_DIRECTORY\\sts_website" ':55556:'
   EOF
   source(script)
 end
