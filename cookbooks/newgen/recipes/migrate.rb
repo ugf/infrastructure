@@ -17,9 +17,7 @@ ruby_block 'Copying websites' do
 end
 
 ruby_block 'Updating config files' do
-  block do
-    update_configs
-  end
+  block { update_configs }
 end
 
 execute 'Running migrate' do

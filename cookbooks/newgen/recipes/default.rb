@@ -2,6 +2,10 @@ rightscale_marker :begin
 
 require 'rake'
 
+class Chef::Resource
+  include ConfigFiles
+end
+
 include_recipe 'newgen::download'
 
 execute 'Adding certificate' do
@@ -19,23 +23,7 @@ ruby_block 'Copying websites' do
 end
 
 ruby_block 'Updating config files' do
-  block do
-    def replace_text_in_files(list, source, target)
-      list.each { |file| replace_text_in_file(file, source, target) }
-    end
-
-    def replace_text_in_file(file, source, target)
-      text = File.read(file)
-      modified = text.gsub(/#{source}/, "#{target}")
-      File.open(file, 'w') { |f| f.puts(modified) }
-    end
-
-    configs = FileList["#{node[:websites_directory]}/**/*.config"]
-    puts "found #{configs.count} config files"
-
-    replace_text_in_files(configs, 'Data Source=.*?;', "Data Source=#{node[:newgen][:database_server]};")
-    replace_text_in_files(configs, 'Integrated Security=SSPI', "Integrated Security=false;User Id=#{node[:newgen][:database_user]};Password=#{node[:newgen][:database_password]}")
-  end
+  block { update_configs }
 end
 
 powershell 'Deploying websites' do
