@@ -16,7 +16,11 @@ ruby_block 'Copying websites' do
   end
 end
 
-update_configs
+ruby_block 'Updating config files' do
+  block do
+    update_configs
+  end
+end
 
 execute 'Running migrate' do
   command "migrate.ci.with.username.bat #{node[:newgen][:database_server]} #{node[:newgen][:database_user]} #{node[:newgen][:database_password]}"
