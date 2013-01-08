@@ -1,6 +1,6 @@
 rightscale_marker :begin
 
-class Chef::Recipe
+class Chef::Resource
   include ConfigFiles
 end
 
