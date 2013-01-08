@@ -1,10 +1,19 @@
-require 'rake'
-
 rightscale_marker :begin
+
+require 'rake'
 
 execute 'Adding certificate' do
   command 'certutil -f -p password -importpfx passiveSTS.pfx'
   cwd "#{node[:binaries_directory]}/certificate"
+end
+
+ruby_block 'Copy websites' do
+  block do
+    FileUtils.mkdir_p(node[:websites_directory])
+    FileUtils.cp_r("#{node[:binaries_directory]}/main_website", node[:websites_directory])
+    FileUtils.cp_r("#{node[:binaries_directory]}/sts_website", node[:websites_directory])
+    FileUtils.cp_r("#{node[:binaries_directory]}/migration/.", "#{node[:websites_directory]}/main_website/bin")
+  end
 end
 
 ruby_block 'Updating config files' do
@@ -19,7 +28,7 @@ ruby_block 'Updating config files' do
       File.open(file, 'w') { |f| f.puts(modified) }
     end
 
-    configs = FileList["#{node[:binaries_directory]}/**/*.config"]
+    configs = FileList["#{node[:websites_directory]}/**/*.config"]
     puts "found #{configs.count} config files"
 
     replace_text_in_files(configs, 'Data Source=.*?;', "Data Source=#{node[:newgen][:database_server]};")
@@ -28,15 +37,11 @@ ruby_block 'Updating config files' do
 end
 
 execute 'Run migrate' do
-  command <<-EOF
-    copy migration\\migrate* main_website\\bin /y
-    cd main_website\\bin
-    migrate.ci.with.username.bat #{node[:newgen][:database_server]} #{node[:newgen][:database_user]} #{node[:newgen][:database_password]}
-  EOF
-  cwd "#{node[:binaries_directory]}"
+  command "migrate.ci.with.username.bat #{node[:newgen][:database_server]} #{node[:newgen][:database_user]} #{node[:newgen][:database_password]}"
+  cwd "#{node[:websites_directory]}/main_website/bin"
 end
 
-#powershell '' do
+#powershell 'Deploy websites' do
 #  parameters({
 #    'POWERSHELL_SCRIPTS_DIR' => "c:#{node[:powershell_scripts_dir].gsub('/','\\')}",
 #    'BINARIES_DIRECTORY' => "c:#{node[:binaries_directory].gsub('/','\\')}"
