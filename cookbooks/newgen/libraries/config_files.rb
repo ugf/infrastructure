@@ -25,7 +25,7 @@ module ConfigFiles
 
   def update_website_settings
     configs = FileList["#{node[:websites_directory]}/**/*.config"]
-    replace_text_in_files(configs, 'http://localhost', "http://#{node[:ipaddress]}")
+    replace_text_in_files(configs, 'http://localhost', "http://#{node[:newgen][:application_server]}")
   end
 
 end

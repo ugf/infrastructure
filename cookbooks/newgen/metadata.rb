@@ -38,6 +38,11 @@ attribute "core/s3_repository",
   :recipes  => ["newgen::default", "newgen::download", "newgen::migrate"]
 
 # Attributes from newgen cookbook
+attribute "newgen/application_server",
+  :display_name => "application server",
+  :required => "required",
+  :recipes => ["newgen::default", "newgen::migrate"]
+
 attribute "newgen/binaries_artifacts",
   :display_name => "binaries artifacts",
   :required => "required",
@@ -48,6 +53,11 @@ attribute "newgen/binaries_revision",
   :required => "required",
   :recipes => ["newgen::default", "newgen::download", "newgen::migrate"]
 
+attribute "newgen/database_password",
+  :display_name => "database password",
+  :required => "required",
+  :recipes => ["newgen::default", "newgen::migrate"]
+
 attribute "newgen/database_server",
   :display_name => "database server",
   :required => "required",
@@ -57,12 +67,6 @@ attribute "newgen/database_user",
   :display_name => "database user",
   :required => "required",
   :recipes => ["newgen::default", "newgen::migrate"]
-
-attribute "newgen/database_password",
-  :display_name => "database password",
-  :required => "required",
-  :recipes => ["newgen::default", "newgen::migrate"]
-
 
 
 

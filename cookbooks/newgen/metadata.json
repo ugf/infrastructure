@@ -81,6 +81,19 @@
       "calculated": false,
       "type": "string"
     },
+    "newgen/application_server": {
+      "display_name": "application server",
+      "required": "required",
+      "recipes": [
+        "newgen::default",
+        "newgen::migrate"
+      ],
+      "choice": [
+
+      ],
+      "calculated": false,
+      "type": "string"
+    },
     "newgen/binaries_artifacts": {
       "display_name": "binaries artifacts",
       "required": "required",
@@ -109,6 +122,19 @@
       "calculated": false,
       "type": "string"
     },
+    "newgen/database_password": {
+      "display_name": "database password",
+      "required": "required",
+      "recipes": [
+        "newgen::default",
+        "newgen::migrate"
+      ],
+      "choice": [
+
+      ],
+      "calculated": false,
+      "type": "string"
+    },
     "newgen/database_server": {
       "display_name": "database server",
       "required": "required",
@@ -124,19 +150,6 @@
     },
     "newgen/database_user": {
       "display_name": "database user",
-      "required": "required",
-      "recipes": [
-        "newgen::default",
-        "newgen::migrate"
-      ],
-      "choice": [
-
-      ],
-      "calculated": false,
-      "type": "string"
-    },
-    "newgen/database_password": {
-      "display_name": "database password",
       "required": "required",
       "recipes": [
         "newgen::default",
