@@ -10,9 +10,8 @@ module ConfigFiles
     File.open(file, 'w') { |f| f.puts(modified) }
   end
 
-  def update_configs
+  def update_database_settings
     configs = FileList["#{node[:websites_directory]}/**/*.config"]
-    puts "found #{configs.count} config files"
 
     replace_text_in_files(configs,
       'Data Source=.*?;',
@@ -22,6 +21,11 @@ module ConfigFiles
       'Integrated Security=SSPI',
       "Integrated Security=false;User Id=#{node[:newgen][:database_user]};Password=#{node[:newgen][:database_password]}"
     )
+  end
+
+  def update_website_settings
+    configs = FileList["#{node[:websites_directory]}/**/*.config"]
+    replace_text_in_files(configs, 'http://localhost', "http://#{node[:ipaddress]}")
   end
 
 end
