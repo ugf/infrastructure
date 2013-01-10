@@ -22,7 +22,7 @@ powershell 'Copying ui_tests' do
 end
 
 ruby_block 'Updating config files' do
-  block { update_database_settings "#{node[:ui_tests_directory]}" }
+  block { update_database_settings '/ui_tests' }
 end
 
 execute 'Run tests' do
