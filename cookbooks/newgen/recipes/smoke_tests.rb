@@ -14,7 +14,7 @@ powershell 'Copying ui_tests' do
     if (test-path $env:target) { remove-item $env:target -recurse }
     new-item $env:target -type directory -force
 
-    copy-item "$env:source\\ui_tests" "$env:target" -recurse -force
+    copy-item "$env:source\\ui_tests\\." "$env:target" -recurse -force
     copy-item "$env:source\\common_tests\\TabularData" "$env:target" -recurse -force
 
   EOF
