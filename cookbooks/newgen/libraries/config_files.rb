@@ -1,5 +1,7 @@
 module ConfigFiles
 
+require rake
+
   def replace_text_in_files(list, source, target)
     list.each { |file| replace_text_in_file(file, source, target) }
   end
