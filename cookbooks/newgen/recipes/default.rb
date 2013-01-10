@@ -23,7 +23,7 @@ powershell 'Copying websites' do
 
     copy-item "$env:source\\main_website" "$env:target" -recurse -force
     copy-item "$env:source\\sts_website" "$env:target" -recurse -force
-    copy-item "$env:source\\migration\." "$env:target\\main_website\\bin"
+    copy-item "$env:source\\migration\\." "$env:target\\main_website\\bin"
 
   EOF
   source(script)
