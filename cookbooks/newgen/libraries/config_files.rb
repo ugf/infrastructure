@@ -10,8 +10,8 @@ module ConfigFiles
     File.open(file, 'w') { |f| f.puts(modified) }
   end
 
-  def update_database_settings
-    configs = FileList["#{node[:websites_directory]}/**/*.config"]
+  def update_database_settings(directory)
+    configs = FileList["#{directory}/**/*.config"]
 
     replace_text_in_files(configs,
       'Data Source=.*?;',
