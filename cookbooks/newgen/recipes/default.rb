@@ -13,15 +13,15 @@ execute 'Adding certificate' do
   cwd "#{node[:binaries_directory]}/certificate"
 end
 
-powershell 'asdfd' do
+powershell 'Copying websites' do
   parameters({
     'BINARIES_DIRECTORY' => "c:#{node[:binaries_directory].gsub('/', '\\')}",
     'WEBSITES_DIRECTORY' => "c:#{node[:websites_directory].gsub('/', '\\')}"
   })
   script = <<-EOF
     New-Item $env:WEBSITES_DIRECTORY -type directory -force
-    Copy-Item "$env:BINARIES_DIRECTORY\\main_website" "$env:WEBSITES_DIRECTORY" -recurse
-    Copy-Item "$env:BINARIES_DIRECTORY\\sts_website" "$env:WEBSITES_DIRECTORY" -recurse
+    Copy-Item "$env:BINARIES_DIRECTORY\\main_website" "$env:WEBSITES_DIRECTORY" -recurse -force
+    Copy-Item "$env:BINARIES_DIRECTORY\\sts_website" "$env:WEBSITES_DIRECTORY" -recurse -force
     Copy-Item "$env:BINARIES_DIRECTORY\\migration\." "$env:WEBSITES_DIRECTORY\\main_website\\bin"
   EOF
   source(script)
