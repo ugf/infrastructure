@@ -6,6 +6,7 @@ Dir.mkdir(installs_directory) unless File.exist?(installs_directory)
 
 cookbook_file "#{installs_directory}\\GoogleChromeStandaloneEnterprise.msi" do
   source 'GoogleChromeStandaloneEnterprise.msi'
+  not_if { File.exist?("#{installs_directory}\\GoogleChromeStandaloneEnterprise.msi") }
 end
 
 windows_registry 'HKEY_LOCAL_MACHINE\Software\Policies\Google\Update' do
