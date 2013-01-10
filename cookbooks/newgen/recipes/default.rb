@@ -13,13 +13,18 @@ execute 'Adding certificate' do
   cwd "#{node[:binaries_directory]}/certificate"
 end
 
-ruby_block 'Copying websites' do
-  block do
-    FileUtils.mkdir_p(node[:websites_directory])
-    FileUtils.cp_r("#{node[:binaries_directory]}/main_website", node[:websites_directory])
-    FileUtils.cp_r("#{node[:binaries_directory]}/sts_website", node[:websites_directory])
-    FileUtils.cp_r("#{node[:binaries_directory]}/migration/.", "#{node[:websites_directory]}/main_website/bin")
-  end
+powershell 'asdfd' do
+  parameters({
+    'BINARIES_DIRECTORY' => "c:#{node[:binaries_directory].gsub('/', '\\')}",
+    'WEBSITES_DIRECTORY' => "c:#{node[:websites_directory].gsub('/', '\\')}"
+  })
+  script = <<-EOF
+    New-Item $env:WEBSITES_DIRECTORY -type directory -force
+    Copy-Item "$env:BINARIES_DIRECTORY\\main_website" "$env:WEBSITES_DIRECTORY" -recurse
+    Copy-Item "$env:BINARIES_DIRECTORY\\sts_website" "$env:WEBSITES_DIRECTORY" -recurse
+    Copy-Item "$env:BINARIES_DIRECTORY\\migration\." "$env:WEBSITES_DIRECTORY\\main_website\\bin"
+  EOF
+  source(script)
 end
 
 ruby_block 'Updating config files' do
