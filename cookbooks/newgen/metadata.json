@@ -127,7 +127,8 @@
       "required": "required",
       "recipes": [
         "newgen::default",
-        "newgen::migrate"
+        "newgen::migrate",
+        "newgen::smoke_tests"
       ],
       "choice": [
 
@@ -140,7 +141,8 @@
       "required": "required",
       "recipes": [
         "newgen::default",
-        "newgen::migrate"
+        "newgen::migrate",
+        "newgen::smoke_tests"
       ],
       "choice": [
 
@@ -153,7 +155,8 @@
       "required": "required",
       "recipes": [
         "newgen::default",
-        "newgen::migrate"
+        "newgen::migrate",
+        "newgen::smoke_tests"
       ],
       "choice": [
 
@@ -167,7 +170,8 @@
   "recipes": {
     "newgen::default": "Deploys New Gen websites",
     "newgen::download": "Downloads binaries",
-    "newgen::migrate": "Runs migrate"
+    "newgen::migrate": "Runs migrate",
+    "newgen::smoke_tests": "Runs smoke tests"
   },
   "version": "0.0.1"
 }

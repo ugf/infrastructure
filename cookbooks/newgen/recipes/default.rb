@@ -1,7 +1,5 @@
 rightscale_marker :begin
 
-require 'rake'
-
 class Chef::Resource
   include ConfigFiles
 end
@@ -15,14 +13,18 @@ end
 
 powershell 'Copying websites' do
   parameters({
-    'BINARIES_DIRECTORY' => "c:#{node[:binaries_directory].gsub('/', '\\')}",
-    'WEBSITES_DIRECTORY' => "c:#{node[:websites_directory].gsub('/', '\\')}"
+    'source' => "c:#{node[:binaries_directory].gsub('/', '\\')}",
+    'target' => "c:#{node[:websites_directory].gsub('/', '\\')}"
   })
   script = <<-EOF
-    New-Item $env:WEBSITES_DIRECTORY -type directory -force
-    Copy-Item "$env:BINARIES_DIRECTORY\\main_website" "$env:WEBSITES_DIRECTORY" -recurse -force
-    Copy-Item "$env:BINARIES_DIRECTORY\\sts_website" "$env:WEBSITES_DIRECTORY" -recurse -force
-    Copy-Item "$env:BINARIES_DIRECTORY\\migration\." "$env:WEBSITES_DIRECTORY\\main_website\\bin"
+
+    if (test-path $env:target) { remove-item -r $env:target }
+    new-item $env:target -type directory -force
+
+    copy-item "$env:source\\main_website" "$env:target" -recurse -force
+    copy-item "$env:source\\sts_website" "$env:target" -recurse -force
+    copy-item "$env:source\\migration\." "$env:target\\main_website\\bin"
+
   EOF
   source(script)
 end

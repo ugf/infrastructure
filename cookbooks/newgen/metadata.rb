@@ -13,6 +13,7 @@ depends 'rightscale'
 recipe "newgen::default", "Deploys New Gen websites"
 recipe "newgen::download", "Downloads binaries"
 recipe "newgen::migrate", "Runs migrate"
+recipe "newgen::smoke_tests", "Runs smoke tests"
 
 # Attributes from core cookbook
 attribute "core/aws_access_key_id",
@@ -56,17 +57,17 @@ attribute "newgen/binaries_revision",
 attribute "newgen/database_password",
   :display_name => "database password",
   :required => "required",
-  :recipes => ["newgen::default", "newgen::migrate"]
+  :recipes => ["newgen::default", "newgen::migrate", "newgen::smoke_tests"]
 
 attribute "newgen/database_server",
   :display_name => "database server",
   :required => "required",
-  :recipes => ["newgen::default", "newgen::migrate"]
+  :recipes => ["newgen::default", "newgen::migrate", "newgen::smoke_tests"]
 
 attribute "newgen/database_user",
   :display_name => "database user",
   :required => "required",
-  :recipes => ["newgen::default", "newgen::migrate"]
+  :recipes => ["newgen::default", "newgen::migrate", "newgen::smoke_tests"]
 
 
 
