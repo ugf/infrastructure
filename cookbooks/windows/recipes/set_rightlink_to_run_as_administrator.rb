@@ -5,7 +5,7 @@ execute 'Setting RightLink login account' do
 end
 
 execute 'Reboot' do
-  command 'shutdown /r'
+  command 'sc qc RightLink | find "SERVICE_START_NAME : .\administrator" || shutdown /r'
 end
 
 rightscale_marker :end
