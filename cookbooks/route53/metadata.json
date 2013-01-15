@@ -1,0 +1,98 @@
+{
+  "name": "route53",
+  "description": "Setup route 53",
+  "long_description": "",
+  "maintainer": "Cloud Infrastructure",
+  "maintainer_email": "csf@ultimatesoftware.com",
+  "license": "our license",
+  "platforms": {
+    "windows": ">= 0.0.0"
+  },
+  "dependencies": {
+    "rightscale": ">= 0.0.0"
+  },
+  "recommendations": {
+  },
+  "suggestions": {
+  },
+  "conflicting": {
+  },
+  "providing": {
+  },
+  "replacing": {
+  },
+  "attributes": {
+    "core/aws_access_key_id": {
+      "display_name": "aws access key id",
+      "required": "required",
+      "recipes": [
+        "route53::register",
+        "route53::deregister"
+      ],
+      "choice": [
+
+      ],
+      "calculated": false,
+      "type": "string"
+    },
+    "core/aws_secret_access_key": {
+      "display_name": "aws secret access key",
+      "required": "required",
+      "recipes": [
+        "route53::register",
+        "route53::deregister"
+      ],
+      "choice": [
+
+      ],
+      "calculated": false,
+      "type": "string"
+    },
+    "route53/domain": {
+      "display_name": "route 53 domain",
+      "required": "optional",
+      "recipes": [
+        "route53::register",
+        "route53::deregister"
+      ],
+      "choice": [
+
+      ],
+      "calculated": false,
+      "type": "string"
+    },
+    "route53/prefix": {
+      "display_name": "route 53 prefix",
+      "required": "optional",
+      "recipes": [
+        "route53::register",
+        "route53::deregister"
+      ],
+      "choice": [
+
+      ],
+      "calculated": false,
+      "type": "string"
+    },
+    "route53/ip": {
+      "display_name": "route 53 ip",
+      "required": "optional",
+      "recipes": [
+        "route53::register",
+        "route53::deregister"
+      ],
+      "choice": [
+
+      ],
+      "calculated": false,
+      "type": "string"
+    }
+  },
+  "groupings": {
+  },
+  "recipes": {
+    "route53::register": "register ip with route 53",
+    "route53::deregister": "deregister ip with route 53"
+  },
+  "version": "0.0.1"
+}

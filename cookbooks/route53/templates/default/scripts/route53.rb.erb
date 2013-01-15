@@ -1,0 +1,69 @@
+require 'fog'
+
+class HostedZones
+
+  def initialize
+    @dns = Fog::DNS.new(
+      :provider => 'AWS',
+      :aws_access_key_id => '<%= @aws_access_key_id %>',
+      :aws_secret_access_key => '<%= @aws_secret_access_key %>')
+  end
+
+  def change_resource_record(prefix, domain, ip_addresses, action)
+    host = prefix + '.' + domain
+    resource_record = { :name => host, :type => 'A', :ttl => 3600, :resource_records => ip_addresses }
+    resource_record_set = resource_record.merge(:action => action)
+
+    change_batch = []
+    change_batch << resource_record_set
+    options = { :comment => '#{action} A record for domain' }
+
+    zones = find_zones_for(domain)
+
+    response = @dns.change_resource_record_sets(zones[0]["Id"], change_batch, options)
+    validate_response(response.status, 200)
+    response.body
+  end
+
+  def create_resource_record(prefix, domain, ip_addresses)
+    records = resource_records(domain)['ResourceRecordSets'].find { |e| e["Type"] == "A" && e["Name"].start_with?(prefix) }
+    unless records.nil?
+      old_ips = records['ResourceRecords']
+      delete_resource_record(prefix, domain, old_ips) if old_ips.count > 0
+    end
+    change_resource_record(prefix, domain, ip_addresses, 'CREATE')
+  end
+
+  def delete_resource_record(prefix, domain, ip_addresses)
+    change_resource_record(prefix, domain, ip_addresses, 'DELETE')
+  end
+
+  def resource_records(domain)
+    response = @dns.list_resource_record_sets(find_zones_for(domain)[0]['Id'])
+    validate_response(response.status, 200)
+    response.body
+  end
+
+  def validate_response(status, expected_code)
+    raise "Invalid response code" unless status == expected_code
+  end
+
+  def list
+    response = @dns.list_hosted_zones
+    validate_response response.status, 200
+    response.body['HostedZones']
+  end
+
+  def find_zones_for(domain)
+    domain = domain + '.' unless domain.end_with?('.')
+
+    list.select { |zone| zone['Name'] == domain }
+  end
+
+end
+
+zones = HostedZones.new
+
+ip_addresses = ['<%= @route53_ip %>']
+
+puts zones.<%= @action %>_resource_record('<%= @prefix %>', '<%= @domain %>', ip_addresses)
