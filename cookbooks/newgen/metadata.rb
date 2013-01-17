@@ -38,6 +38,16 @@ attribute "core/s3_repository",
   :default  => "NewGen",
   :recipes  => ["newgen::default", "newgen::download", "newgen::migrate"]
 
+attribute "route53/domain",
+  :display_name => "route 53 domain",
+  :required => "optional",
+  :recipes => ["newgen::default"]
+
+attribute "route53/prefix",
+  :display_name => "route 53 prefix",
+  :required => "optional",
+  :recipes => ["newgen::default"]
+
 # Attributes from newgen cookbook
 attribute "newgen/application_server",
   :display_name => "application server",
