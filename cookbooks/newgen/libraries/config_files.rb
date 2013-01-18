@@ -30,6 +30,8 @@ module ConfigFiles
     url = node[:route53][:domain].nil? || node[:route53][:domain].empty? ?
       "http://#{node[:newgen][:application_server]}" : "http://#{node[:route53][:prefix]}.#{node[:route53][:domain]}"
     replace_text_in_files(configs, 'http://localhost', url)
+    replace_text_in_files(configs, ':55555', ':80')
+    replace_text_in_files(configs, ':55556', ':81')
   end
 
 end
