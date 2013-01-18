@@ -44,7 +44,7 @@ powershell 'Deploying websites' do
   script = <<-EOF
     Import-Module "$env:POWERSHELL_SCRIPTS_DIR\\deploy_website.ps1"
 
-    if (has_site('Default Web Site')) { Remove-WebSite -Name 'Default Web Site' }
+    Stop-Website -Name 'Default Web Site'
 
     deploy_website 'main website' 'main_website' "$env:WEBSITES_DIRECTORY\\main_website" ':80:'
     deploy_website 'sts website' 'sts_website' "$env:WEBSITES_DIRECTORY\\sts_website" ':81:'
