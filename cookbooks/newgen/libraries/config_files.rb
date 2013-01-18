@@ -34,4 +34,9 @@ module ConfigFiles
     replace_text_in_files(configs, ':55556', ':81')
   end
 
+  def update_ui_settings
+    configs = FileList["#{node[:ui_tests_directory]}/**/*.config"]
+    replace_text_in_files(configs, '55555', '80')
+  end
+
 end
