@@ -26,7 +26,7 @@ ruby_block 'Updating config files' do
 end
 
 execute 'Run tests' do
-  command '"%VS110COMNTOOLS%\..\IDE\mstest" /testcontainer:bin/Echo.Automation.NewGen.UITests.dll /category:smoke /testsettings:bin\UIAutomation.CI.testsettings'
+  command '"%VS110COMNTOOLS%\..\IDE\mstest" /testcontainer:bin/UltimateSoftware.Echo.Automation.NewGen.UITests.dll /category:smoke /testsettings:bin\UIAutomation.CI.testsettings'
   cwd node[:ui_tests_directory]
 end
 
