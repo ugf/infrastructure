@@ -53,4 +53,20 @@ powershell 'Deploying websites' do
   source(script)
 end
 
+powershell 'Warming up websites' do
+  script = <<-EOF
+    foreach($port in @('80', '81')) {
+      $req = [system.net.WebRequest]::Create("http://localhost:$port")
+
+      try { $response = $req.GetResponse() }
+      catch [system.net.WebException] { $response = $_.Exception.Response }
+
+      $status = [int]$response.StatusCode
+      write-output "$port $status"
+      $Error.Clear()
+    }
+  EOF
+  source(script)
+end
+
 rightscale_marker :end
