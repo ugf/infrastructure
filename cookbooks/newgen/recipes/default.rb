@@ -1,10 +1,10 @@
-rightscale_marker :begin
-
 class Chef::Resource
   include ConfigFiles
 end
 
 include_recipe 'newgen::download'
+
+rightscale_marker :begin
 
 execute 'Adding certificate' do
   command 'certutil -f -p password -importpfx passiveSTS.pfx'
@@ -45,7 +45,7 @@ powershell 'Deploying websites' do
     Import-Module "$env:POWERSHELL_SCRIPTS_DIR\\deploy_website.ps1"
 
     Stop-Website -Name 'Default Web Site'
-    Set-ItemProperty 'IIS:\Sites\Default Web Site' ServerAutoStart False
+    Set-ItemProperty 'IIS:\\Sites\\Default Web Site' ServerAutoStart False
 
     deploy_website 'main website' 'main_website' "$env:WEBSITES_DIRECTORY\\main_website" ':80:'
     deploy_website 'sts website' 'sts_website' "$env:WEBSITES_DIRECTORY\\sts_website" ':81:'
