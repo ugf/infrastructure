@@ -6,7 +6,7 @@ bash 'Set HAProxy timeout' do
   EOF
 end
 
-website_dns = "#{node[:route53][:prefix]}.#{node[:route53][:domain]}"
+website_dns = node[:load_balancer][:prefix]
 
 node[:load_balancer][:forwarding_ports].split(',').each do |lb_bind_port|
   bash 'Configuring load balancer forwarding' do

@@ -1,7 +1,7 @@
 rightscale_marker :begin
 
-template "#{node[:ruby_scripts_dir]}/register_with_haproxy.rb" do
-  source 'scripts/register_with_haproxy.erb'
+template "#{node[:ruby_scripts_dir]}/connect.rb" do
+  source 'scripts/connect.erb'
   variables(
     :deployment_name => node[:deploy][:deployment_name],
     :prefix => node[:load_balancer][:prefix],
@@ -13,13 +13,13 @@ end
 if node[:platform] == "ubuntu"
   bash 'Registering instance with haproxy' do
     code <<-EOF
-      ruby #{node[:ruby_scripts_dir]}/register_with_haproxy.rb
+      ruby #{node[:ruby_scripts_dir]}/connect.rb
     EOF
     only_if { node[:load_balancer][:should_register_with_lb] == 'true' }
   end
 else
   powershell 'Registering instance with haproxy' do
-    source("ruby #{node[:ruby_scripts_dir]}/register_with_haproxy.rb")
+    source("ruby #{node[:ruby_scripts_dir]}/connect.rb")
     only_if { node[:load_balancer][:should_register_with_lb] == 'true' }
   end
 end
