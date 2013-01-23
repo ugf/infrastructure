@@ -56,7 +56,7 @@ end
 powershell 'Warming up websites' do
   script = <<-EOF
     foreach($port in @('80', '81')) {
-      $req = [system.net.WebRequest]::Create("http://localhost:$port")
+      $req = [system.net.WebRequest]::Create("http://localhost:$port/hero")
 
       try { $response = $req.GetResponse() }
       catch [system.net.WebException] { $response = $_.Exception.Response }
