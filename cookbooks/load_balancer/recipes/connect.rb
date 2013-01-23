@@ -3,7 +3,7 @@ rightscale_marker :begin
 inputs = "#{node[:ruby_scripts_dir]}/instance_inputs.json"
 
 template inputs do
-  source 'scripts/instance_inputs.json.erb'
+  source 'instance_inputs.json.erb'
   variables(
     :instance_backend_name => node[:load_balancer][:backend_name],
     :instance_ip => node[:load_balancer][:server_ip]
