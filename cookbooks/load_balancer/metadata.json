@@ -151,19 +151,6 @@
       ],
       "calculated": false,
       "type": "string"
-    },
-    "deploy/deployment_name": {
-      "display_name": "deployment name",
-      "required": "required",
-      "recipes": [
-        "load_balancer::connect",
-        "load_balancer::disconnect"
-      ],
-      "choice": [
-
-      ],
-      "calculated": false,
-      "type": "string"
     }
   },
   "groupings": {

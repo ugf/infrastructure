@@ -86,11 +86,3 @@ attribute 'load_balancer/ssl_key',
   :description => "The contents of the SSL key file (key.pem) that's required for secure (https) connections.",
   :required => 'required',
   :recipes => ['load_balancer::configure']
-
-
-### attributes used from other cookbooks
-attribute 'deploy/deployment_name',
-  :display_name => 'deployment name',
-  :required => 'required',
-  :recipes => ['load_balancer::connect', 'load_balancer::disconnect']
-

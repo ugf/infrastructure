@@ -1,25 +1,22 @@
 rightscale_marker :begin
 
-template "#{node[:ruby_scripts_dir]}/disconnect.rb" do
-  source 'scripts/disconnect.erb'
+inputs = "#{node[:ruby_scripts_dir]}/instance_inputs.json"
+
+template inputs do
+  source 'scripts/instance_inputs.json.erb'
   variables(
-    :deployment_name => node[:deploy][:deployment_name],
-    :prefix => node[:load_balancer][:prefix],
-    :instance_backend_name => node[:load_balancer][:backend_name]
+    :instance_backend_name => node[:load_balancer][:backend_name],
+    :instance_ip => node[:load_balancer][:server_ip]
   )
 end
 
-if node[:platform] == "ubuntu"
-  bash 'Disconnecting instance from haproxy' do
-    code <<-EOF
-      ruby #{node[:ruby_scripts_dir]}/disconnect.rb
-    EOF
-    only_if { node[:load_balancer][:should_register_with_lb] == 'true' }
-  end
-else
-  powershell 'Disconnecting instance from haproxy' do
-    source("ruby #{node[:ruby_scripts_dir]}/disconnect.rb")
-    only_if { node[:load_balancer][:should_register_with_lb] == 'true' }
+command = "rs_run_recipe --name \"load_balancer::disconnect_instance\" -r \"lb:prefix=#{node[:load_balancer][:prefix]}\" --json #{inputs} --verbose"
+
+if node[:load_balancer][:should_register_with_lb] == 'true'
+  if node[:platform] == "ubuntu"
+    bash('Disconnecting instance') { code command }
+  else
+    powershell('Disconnecting instance') { source command }
   end
 end
 

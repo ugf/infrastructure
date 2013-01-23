@@ -1,6 +1,6 @@
 rightscale_marker :begin
 
-forwarding_ports = node[:load_balancer][:forwarding_ports].split(',').reject{|port| port == '443'}
+forwarding_ports = node[:load_balancer][:forwarding_ports].split(',').reject { |port| port == '443' }
 forwarding_ports.each do |port|
   listener_name = "#{node[:load_balancer][:prefix]}#{port}"
   bash 'Registering instance with haproxy configuration' do
@@ -15,26 +15,16 @@ forwarding_ports.each do |port|
 end
 
 bash 'Restarting haproxy service' do
-  code <<-EOF
-      service haproxy restart
-  EOF
-end
-
-template "#{node[:ruby_scripts_dir]}/process.rb" do
-  source "scripts/process.erb"
+  code "service haproxy restart"
 end
 
 template "#{node[:ruby_scripts_dir]}/wait_for_haproxy.rb" do
-  source 'scripts/wait_for_haproxy.erb'
-  variables(
-    :timeout => 300
-  )
+  source 'scripts/wait_for_haproxy.rb.erb'
+  variables(:timeout => 300)
 end
 
 bash 'Waiting for haproxy to start' do
-  code <<-EOF
-      ruby #{node[:ruby_scripts_dir]}/wait_for_haproxy.rb
-  EOF
+  code "ruby #{node[:ruby_scripts_dir]}/wait_for_haproxy.rb"
 end
 
 rightscale_marker :end
