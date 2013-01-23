@@ -93,7 +93,8 @@
         "load_balancer::connect",
         "load_balancer::connect_instance",
         "load_balancer::disconnect",
-        "load_balancer::disconnect_instance"
+        "load_balancer::disconnect_instance",
+        "load_balancer::tag_role"
       ],
       "calculated": false,
       "type": "string"
@@ -173,7 +174,7 @@
     "load_balancer::connect_instance": "Registers an instance with haproxy",
     "load_balancer::disconnect": "Disconnects from load balancers",
     "load_balancer::disconnect_instance": "Disconnects an instance from the haproxy",
-    "load_balancer::tag_lb_role": "Tags the load balancer role"
+    "load_balancer::tag_role": "Tags the load balancer role"
   },
   "version": "0.0.1"
 }
