@@ -15,7 +15,6 @@ recipe 'load_balancer::connect', 'Registers with each load balancer'
 recipe 'load_balancer::connect_instance', 'Registers an instance with haproxy'
 recipe 'load_balancer::disconnect', 'Disconnects from load balancers'
 recipe 'load_balancer::disconnect_instance', 'Disconnects an instance from the haproxy'
-recipe 'load_balancer::tag_role', 'Tags the load balancer role'
 
 attribute 'load_balancer/backend_name',
   :display_name => 'backend name',
@@ -59,8 +58,7 @@ attribute 'load_balancer/prefix',
     'load_balancer::connect',
     'load_balancer::connect_instance',
     'load_balancer::disconnect',
-    'load_balancer::disconnect_instance',
-    'load_balancer::tag_role'
+    'load_balancer::disconnect_instance'
   ]
 
 attribute 'load_balancer/server_ip',

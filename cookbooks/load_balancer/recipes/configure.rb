@@ -1,5 +1,7 @@
 rightscale_marker :begin
 
+right_link_tag "lb:prefix=#{node[:load_balancer][:prefix]}"
+
 bash 'Set HAProxy timeout' do
   code <<-EOF
     sed -i "s@srvtimeout[ \t]*[0-9]*@srvtimeout      #{node[:server_timeout]}@" /home/haproxy/rightscale_lb.cfg
