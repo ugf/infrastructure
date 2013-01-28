@@ -1,5 +1,6 @@
 
-log "Cache path: #{p Chef::Config}"
+log "Keys: #{puts Chef::Config.keys}"
+log "Values: #{puts Chef::Config.values}"
 
 features_directory = node[:features_directory]
 
@@ -15,11 +16,11 @@ template "#{features_directory}/step_definitions/file_system.rb" do
   source 'features/step_definitions/file_system.rb.erb'
 end
 
-template "#{features_directory}/run_feature_for.rb" do
+template "#{node[:ruby_scripts_dir]}/run_feature_for.rb" do
   source 'scripts/run_feature_for.rb.erb'
   variables(:tags => '@application_server')
 end
 
 powershell('Running tests') do
-  source("ruby #{features_directory}/run_feature_for.rb")
+  source("ruby #{node[:ruby_scripts_dir]}/run_feature_for.rb")
 end
