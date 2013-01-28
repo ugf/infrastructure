@@ -18,10 +18,7 @@ template "#{node[:ruby_scripts_dir]}/download_devkit.rb" do
 end
 
 powershell 'Download devkit' do
-  script = <<'EOF'
-    cmd /c ruby c:\\rubyscripts\\download_devkit.rb
-EOF
-  source(script)
+  source('ruby c:\rubyscripts\download_devkit.rb')
   not_if { File.exist?('/devkit') }
 end
 
@@ -35,6 +32,11 @@ windows_zipfile '/devkit' do
   source '/installs/devkit/devkit.exe'
   action :unzip
   not_if { File.exist?('/devkit') }
+end
+
+execute 'Installing devkit' do
+  command 'ruby dk.rb init; ruby dk.rb install'
+  cwd '/devkit'
 end
 
 #powershell 'Install devkit' do
