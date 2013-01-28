@@ -13,6 +13,7 @@ depends "rightscale"
 depends "windows"
 
 recipe "ruby::default", "Downloads and installs ruby"
+recipe "ruby::devkit", "Downloads and installs devkit"
 recipe "ruby::gems", "Installs ruby gems"
 
 attribute "core/aws_access_key_id",
