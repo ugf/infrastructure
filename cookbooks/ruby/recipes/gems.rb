@@ -17,7 +17,8 @@ gems = {
   'xml-simple' => '1.1.1',
   'rr' => '1.0.4',
   'rspec' => '2.7.0',
-  'simplecov' => '0.6.1'
+  'simplecov' => '0.6.1',
+  'cucumber' => '1.2.1'
 }
 
 

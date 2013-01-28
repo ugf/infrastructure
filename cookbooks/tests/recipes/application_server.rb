@@ -5,7 +5,7 @@ ruby_block 'Running tests' do
     require 'cucumber/rake/task'
 
     Cucumber::Rake::Task.new(:default) do |t|
-      t.cucumber_opts = ". --format pretty --tags @application_server"
+      t.cucumber_opts = "features --format pretty --tags @application_server"
     end
   end
 end
