@@ -3,5 +3,5 @@ require 'cucumber'
 require 'cucumber/rake/task'
 
 Cucumber::Rake::Task.new(:default) do |t|
-  t.cucumber_opts = "features --format pretty --tags <%= @tags %>"
+  t.cucumber_opts = ". --format pretty --tags <%= @tags %>"
 end
