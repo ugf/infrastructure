@@ -18,7 +18,10 @@ end
 
 template "#{node[:ruby_scripts_dir]}/run_feature_for.rb" do
   source 'scripts/run_feature_for.rb.erb'
-  variables(:tags => '@application_server')
+  variables(
+    :features_directory => features_directory,
+    :tags => '@application_server'
+  )
 end
 
 powershell('Running tests') do
