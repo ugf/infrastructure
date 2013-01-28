@@ -1,7 +1,0 @@
-require 'rubygems'
-require 'cucumber'
-require 'cucumber/rake/task'
-
-Cucumber::Rake::Task.new(:default) do |t|
-  t.cucumber_opts = "<%= @features_directory %> --format pretty --tags <%= @tags %>"
-end
