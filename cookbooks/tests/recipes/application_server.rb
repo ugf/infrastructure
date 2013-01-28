@@ -7,5 +7,5 @@
 #  source('ruby run_feature_for.rb')
 #end
 
-puts file_cache_path
+puts Chef::Config[:file_cache_path]
 
