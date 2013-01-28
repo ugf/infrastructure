@@ -34,8 +34,13 @@ windows_zipfile '/devkit' do
   not_if { File.exist?('/devkit') }
 end
 
+execute 'Initializing devkit' do
+  command 'ruby dk.rb init'
+  cwd '/devkit'
+end
+
 execute 'Installing devkit' do
-  command 'ruby dk.rb init; ruby dk.rb install'
+  command 'ruby dk.rb install'
   cwd '/devkit'
 end
 
