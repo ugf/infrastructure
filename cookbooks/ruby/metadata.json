@@ -49,6 +49,21 @@
       "calculated": false,
       "type": "string"
     },
+    "core/repository_source": {
+      "display_name": "repository source",
+      "description": "i.e. denver2, s3",
+      "choice": [
+        "denver2",
+        "s3"
+      ],
+      "required": "optional",
+      "default": "s3",
+      "recipes": [
+        "ruby::default"
+      ],
+      "calculated": false,
+      "type": "string"
+    },
     "core/s3_bucket": {
       "display_name": "s3 bucket for the UGF platform",
       "description": "i.e. ugfartifacts, ugfproduction",

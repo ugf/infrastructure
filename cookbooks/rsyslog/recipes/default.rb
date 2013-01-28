@@ -6,7 +6,7 @@ include_recipe 'core::download_vendor_artifacts_prereqs'
 
 template "#{node[:ruby_scripts_dir]}/download_rsyslog.rb" do
   local true
-  source "#{node[:ruby_scripts_dir]}/download_vendor_artifacts.erb"
+  source "#{node[:ruby_scripts_dir]}/download_vendor_artifacts.rb.erb"
   variables(
     :aws_access_key_id => node[:core][:aws_access_key_id],
     :aws_secret_access_key => node[:core][:aws_secret_access_key],

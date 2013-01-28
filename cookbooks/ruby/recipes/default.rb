@@ -6,7 +6,7 @@ class Chef::Recipe
   include DetectVagrant
 end
 
-emit_marker :begin
+#emit_marker :begin
 
 include_recipe 'core::download_vendor_artifacts_prereqs'
 
@@ -21,7 +21,7 @@ if node[:platform] == "ubuntu"
 
     template "#{node[:ruby_scripts_dir]}/download_ruby.rb" do
       local true
-      source "#{node[:ruby_scripts_dir]}/download_vendor_artifacts.erb"
+      source "#{node[:ruby_scripts_dir]}/download_vendor_artifacts.rb.erb"
       variables(
         :aws_access_key_id => node[:core][:aws_access_key_id],
         :aws_secret_access_key => node[:core][:aws_secret_access_key],
@@ -127,40 +127,49 @@ if node[:platform] == "ubuntu"
 else
   template "#{node[:ruby_scripts_dir]}/download_ruby.rb" do
     local true
-    source "#{node[:ruby_scripts_dir]}/download_vendor_artifacts.erb"
+    source "#{node[:ruby_scripts_dir]}/download_vendor_artifacts.rb.erb"
     variables(
       :aws_access_key_id => node[:core][:aws_access_key_id],
       :aws_secret_access_key => node[:core][:aws_secret_access_key],
+      :repository_source => node[:core][:repository_source],
       :s3_bucket => node[:core][:s3_bucket],
       :s3_repository => 'Vendor',
       :product => 'ruby',
       :version => ruby_version,
       :artifacts => 'ruby_windows',
-      :target_directory => '/installs'
+      :target_directory => 'c:\installs'
     )
-    not_if { File.exist?('/installs/ruby_windows.zip') }
   end
 
-  powershell 'Install fog and download ruby' do
-    script = <<'EOF'
+  if node[:core][:repository_source] == 's3'
+    powershell 'Install fog and download ruby' do
+      script = <<'EOF'
     cd "c:\\Program Files (x86)\\RightScale\\RightLink\\sandbox\\ruby\\bin"
     cmd /c gem install fog -v 1.1.1 --no-rdoc --no-ri
     cmd /c ruby -rubygems c:\\rubyscripts\\download_ruby.rb
 EOF
-    source(script)
-    not_if { File.exist?('/Ruby192') }
+      source(script)
+      not_if { File.exist?('/Ruby192') }
+    end
+  else
+    execute 'Download ruby' do
+      command 'cmd /c ruby -rubygems c:\\rubyscripts\\download_ruby.rb'
+      #source(script)
+      cwd "c:\\opscode\\chef\\embedded\\bin"
+      #not_if { File.exist?('/Ruby192') }
+    end
   end
 
-  windows_zipfile '/installs/ruby_windows' do
-    source '/installs/ruby_windows.zip'
-    action :unzip
-    not_if { File.exist?('/installs/ruby_windows') }
-  end
-
-  powershell 'Install ruby' do
-    source('c:\\installs\\ruby_windows\\rubyinstaller-1.9.2-p0.exe /tasks=modpath /silent')
-    not_if { File.exist?('/Ruby192') }
-  end
+  #windows_zipfile '/installs/ruby_windows' do
+  #  source '/installs/ruby_windows.zip'
+  #  action :unzip
+  #  not_if { File.exist?('/installs/ruby_windows') }
+  #end
+  #
+  #powershell 'Install ruby' do
+  #  source('c:\\installs\\ruby_windows\\rubyinstaller-1.9.2-p0.exe /tasks=modpath /silent')
+  #  not_if { File.exist?('/Ruby192') }
+  #end
 end
 
-emit_marker :end
+#emit_marker :end
