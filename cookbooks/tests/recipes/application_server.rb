@@ -12,7 +12,7 @@ end
 Dir.mkdir("#{features_directory}/step_definitions") unless File.exist?("#{features_directory}/step_definitions")
 
 template "#{features_directory}/step_definitions/file_system.rb" do
-  source 'features/step_definitions/file_system.erb'
+  source 'features/step_definitions/file_system.rb.erb'
 end
 
 template "#{features_directory}/run_feature_for.rb" do
