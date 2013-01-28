@@ -1,11 +1,9 @@
-ruby_block 'Running tests' do
-  block do
-    require 'rubygems'
-    require 'cucumber'
-    require 'cucumber/rake/task'
-
-    Cucumber::Rake::Task.new(:default) do |t|
-      t.cucumber_opts = "features --format pretty --tags @application_server"
-    end
-  end
+template 'run_feature_for.rb' do
+  source 'scripts/run_feature_for.rb.erb'
+  variables(:tags => '@application_server')
 end
+
+powershell('Running tests') do
+  source('ruby run_feature_for.rb')
+end
+
