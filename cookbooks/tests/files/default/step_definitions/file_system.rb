@@ -1,4 +1,2 @@
-
-Then /^the file "(.*?)" should be found at "(.*?)"$/ do |file, path|
-
+Then /^File exists (.*?)$/ do |file|
 end

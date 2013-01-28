@@ -3,4 +3,4 @@ Feature: mstest
 
   Scenario: is installed
 
-    Then the file "mstest.exe" should be found at "%VS110COMNTOOLS%\..\IDE"
+    * File exists %VS110COMNTOOLS%\..\IDE\mstest.exe
