@@ -154,22 +154,21 @@ EOF
   else
     execute 'Download ruby' do
       command 'cmd /c ruby -rubygems c:\\rubyscripts\\download_ruby.rb'
-      #source(script)
       cwd "c:\\opscode\\chef\\embedded\\bin"
-      #not_if { File.exist?('/Ruby192') }
+      not_if { File.exist?('/Ruby192') }
     end
   end
 
-  #windows_zipfile '/installs/ruby_windows' do
-  #  source '/installs/ruby_windows.zip'
-  #  action :unzip
-  #  not_if { File.exist?('/installs/ruby_windows') }
-  #end
-  #
-  #powershell 'Install ruby' do
-  #  source('c:\\installs\\ruby_windows\\rubyinstaller-1.9.2-p0.exe /tasks=modpath /silent')
-  #  not_if { File.exist?('/Ruby192') }
-  #end
+  windows_zipfile '/installs/ruby_windows' do
+    source '/installs/ruby_windows.zip'
+    action :unzip
+    not_if { File.exist?('/installs/ruby_windows') }
+  end
+
+  powershell 'Install ruby' do
+    source('c:\\installs\\ruby_windows\\rubyinstaller-1.9.2-p0.exe /tasks=modpath /silent')
+    not_if { File.exist?('/Ruby192') }
+  end
 end
 
 #emit_marker :end
