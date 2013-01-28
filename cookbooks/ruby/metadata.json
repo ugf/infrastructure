@@ -68,6 +68,7 @@
   },
   "recipes": {
     "ruby::default": "Downloads and installs ruby",
+    "ruby::devkit": "Downloads and installs devkit",
     "ruby::gems": "Installs ruby gems"
   },
   "version": "0.0.1"
