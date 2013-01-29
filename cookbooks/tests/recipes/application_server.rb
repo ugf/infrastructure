@@ -10,7 +10,7 @@ Dir.mkdir(repo_directory) unless File.exist?(repo_directory)
 deploy repo_directory do
   repo 'git://github.com/ugf/chef_examples.git'
   revision 'HEAD' # or "HEAD" or "TAG_for_1.0" or (subversion) "1234"
-  user 'root'
+  user 'administrator'
   #enable_submodules true
   #migrate true
   #migration_command "rake db:migrate"
