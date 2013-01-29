@@ -7,5 +7,6 @@ version '0.0.1'
 
 depends 'rightscale'
 
+recipe 'tests::default', 'Downloads tests'
 recipe 'tests::application_server', 'Verifies the application server is functional'
 
