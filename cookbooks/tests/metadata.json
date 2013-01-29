@@ -25,6 +25,7 @@
   "groupings": {
   },
   "recipes": {
+    "tests::default": "Downloads tests",
     "tests::application_server": "Verifies the application server is functional"
   },
   "version": "0.0.1"
