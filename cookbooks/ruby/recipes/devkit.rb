@@ -17,9 +17,15 @@ template "#{node[:ruby_scripts_dir]}/download_devkit.rb" do
   not_if { File.exist?('/installs/devkit.zip') }
 end
 
-powershell 'Download devkit' do
-  source('ruby c:\rubyscripts\download_devkit.rb')
-  not_if { File.exist?('/devkit') }
+if node[:platform] != "ubuntu"
+  powershell 'Download devkit' do
+    script = <<'EOF'
+    cd "c:\\Program Files (x86)\\RightScale\\RightLink\\sandbox\\ruby\\bin"
+    cmd /c ruby -rubygems c:\\rubyscripts\\download_devkit.rb
+EOF
+    source(script)
+    not_if { File.exist?('/devkit') }
+  end
 end
 
 windows_zipfile '/installs/devkit' do
