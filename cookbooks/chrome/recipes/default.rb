@@ -14,7 +14,12 @@ windows_registry 'HKEY_LOCAL_MACHINE\Software\Policies\Google\Update' do
 end
 
 windows_registry 'HKEY_LOCAL_MACHINE\Software\Policies\Google\Chrome' do
-  values 'HomepageIsNewTabPage' => 1, 'RestoreOnStartup' => 0, 'DefaultBrowserSettingEnabled' => 0, 'DefaultSearchProviderEnabled' => 0
+  values(
+    'HomepageIsNewTabPage' => 1,
+    'RestoreOnStartup' => 0,
+    'DefaultBrowserSettingEnabled' => 0,
+    'DefaultSearchProviderEnabled' => 0
+  )
 end
 
 powershell 'Installing chrome' do
