@@ -15,11 +15,9 @@ describe '7zip' do
 
   it 'copies the installer' do
 
-    mock(main).source zip7
+    stub(main).cookbook_file.yields
 
-    def main.cookbook_file(name)
-      yield
-    end
+    mock(main).source zip7
 
     load '../cookbooks/7zip/recipes/default.rb'
 
@@ -28,6 +26,7 @@ describe '7zip' do
   it 'runs the executable' do
 
     stub(main).not_if
+    stub(main).powershell.yields
 
     mock(main).source "cmd /c c:/installs/#{zip7} /S"
 
@@ -35,5 +34,15 @@ describe '7zip' do
 
   end
 
+  it 'sets the environment path' do
 
+    stub(main).action
+    stub(main).delim
+
+    mock(main).env('PATH').yields
+    mock(main).value "#{ENV['PROGRAMFILES(X86)']}\\7-zip"
+
+    load '../cookbooks/7zip/recipes/default.rb'
+
+  end
 end
