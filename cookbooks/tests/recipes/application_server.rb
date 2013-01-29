@@ -7,19 +7,6 @@ Dir.mkdir(features_directory) unless File.exist?(features_directory)
 
 Dir.mkdir(repo_directory) unless File.exist?(repo_directory)
 
-#begin
-#  deploy repo_directory do
-#    repo 'git://github.com/ugf/chef_examples.git'
-#    revision 'HEAD'
-#    shallow_clone true
-#    action :deploy
-#    git_ssh_wrapper "wrap-ssh4git.sh"
-#    scm_provider Chef::Provider::Git
-#  end
-#rescue
-#  raise unless File.exist?("/#{repo_directory}/shared/cached-copy")
-#end
-
 execute 'Downloading tests' do
   command 'git clone git://github.com/ugf/chef_examples.git'
   cwd repo_directory
