@@ -76,11 +76,11 @@ else
 
   env('JAVA_HOME') { value 'c:\jdk\bin' }
   env('JRE_HOME') { value 'c:\jdk\bin' }
-
+                           1
   env('PATH') do
     action :modify
     delim ::File::PATH_SEPARATOR
-    value 'C:\jdk\bin'
+    value 'c:\jdk\bin'
   end
 end
 
