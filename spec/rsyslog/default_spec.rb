@@ -3,7 +3,7 @@ require_relative '../spec_helper'
 main = self
 
 describe 'rsyslog' do
-  recipe = -> { load '../../cookbooks/rsyslog/recipes/default.rb' }
+  recipe = -> { load '../cookbooks/rsyslog/recipes/default.rb' }
   let(:ruby_scripts_dir) { '/rubyscripts' }
 
   before :each do

@@ -3,7 +3,7 @@ require_relative '../spec_helper'
 main = self
 
 describe 'rsyslog configure' do
-  recipe = -> { load '../../cookbooks/rsyslog/recipes/configure.rb' }
+  recipe = -> { load '../cookbooks/rsyslog/recipes/configure.rb' }
   let(:agent_dir) { "#{ENV['ProgramFiles(x86)']}\\RSyslog\\Agent" }
 
   before :each do
