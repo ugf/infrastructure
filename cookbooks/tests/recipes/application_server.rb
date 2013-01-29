@@ -15,10 +15,10 @@ deploy repo_directory do
   #migrate true
   #migration_command "rake db:migrate"
   #environment "RAILS_ENV" => "production", "OTHER_ENV" => "foo"
-  #shallow_clone true
+  shallow_clone true
   action :deploy # or :rollback
   #restart_command "touch tmp/restart.txt"
-  #git_ssh_wrapper "wrap-ssh4git.sh"
+  git_ssh_wrapper "wrap-ssh4git.sh"
   scm_provider Chef::Provider::Git # is the default, for svn: Chef::Provider::Subversion
 end
 
