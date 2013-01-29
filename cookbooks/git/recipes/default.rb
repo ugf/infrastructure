@@ -39,7 +39,7 @@ end
 env('PATH') do
   action :modify
   delim ::File::PATH_SEPARATOR
-  value "#{ENV['PROGRAMFILES(X86)']}\\Git"
+  value "#{ENV['PROGRAMFILES(X86)']}\\Git\\bin"
 end
 
 rightscale_marker :end
