@@ -1,13 +1,13 @@
 require 'spec_helper'
-main = self
 
+main = self
 
 describe 'aria2' do
 
+  recipe = -> { load '../cookbooks/aria2/recipes/default.rb' }
   aria2 = 'aria2.zip'
   dir = 'c:/installs'
   path = "#{dir}/#{aria2}"
-  recipe = -> { load '../cookbooks/aria2/recipes/default.rb' }
 
   before :each do
     stub(main).rightscale_marker
@@ -15,7 +15,7 @@ describe 'aria2' do
     stub(main).windows_zipfile
   end
 
-  it 'copies the installer' do
+  it 'should copy the installer' do
 
     mock(main).cookbook_file(path).yields
     mock(main).source aria2
@@ -24,4 +24,13 @@ describe 'aria2' do
 
   end
 
+  it 'should unzip the file' do
+
+    mock(main).windows_zipfile('c:/aria2').yields
+    mock(main).source path
+    mock(main).action :unzip
+    stub(main).not_if
+
+    recipe.call
+  end
 end
