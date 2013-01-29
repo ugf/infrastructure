@@ -6,7 +6,7 @@ class Chef::Recipe
   include DetectVagrant
 end
 
-#emit_marker :begin
+emit_marker :begin
 
 include_recipe 'core::download_vendor_artifacts_prereqs'
 
@@ -171,4 +171,4 @@ EOF
   end
 end
 
-#emit_marker :end
+emit_marker :end

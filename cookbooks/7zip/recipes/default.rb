@@ -1,4 +1,12 @@
-rightscale_marker :begin
+class Chef::Resource
+  include DetectVagrant
+end
+
+class Chef::Recipe
+  include DetectVagrant
+end
+
+emit_marker :begin
 
 installs_directory = 'c:/installs'
 
@@ -19,5 +27,5 @@ env('PATH') do
   value "#{ENV['PROGRAMFILES(X86)']}\\7-zip"
 end
 
-rightscale_marker :end
+emit_marker :end
 
