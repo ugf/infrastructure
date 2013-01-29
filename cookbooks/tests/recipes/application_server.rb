@@ -7,19 +7,22 @@ Dir.mkdir(features_directory) unless File.exist?(features_directory)
 
 Dir.mkdir(repo_directory) unless File.exist?(repo_directory)
 
-deploy repo_directory do
-  repo 'git://github.com/ugf/chef_examples.git'
-  revision 'HEAD' # or "HEAD" or "TAG_for_1.0" or (subversion) "1234"
-  #user 'administrator'
-  #enable_submodules true
-  #migrate true
-  #migration_command "rake db:migrate"
-  #environment "RAILS_ENV" => "production", "OTHER_ENV" => "foo"
-  shallow_clone true
-  action :deploy # or :rollback
-  #restart_command "touch tmp/restart.txt"
-  git_ssh_wrapper "wrap-ssh4git.sh"
-  scm_provider Chef::Provider::Git # is the default, for svn: Chef::Provider::Subversion
+#begin
+#  deploy repo_directory do
+#    repo 'git://github.com/ugf/chef_examples.git'
+#    revision 'HEAD'
+#    shallow_clone true
+#    action :deploy
+#    git_ssh_wrapper "wrap-ssh4git.sh"
+#    scm_provider Chef::Provider::Git
+#  end
+#rescue
+#  raise unless File.exist?("/#{repo_directory}/shared/cached-copy")
+#end
+
+execute 'Downloading tests' do
+  command 'git clone git://github.com/ugf/chef_examples.git'
+  cwd repo_directory
 end
 
 template "#{features_directory}/mstest.feature" do
