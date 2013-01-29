@@ -31,9 +31,15 @@ windows_zipfile "#{download_directory}/#{artifact}" do
   not_if { File.exist?("#{download_directory}/#{artifact}") }
 end
 
-#execute 'Installing git' do
-#  command "#{artifact}.exe /silent"
-#  cwd "#{download_directory}/#{artifact}"
-#end
+execute 'Installing git' do
+  command "#{artifact}.exe /silent"
+  cwd "#{download_directory}/#{artifact}"
+end
+
+env('PATH') do
+  action :modify
+  delim ::File::PATH_SEPARATOR
+  value "#{ENV['PROGRAMFILES(X86)']}\\Git"
+end
 
 rightscale_marker :end
