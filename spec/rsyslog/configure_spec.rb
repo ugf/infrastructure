@@ -39,7 +39,7 @@ describe 'rsyslog configure' do
       'Set-Service "RSyslogWindowsAgent" -startupType automatic',
       'Restart-Service "RSyslogWindowsAgent"'
     ]
-    mock(main).source(argument_satifies do |script|
+    mock(main).source(argument_satisfies do |script|
       script.split("\n").collect { |x| x.strip unless x.empty? }.compact == expected_commands
     end
     )

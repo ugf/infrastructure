@@ -7,7 +7,7 @@ RSpec.configure do |c|
 end
 
 module RR::Adapters::RRMethods
-  def argument_satifies(&block)
+  def argument_satisfies(&block)
     RR::WildcardMatchers::Satisfy.new(block)
   end
 end
