@@ -3,11 +3,9 @@ main = self
 
 describe 'core' do
 
-  recipe = -> (name) { load "../cookbooks/core/recipes/#{name}.rb" }
-
   it 'should download product artifacts prereqs' do
 
-    recipe.call download_product_artifacts_prereqs
+    #run_recipe 'core', 'download_product_artifacts_prereqs'
 
   end
 

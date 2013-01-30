@@ -21,7 +21,7 @@ describe 'chrome' do
     mock(main).source app
     stub(main).not_if
 
-    recipe.call
+    run_recipe 'chrome'
   end
 
   it 'should disable auto updates' do
@@ -31,7 +31,7 @@ describe 'chrome' do
     mock(main).windows_registry(key).yields
     mock(main).values 'AutoUpdateCheckPeriodMinutes' => '0'
 
-    recipe.call
+    run_recipe 'chrome'
   end
 
   it 'should set default options' do
@@ -46,7 +46,7 @@ describe 'chrome' do
       'DefaultSearchProviderEnabled' => 0
     )
 
-    recipe.call
+    run_recipe 'chrome'
   end
 
   it 'should install' do
@@ -56,6 +56,6 @@ describe 'chrome' do
 
     mock(main).source "Msiexec /q /I #{path}"
 
-    recipe.call
+    run_recipe 'chrome'
   end
 end

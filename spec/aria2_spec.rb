@@ -4,7 +4,6 @@ main = self
 
 describe 'aria2' do
 
-  recipe = -> { load '../cookbooks/aria2/recipes/default.rb' }
   aria2 = 'aria2.zip'
   dir = 'c:/installs'
   path = "#{dir}/#{aria2}"
@@ -20,7 +19,7 @@ describe 'aria2' do
     mock(main).cookbook_file(path).yields
     mock(main).source aria2
 
-    recipe.call
+    run_recipe 'aria2'
 
   end
 
@@ -31,6 +30,6 @@ describe 'aria2' do
     mock(main).action :unzip
     stub(main).not_if
 
-    recipe.call
+    run_recipe 'aria2'
   end
 end
