@@ -3,7 +3,6 @@ main = self
 
 describe '7zip' do
 
-  recipe = -> { load '../cookbooks/7zip/recipes/default.rb' }
   zip7 = '7z465.exe'
   dir = 'c:/installs'
   path = "#{dir}/#{zip7}"
@@ -20,7 +19,7 @@ describe '7zip' do
     mock(main).cookbook_file(path).yields
     mock(main).source zip7
 
-    recipe.call
+    run_recipe '7zip'
 
   end
 
@@ -31,7 +30,7 @@ describe '7zip' do
     mock(main).source "cmd /c #{path} /S"
     stub(main).not_if
 
-    recipe.call
+    run_recipe '7zip'
 
   end
 
@@ -43,7 +42,7 @@ describe '7zip' do
     stub(main).delim
     mock(main).value "#{ENV['PROGRAMFILES(X86)']}\\7-zip"
 
-    recipe.call
+    run_recipe '7zip'
 
   end
 end

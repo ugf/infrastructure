@@ -11,3 +11,12 @@ module RR::Adapters::RRMethods
     RR::WildcardMatchers::Satisfy.new(block)
   end
 end
+
+def root_dir
+  File.join(File.dirname(__FILE__), '..')
+end
+
+def run_recipe(cookbook, recipe='default')
+  load "#{root_dir}/cookbooks/#{cookbook}/recipes/#{recipe}.rb"
+end
+
