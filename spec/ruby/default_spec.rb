@@ -106,6 +106,66 @@ describe 'ruby' do
 
       run_recipe 'ruby'
     end
+
+    it 'should change permissions for configure and ifchange' do
+      mock(main).file("#{source_dir}/configure").yields
+      mock(main).mode 00777
+      mock(main).file("#{source_dir}/tool/ifchange").yields
+      mock(main).mode 00777
+
+      run_recipe 'ruby'
+    end
+
+    it 'should run configure' do
+      mock(main).execute('configure').yields
+      mock(main).command "./configure --enable-shared --prefix=#{install_dir}/#{ruby_version}"
+      mock(main).cwd source_dir
+
+      run_recipe 'ruby'
+    end
+
+    it 'should run all make commands' do
+      make_commands = ['all', 'test', 'install']
+      make_commands.each do |cmd|
+        mock(main).execute("make #{cmd}").yields
+        mock(main).command "make #{cmd}"
+        mock(main).cwd source_dir
+      end
+
+      run_recipe 'ruby'
+    end
+
+    it 'should delete active link' do
+      stub(main).only_if
+      mock(main).link("#{install_dir}/active").yields
+      mock(main).action :delete
+
+      run_recipe 'ruby'
+    end
+
+    it 'should create sym link' do
+      mock(main).execute('create sym link').yields
+      mock(main).command "ln -fs #{ruby_version} active"
+      mock(main).cwd install_dir
+
+      run_recipe 'ruby'
+    end
+
+    it 'should delete and soft link the executables' do
+      executables = ['ruby', 'gem', 'rake', 'rspec', 'rdoc', 'ri', 'bundle', 'cucumber', 'rails']
+
+      executables.each do |exe|
+        mock(main).file("/usr/bin/#{exe}").yields
+        mock(main).action :delete
+      end
+
+      executables.each do |exe|
+        mock(main).link("/usr/bin/#{exe}").yields
+        mock(main).to "#{install_dir}/active/bin/#{exe}"
+      end
+
+      run_recipe 'ruby'
+    end
   end
 
   context 'when platform is windows' do
