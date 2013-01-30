@@ -13,7 +13,6 @@ module Chef
 end
 
 describe 'ruby' do
-  recipe = -> { load '../cookbooks/ruby/recipes/default.rb' }
   let(:ruby_scripts_dir) { '/rubyscripts' }
   let(:ruby_version) { '1.9.2-p320' }
   let(:install_dir) { '/opt/ruby' }
@@ -41,7 +40,7 @@ describe 'ruby' do
     it 'should create the download script' do
       mock(main).template("#{ruby_scripts_dir}/download_ruby.rb")
 
-      recipe.call
+      run_recipe 'ruby'
     end
 
     it 'should delete and create the source directory' do
@@ -54,7 +53,7 @@ describe 'ruby' do
       mock(main).directory(source_dir).yields
       mock(main).action :create
 
-      recipe.call
+      run_recipe 'ruby'
     end
 
     it 'should install fog' do
@@ -63,7 +62,7 @@ describe 'ruby' do
       mock(main).block.yields
       mock(main).system '/opt/rightscale/sandbox/bin/gem install fog -v 1.1.1 --no-rdoc --no-ri'
 
-      recipe.call
+      run_recipe 'ruby'
     end
 
     it 'should download ruby' do
@@ -79,7 +78,7 @@ describe 'ruby' do
       end
       )
 
-      recipe.call
+      run_recipe 'ruby'
     end
 
     it 'should unzip ruby artifact' do
@@ -95,7 +94,7 @@ describe 'ruby' do
       end
       )
 
-      recipe.call
+      run_recipe 'ruby'
     end
 
     it 'should install ruby packages' do
@@ -105,7 +104,7 @@ describe 'ruby' do
         mock(main).package name
       end
 
-      recipe.call
+      run_recipe 'ruby'
     end
   end
 
@@ -122,7 +121,7 @@ describe 'ruby' do
       stub(main).not_if
       mock(main).template("#{ruby_scripts_dir}/download_ruby.rb")
 
-      recipe.call
+      run_recipe 'ruby'
     end
 
     it 'should install fog and run the download script' do
@@ -139,7 +138,7 @@ describe 'ruby' do
       end
       )
 
-      recipe.call
+      run_recipe 'ruby'
     end
 
     it 'should unzip the downloaded installer' do
@@ -148,7 +147,7 @@ describe 'ruby' do
       mock(main).windows_zipfile('/installs/ruby_windows').yields
       mock(main).source '/installs/ruby_windows.zip'
 
-      recipe.call
+      run_recipe 'ruby'
     end
 
     it 'should run the installer' do
@@ -156,7 +155,7 @@ describe 'ruby' do
       mock(main).powershell('Install ruby').yields
       mock(main).source 'c:\\installs\\ruby_windows\\rubyinstaller-1.9.2-p0.exe /tasks=modpath /silent'
 
-      recipe.call
+      run_recipe 'ruby'
     end
   end
 end

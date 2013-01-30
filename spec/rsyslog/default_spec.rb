@@ -3,7 +3,6 @@ require_relative '../spec_helper'
 main = self
 
 describe 'rsyslog' do
-  recipe = -> { load '../cookbooks/rsyslog/recipes/default.rb' }
   let(:ruby_scripts_dir) { '/rubyscripts' }
 
   before :each do
@@ -19,14 +18,14 @@ describe 'rsyslog' do
     stub(main).node { {platform: 'ubuntu' } }
     mock(main).raise('Ubuntu not supported')
 
-    recipe.call
+    run_recipe 'rsyslog'
   end
 
   it 'should create the download script' do
     stub(main).not_if
     mock(main).template("#{ruby_scripts_dir}/download_rsyslog.rb")
 
-    recipe.call
+    run_recipe 'rsyslog'
   end
 
   it 'should run the download script' do
@@ -34,7 +33,7 @@ describe 'rsyslog' do
     mock(main).powershell('Download rsyslog').yields
     mock(main).source "ruby #{ruby_scripts_dir}/download_rsyslog.rb"
 
-    recipe.call
+    run_recipe 'rsyslog'
   end
 
   it 'should unzip the downloaded installer' do
@@ -43,7 +42,7 @@ describe 'rsyslog' do
     mock(main).windows_zipfile('/installs/rsyslogwa').yields
     mock(main).source '/installs/rsyslogwa.zip'
 
-    recipe.call
+    run_recipe 'rsyslog'
   end
 
   it 'should run the installer' do
@@ -51,13 +50,13 @@ describe 'rsyslog' do
     mock(main).powershell('Install rsyslog').yields
     mock(main).source 'c:\\installs\\rsyslogwa\\rsyslogwa.exe -i /S /v /qn'
 
-    recipe.call
+    run_recipe 'rsyslog'
   end
 
   it 'should setup startup type' do
     mock(main).powershell('Set service startup type').yields
     mock(main).source 'Set-Service "RSyslogWindowsAgent" -startupType manual'
 
-    recipe.call
+    run_recipe 'rsyslog'
   end
 end

@@ -3,7 +3,6 @@ require_relative '../spec_helper'
 main = self
 
 describe 'rsyslog configure' do
-  recipe = -> { load '../cookbooks/rsyslog/recipes/configure.rb' }
   let(:agent_dir) { "#{ENV['ProgramFiles(x86)']}\\RSyslog\\Agent" }
 
   before :each do
@@ -17,20 +16,20 @@ describe 'rsyslog configure' do
     stub(main).node { {platform: 'ubuntu' } }
     mock(main).raise('Ubuntu not supported')
 
-    recipe.call
+    run_recipe 'rsyslog', 'configure'
   end
 
   it 'should create settings file' do
     mock(main).template("#{agent_dir}\\settings.reg")
 
-    recipe.call
+    run_recipe 'rsyslog', 'configure'
   end
 
   it 'should import rsyslog settings' do
     mock(main).powershell('Import rsyslog settings').yields
     mock(main).source "regedit /s \"#{agent_dir}\\settings.reg\""
 
-    recipe.call
+    run_recipe 'rsyslog', 'configure'
   end
 
   it 'should start service' do
@@ -44,6 +43,6 @@ describe 'rsyslog configure' do
     end
     )
 
-    recipe.call
+    run_recipe 'rsyslog', 'configure'
   end
 end

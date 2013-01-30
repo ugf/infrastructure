@@ -4,8 +4,6 @@ main = self
 
 describe 'jdk' do
 
-  recipe = -> { load '../cookbooks/jdk/recipes/default.rb' }
-
   before :each do
     stub(main).rightscale_marker
     stub(main).include_recipe
@@ -31,7 +29,7 @@ describe 'jdk' do
 
       mock(main).source 'ruby /ruby192/download_jdk.rb'
 
-      recipe.call
+      run_recipe 'jdk'
     end
 
     it 'the installer is not download twice' do
@@ -41,7 +39,7 @@ describe 'jdk' do
 
       mock(File).exist?("#{download_directory}/#{artifact}.zip") { true }
 
-      recipe.call
+      run_recipe 'jdk'
     end
 
     it 'the installer is unzipped' do
@@ -51,7 +49,7 @@ describe 'jdk' do
       mock(main).windows_zipfile("#{download_directory}/#{artifact}").yields
       mock(main).source("#{download_directory}/#{artifact}.zip")
 
-      recipe.call
+      run_recipe 'jdk'
     end
 
     it 'sets environment variables to the install directory' do
@@ -64,7 +62,7 @@ describe 'jdk' do
 
       mock(main).value('c:\jdk\bin').times(3)
 
-      recipe.call
+      run_recipe 'jdk'
     end
   end
 end
