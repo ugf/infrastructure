@@ -21,6 +21,19 @@
   "replacing": {
   },
   "attributes": {
+    "tests/revision": {
+      "display_name": "tests revision",
+      "required": "required",
+      "recipes": [
+        "tests::default",
+        "tests::application_server"
+      ],
+      "choice": [
+
+      ],
+      "calculated": false,
+      "type": "string"
+    }
   },
   "groupings": {
   },
