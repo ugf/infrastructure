@@ -1,5 +1,4 @@
 require 'spec_helper'
-main = self
 
 describe '7zip' do
 
@@ -8,16 +7,16 @@ describe '7zip' do
   path = "#{dir}/#{zip7}"
 
   before :each do
-    stub(main).rightscale_marker
-    stub(main).cookbook_file
-    stub(main).powershell
-    stub(main).env
+    stub_the.rightscale_marker
+    stub_the.cookbook_file
+    stub_the.powershell
+    stub_the.env
   end
 
   it 'copies the installer' do
 
-    mock(main).cookbook_file(path).yields
-    mock(main).source zip7
+    mock_the.cookbook_file(path).yields
+    mock_the.source zip7
 
     run_recipe '7zip'
 
@@ -25,10 +24,10 @@ describe '7zip' do
 
   it 'runs the executable' do
 
-    stub(main).powershell.yields
+    stub_the.powershell.yields
 
-    mock(main).source "cmd /c #{path} /S"
-    stub(main).not_if
+    mock_the.source "cmd /c #{path} /S"
+    stub_the.not_if
 
     run_recipe '7zip'
 
@@ -36,11 +35,11 @@ describe '7zip' do
 
   it 'sets the environment path' do
 
-    mock(main).env('PATH').yields
+    mock_the.env('PATH').yields
 
-    stub(main).action
-    stub(main).delim
-    mock(main).value "#{ENV['PROGRAMFILES(X86)']}\\7-zip"
+    stub_the.action
+    stub_the.delim
+    mock_the.value "#{ENV['PROGRAMFILES(X86)']}\\7-zip"
 
     run_recipe '7zip'
 

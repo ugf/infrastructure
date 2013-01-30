@@ -20,3 +20,14 @@ def run_recipe(cookbook, recipe='default')
   load "#{root_dir}/cookbooks/#{cookbook}/recipes/#{recipe}.rb"
 end
 
+def main
+  @main ||= TOPLEVEL_BINDING.eval 'self'
+end
+
+def mock_the
+  mock main
+end
+
+def stub_the
+  stub main
+end
