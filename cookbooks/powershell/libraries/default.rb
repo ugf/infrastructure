@@ -2,6 +2,9 @@
 Chef::Log.info("I am in patch")
 
 class Chef::Resource::Powershell
-  alias :source :code
+  def source(arg)
+    code(arg)
+  end
+  #alias :source :code
 end
 
