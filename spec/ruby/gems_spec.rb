@@ -19,7 +19,7 @@ describe 'ruby gems' do
     stub(main).emit_marker
   end
 
-  gems = {
+  let(:gems) { {
     'bundle' => '0.0.1',
     'amazon-ec2' => '0.9.17',
     'fog' => '1.1.2',
@@ -30,7 +30,7 @@ describe 'ruby gems' do
     'simplecov' => '0.6.1',
     'cucumber' => '1.2.1',
     'rails' => '3.2.11'
-  }
+  } }
 
   context 'when platform is ubuntu' do
 
@@ -97,5 +97,30 @@ describe 'ruby gems' do
 
       run_recipe 'ruby', 'gems'
     end
+  end
+
+  context 'when platform is windows' do
+
+    before :each do
+      stub(main).powershell
+      stub(main).node { { platform: 'windows' } }
+    end
+
+    it 'should install all ruby gems' do
+      mock(main).powershell('Installing ruby gems').yields
+      expected_commands = [ '& "gem" \'update\' \'--system\'' ]
+      mock(main).gems_to_install(gems) { gems }
+      gems.each do |gem, ver|
+        expected_commands << "& 'gem' 'install' '#{gem}' -v '#{ver}' '--no-rdoc' '--no-ri'"
+      end
+
+      mock(main).source(argument_satisfies do |script|
+        script.split("\n").collect { |x| x.strip unless x.empty? }.compact == expected_commands
+      end
+      )
+
+      run_recipe 'ruby', 'gems'
+    end
+
   end
 end
