@@ -1,4 +1,4 @@
-Chef::Log.info("I am in #{cookbook_name}::#{recipe_name}")
+Chef::Log.info("I am in 7zip")
 
 class Chef::Resource
   include DetectVagrant
@@ -19,6 +19,7 @@ cookbook_file "#{installs_directory}/7z465.exe" do
 end
 
 powershell 'Installing 7zip' do
+  Chef::Log.info("I am in 7zip 1st block")
   source("cmd /c #{installs_directory}/7z465.exe /S")
   not_if { File.exist?("#{ENV['PROGRAMFILES(X86)']}\\7-zip") }
 end

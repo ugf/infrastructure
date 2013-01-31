@@ -1,4 +1,4 @@
-Chef::Log.info("I am in #{cookbook_name}::#{recipe_name}")
+Chef::Log.info("I am in patch")
 
 class Chef::Resource::Powershell
   def source(arg)
