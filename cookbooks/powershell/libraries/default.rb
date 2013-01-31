@@ -1,5 +1,7 @@
 Chef::Log.info("I am in patch")
 
-class Chef::Resource::Powershell
-  alias_attribute :source, :code
+class Chef::Resource
+  class Powershell
+    alias :source :code
+  end
 end
