@@ -17,7 +17,6 @@ cookbook_file "#{installs_directory}/7z465.exe" do
 end
 
 powershell 'Installing 7zip' do
-  interpreter '2'
   source("cmd /c #{installs_directory}/7z465.exe /S")
   not_if { File.exist?("#{ENV['PROGRAMFILES(X86)']}\\7-zip") }
 end
