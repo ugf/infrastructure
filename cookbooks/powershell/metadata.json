@@ -24,6 +24,7 @@
   "groupings": {
   },
   "recipes": {
+    "powershell::default": "Monkey patches the opscode provider"
   },
   "version": "0.0.1"
 }
