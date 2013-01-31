@@ -17,4 +17,6 @@ git pull
 to run chef-solo
 chef-solo -c c:\all_cookbooks\infrastructure\chef-solo\solo.rb
 
+powershell cookbook: http://community.opscode.com/cookbooks/powershell
+
 
