@@ -1,7 +1,7 @@
+
 Chef::Log.info("I am in patch")
 
-class Chef::Resource
-  class Powershell
-    alias :source :code
-  end
+class Powershell < Chef::Resource
+  alias :source :code
 end
+
