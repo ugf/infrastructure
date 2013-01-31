@@ -1,7 +1,5 @@
 require_relative '../spec_helper'
 
-main = self
-
 module DetectVagrant
 end
 module LocalGems
@@ -16,7 +14,7 @@ end
 
 describe 'ruby gems' do
   before :each do
-    stub(main).emit_marker
+    stub_the.emit_marker
   end
 
   let(:gems) { {
@@ -36,63 +34,63 @@ describe 'ruby gems' do
 
     before :each do
       gems['libv8'] = '3.11.8.4'
-      stub(main).package
-      stub(main).gem_package
-      stub(main).execute
-      stub(main).gems_to_install { {} }
-      stub(main).node { { platform: 'ubuntu' } }
+      stub_the.package
+      stub_the.gem_package
+      stub_the.execute
+      stub_the.gems_to_install { {} }
+      stub_the.node { { platform: 'ubuntu' } }
     end
 
     it 'should install package libyaml-dev' do
-      mock(main).package('libyaml-dev')
+      mock_the.package('libyaml-dev')
 
       run_recipe 'ruby', 'gems'
     end
 
     it 'should execute apt-cache policy libyaml-dev' do
-      mock(main).execute('apt-cache policy libyaml-dev').yields
-      mock(main).command 'apt-cache policy libyaml-dev'
+      mock_the.execute('apt-cache policy libyaml-dev').yields
+      mock_the.command 'apt-cache policy libyaml-dev'
 
       run_recipe 'ruby', 'gems'
     end
 
     it 'should install gem package psych' do
-      mock(main).gem_package('psych').yields
-      mock(main).version '1.3.2'
-      mock(main).gem_binary '/usr/bin/gem'
-      mock(main).options '--no-rdoc --no-ri'
+      mock_the.gem_package('psych').yields
+      mock_the.version '1.3.2'
+      mock_the.gem_binary '/usr/bin/gem'
+      mock_the.options '--no-rdoc --no-ri'
 
       run_recipe 'ruby', 'gems'
     end
 
     it 'should execute gem update' do
-      mock(main).execute('gem update --system').yields
-      mock(main).command 'gem update --system'
+      mock_the.execute('gem update --system').yields
+      mock_the.command 'gem update --system'
 
       run_recipe 'ruby', 'gems'
     end
 
     it 'should install package libxslt-dev' do
-      mock(main).package('libxslt-dev')
+      mock_the.package('libxslt-dev')
 
       run_recipe 'ruby', 'gems'
     end
 
     it 'should install gem package nokogiri' do
-      mock(main).gem_package('nokogiri').yields
-      mock(main).gem_binary '/usr/bin/gem'
-      mock(main).options '--no-rdoc --no-ri'
+      mock_the.gem_package('nokogiri').yields
+      mock_the.gem_binary '/usr/bin/gem'
+      mock_the.options '--no-rdoc --no-ri'
 
       run_recipe 'ruby', 'gems'
     end
 
     it 'should install all the gems list' do
-      mock(main).gems_to_install(gems) { gems }
+      mock_the.gems_to_install(gems) { gems }
       gems.each do |gem, ver|
-        mock(main).gem_package(gem).yields
-        mock(main).version ver
-        mock(main).gem_binary '/usr/bin/gem'
-        mock(main).options '--no-rdoc --no-ri'
+        mock_the.gem_package(gem).yields
+        mock_the.version ver
+        mock_the.gem_binary '/usr/bin/gem'
+        mock_the.options '--no-rdoc --no-ri'
       end
 
       run_recipe 'ruby', 'gems'
@@ -102,19 +100,19 @@ describe 'ruby gems' do
   context 'when platform is windows' do
 
     before :each do
-      stub(main).powershell
-      stub(main).node { { platform: 'windows' } }
+      stub_the.powershell
+      stub_the.node { { platform: 'windows' } }
     end
 
     it 'should install all ruby gems' do
-      mock(main).powershell('Installing ruby gems').yields
+      mock_the.powershell('Installing ruby gems').yields
       expected_commands = [ '& "gem" \'update\' \'--system\'' ]
-      mock(main).gems_to_install(gems) { gems }
+      mock_the.gems_to_install(gems) { gems }
       gems.each do |gem, ver|
         expected_commands << "& 'gem' 'install' '#{gem}' -v '#{ver}' '--no-rdoc' '--no-ri'"
       end
 
-      mock(main).source(argument_satisfies do |script|
+      mock_the.source(argument_satisfies do |script|
         script.split("\n").collect { |x| x.strip unless x.empty? }.compact == expected_commands
       end
       )

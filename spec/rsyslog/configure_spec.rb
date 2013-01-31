@@ -1,44 +1,42 @@
 require_relative '../spec_helper'
 
-main = self
-
 describe 'rsyslog configure' do
   let(:agent_dir) { "#{ENV['ProgramFiles(x86)']}\\RSyslog\\Agent" }
 
   before :each do
-    stub(main).rightscale_marker
-    stub(main).template
-    stub(main).powershell
-    stub(main).node { { platform: 'windows' } }
+    stub_the.rightscale_marker
+    stub_the.template
+    stub_the.powershell
+    stub_the.node { { platform: 'windows' } }
   end
 
   it 'should raise exception for ubuntu' do
-    stub(main).node { {platform: 'ubuntu' } }
-    mock(main).raise('Ubuntu not supported')
+    stub_the.node { {platform: 'ubuntu' } }
+    mock_the.raise('Ubuntu not supported')
 
     run_recipe 'rsyslog', 'configure'
   end
 
   it 'should create settings file' do
-    mock(main).template("#{agent_dir}\\settings.reg")
+    mock_the.template("#{agent_dir}\\settings.reg")
 
     run_recipe 'rsyslog', 'configure'
   end
 
   it 'should import rsyslog settings' do
-    mock(main).powershell('Import rsyslog settings').yields
-    mock(main).source "regedit /s \"#{agent_dir}\\settings.reg\""
+    mock_the.powershell('Import rsyslog settings').yields
+    mock_the.source "regedit /s \"#{agent_dir}\\settings.reg\""
 
     run_recipe 'rsyslog', 'configure'
   end
 
   it 'should start service' do
-    mock(main).powershell('Start service').yields
+    mock_the.powershell('Start service').yields
     expected_commands = [
       'Set-Service "RSyslogWindowsAgent" -startupType automatic',
       'Restart-Service "RSyslogWindowsAgent"'
     ]
-    mock(main).source(argument_satisfies do |script|
+    mock_the.source(argument_satisfies do |script|
       script.split("\n").collect { |x| x.strip unless x.empty? }.compact == expected_commands
     end
     )

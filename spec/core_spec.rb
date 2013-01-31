@@ -1,5 +1,4 @@
 require 'spec_helper'
-main = self
 
 describe 'core' do
 

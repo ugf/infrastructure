@@ -1,5 +1,4 @@
 require 'spec_helper'
-main = self
 
 describe 'chrome' do
 
@@ -9,17 +8,17 @@ describe 'chrome' do
   path = "#{dir}\\#{app}"
 
   before :each do
-    stub(main).rightscale_marker
-    stub(main).cookbook_file
-    stub(main).windows_registry
-    stub(main).powershell
+    stub_the.rightscale_marker
+    stub_the.cookbook_file
+    stub_the.windows_registry
+    stub_the.powershell
   end
 
   it 'should copy the installer' do
 
-    mock(main).cookbook_file(path).yields
-    mock(main).source app
-    stub(main).not_if
+    mock_the.cookbook_file(path).yields
+    mock_the.source app
+    stub_the.not_if
 
     run_recipe 'chrome'
   end
@@ -28,8 +27,8 @@ describe 'chrome' do
 
     key = 'HKEY_LOCAL_MACHINE\Software\Policies\Google\Update'
 
-    mock(main).windows_registry(key).yields
-    mock(main).values 'AutoUpdateCheckPeriodMinutes' => '0'
+    mock_the.windows_registry(key).yields
+    mock_the.values 'AutoUpdateCheckPeriodMinutes' => '0'
 
     run_recipe 'chrome'
   end
@@ -38,8 +37,8 @@ describe 'chrome' do
 
     key = 'HKEY_LOCAL_MACHINE\Software\Policies\Google\Chrome'
 
-    mock(main).windows_registry(key).yields
-    mock(main).values(
+    mock_the.windows_registry(key).yields
+    mock_the.values(
       'HomepageIsNewTabPage' => 1,
       'RestoreOnStartup' => 0,
       'DefaultBrowserSettingEnabled' => 0,
@@ -51,10 +50,10 @@ describe 'chrome' do
 
   it 'should install' do
 
-    stub(main).powershell.yields
-    stub(main).not_if
+    stub_the.powershell.yields
+    stub_the.not_if
 
-    mock(main).source "Msiexec /q /I #{path}"
+    mock_the.source "Msiexec /q /I #{path}"
 
     run_recipe 'chrome'
   end
