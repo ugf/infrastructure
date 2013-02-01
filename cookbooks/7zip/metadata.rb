@@ -7,6 +7,7 @@ version          '0.0.1'
 
 supports 'windows'
 
+depends 'core'
 depends 'rightscale'
 depends 'windows'
 
