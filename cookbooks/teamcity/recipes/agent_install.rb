@@ -1,7 +1,12 @@
-rightscale_marker :begin
+class Chef::Recipe
+  include DetectVagrant
+end
 
-Dir.mkdir('/installs') unless File.exist?('/installs')
+emit_marker :begin
+
 artifact = 'TeamCityBuildAgent'
+download_directory = node[:platform] == 'ubuntu' ? '/installs' : 'c:\installs'
+Dir.mkdir(download_directory) unless File.exist?(download_directory)
 
 template "#{node[:ruby_scripts_dir]}/download_teamcity_agent.rb" do
   local true
@@ -9,12 +14,13 @@ template "#{node[:ruby_scripts_dir]}/download_teamcity_agent.rb" do
   variables(
     :aws_access_key_id => node[:core][:aws_access_key_id],
     :aws_secret_access_key => node[:core][:aws_secret_access_key],
+    :repository_source => node[:core][:repository_source],
     :s3_bucket => node[:core][:s3_bucket],
     :s3_repository => 'Vendor',
     :product => 'teamcity',
     :version => '7.1',
     :artifacts => artifact,
-    :target_directory => '/installs'
+    :target_directory => download_directory
   )
 end
 
@@ -80,14 +86,13 @@ else
   end
 
   powershell 'Installing teamcity agent' do
-    parameters({ 'PASSWORD' => node[:windows][:administrator_password] })
     script = <<-EOF
     copy-item c:\\installs\\buildAgent.properties c:\\BuildAgent\\conf\\buildAgent.properties
 
     cd c:\\BuildAgent\\bin
 
     cmd /c service.install.bat
-    cmd /c "sc config TCBuildAgent obj= .\\Administrator password= $env:PASSWORD TYPE= own"
+    cmd /c "sc config TCBuildAgent obj= .\\Administrator password= #{node[:windows][:administrator_password]} TYPE= own"
     cmd /c service.start.bat
     EOF
     source(script)
@@ -95,4 +100,4 @@ else
   end
 end
 
-rightscale_marker :end
+emit_marker :end

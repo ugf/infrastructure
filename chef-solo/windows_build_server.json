@@ -1,15 +1,23 @@
 {
   "core": {
-     "aws_access_key_id": "",
-     "aws_secret_access_key": "",
-     "repository_source": "denver2",
-     "s3_bucket": "ugfgate1"
+    "aws_access_key_id": "",
+    "aws_secret_access_key": "",
+    "repository_source": "denver2",
+    "s3_bucket": "ugfgate1"
+  },
+  "teamcity": {
+     "web_server": "10.81.10.181",
+     "agent_type": "unit"
+  },
+  "windows": {
+    "administrator_password": "Passw0rd"
   },
   "run_list":[
     "recipe[7zip::default]",
     "recipe[visual_studio::default]",
     "recipe[ruby::default]",
     "recipe[ruby::gems]",
-    "recipe[jdk::default]"
+    "recipe[jdk::default]",
+    "recipe[teamcity::agent_install]"
   ]
 }
