@@ -115,6 +115,8 @@ powershell 'Installing visual studio' do
 
       write-host 'Visual Studio successfully installed'
 
+      rm c:\\VS2012\\log.txt
+
       exit 0
     }
 
