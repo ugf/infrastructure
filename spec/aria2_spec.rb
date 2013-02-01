@@ -7,6 +7,7 @@ describe 'aria2' do
   path = "#{dir}/#{aria2}"
 
   before :each do
+    stub(Dir).mkdir
     stub_the.rightscale_marker
     stub_the.cookbook_file
     stub_the.windows_zipfile

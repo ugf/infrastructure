@@ -7,6 +7,7 @@ describe '7zip' do
   path = "#{dir}/#{zip7}"
 
   before :each do
+    stub(Dir).mkdir
     stub_the.rightscale_marker
     stub_the.cookbook_file
     stub_the.powershell
