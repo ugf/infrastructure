@@ -7,7 +7,7 @@ emit_marker :begin
 include_recipe 'core::download_vendor_artifacts_prereqs'
 
 artifact = node[:platform] == 'ubuntu' ? 'jdk_ubuntu' : 'jdk_windows'
-download_directory = '/download_jdk'
+download_directory = 'c:\download_jdk'
 install_directory = '/jdk'
 
 template "#{node[:ruby_scripts_dir]}/download_jdk.rb" do
