@@ -6,4 +6,3 @@ class Chef::Resource::Powershell
   end
   #alias :source :code
 end
-

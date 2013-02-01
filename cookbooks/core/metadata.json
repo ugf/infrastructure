@@ -41,6 +41,7 @@
   "recipes": {
     "core::download_product_artifacts_prereqs": "Sets up prereqs for downloading product artifacts",
     "core::download_vendor_artifacts_prereqs": "Sets up prereqs for downloading vendor artifacts",
+    "core::monkey_patch_powershell": "Makes opscode powershell resource look like rightscale's",
     "core::setup_powershell_runtimes": "Allows up the poweshell to run multiple runtimes",
     "core::tag_server_hostname": "Tags the server host name",
     "core::tag_server_type": "Tags the server type"

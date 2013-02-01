@@ -1,3 +1,4 @@
+
 Chef::Log.info("I am in 7zip")
 
 class Chef::Resource
@@ -7,6 +8,8 @@ end
 class Chef::Recipe
   include DetectVagrant
 end
+
+include_recipe 'core::monkey_patch_powershell'
 
 emit_marker :begin
 
