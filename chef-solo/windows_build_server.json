@@ -1,10 +1,14 @@
 {
   "core": {
      "aws_access_key_id": "",
-     "aws_secret_access_key": ""
+     "aws_secret_access_key": "",
+     "repository_source": "denver2",
+     "s3_bucket": "ugfgate1"
   },
   "run_list":[
     "recipe[7zip::default]",
-    "recipe[visual_studio::default]"
+    "recipe[visual_studio::default]",
+    "recipe[ruby::default]",
+    "recipe[ruby::gems]"
   ]
 }
