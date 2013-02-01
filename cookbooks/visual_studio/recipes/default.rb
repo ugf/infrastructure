@@ -93,33 +93,39 @@ ruby_block 'downloading visual studio via denver2' do
   only_if { node[:core][:aws_access_key_id].empty? && node[:core][:aws_secret_access_key].empty? }
 end
 
-#powershell 'Installing visual studio' do
-#  script = <<-EOF
-#    $install_dir = join-path ${ENV:\PROGRAMFILES(X86)} "Microsoft Visual Studio 11.0"
-#    if (test-path "c:\\VS2012\\log.txt")
-#    {
-#      Write-Output "VS2012 is in a reboot cycle, let it finish on it's own."
-#
-#      do {
-#        write-host 'Waiting for visual studio...'
-#        start-sleep 5
-#      }
-#      until ((Get-Content c:\\vs2012\\log.txt | Select-Object -last 1).Contains('Exit code: 0x0, restarting: No'))
-#
-#      write-host 'Visual Studio successfully installed'
-#
-#      exit 0
-#    }
-#
-#    if (test-path $install_dir)
-#    {
-#       Write-Output "VS2012 already installed. Skipping installation."
-#       exit 0
-#    }
-#
-#    & "c:\\VS2012\\vs_premium.exe" "/noweb" "/full" "/log" "c:\\VS2012\\log.txt" "/quiet" "/forcerestart"
-#  EOF
-#  source(script)
-#end
+windows_zipfile '/VS2012' do
+  source '/installs/VS_2012_Premium.zip'
+  action :unzip
+  not_if { File.exist?('/VS2012') }
+end
+
+powershell 'Installing visual studio' do
+  script = <<-EOF
+    $install_dir = join-path ${ENV:\PROGRAMFILES(X86)} "Microsoft Visual Studio 11.0"
+    if (test-path "c:\\VS2012\\log.txt")
+    {
+      Write-Output "VS2012 is in a reboot cycle, let it finish on it's own."
+
+      do {
+        write-host 'Waiting for visual studio...'
+        start-sleep 5
+      }
+      until ((Get-Content c:\\VS2012\\log.txt | Select-Object -last 1).Contains('Exit code: 0x0, restarting: No'))
+
+      write-host 'Visual Studio successfully installed'
+
+      exit 0
+    }
+
+    if (test-path $install_dir)
+    {
+       Write-Output "VS2012 already installed. Skipping installation."
+       exit 0
+    }
+
+    & "c:\\VS2012\\vs_premium.exe" "/noweb" "/full" "/log" "c:\\VS2012\\log.txt" "/quiet" "/forcerestart"
+  EOF
+  source(script)
+end
 
 emit_marker :end
