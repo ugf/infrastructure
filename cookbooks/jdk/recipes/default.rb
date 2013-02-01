@@ -1,4 +1,8 @@
-rightscale_marker :begin
+class Chef::Recipe
+  include DetectVagrant
+end
+
+emit_marker :begin
 
 include_recipe 'core::download_vendor_artifacts_prereqs'
 
@@ -12,6 +16,7 @@ template "#{node[:ruby_scripts_dir]}/download_jdk.rb" do
   variables(
     :aws_access_key_id => node[:core][:aws_access_key_id],
     :aws_secret_access_key => node[:core][:aws_secret_access_key],
+    :repository_source => node[:core][:repository_source],
     :s3_bucket => node[:core][:s3_bucket],
     :s3_repository => 'Vendor',
     :product => 'jdk',
@@ -84,4 +89,4 @@ else
   end
 end
 
-rightscale_marker :end
+emit_marker :end

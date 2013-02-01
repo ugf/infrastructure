@@ -9,6 +9,7 @@
     "recipe[7zip::default]",
     "recipe[visual_studio::default]",
     "recipe[ruby::default]",
-    "recipe[ruby::gems]"
+    "recipe[ruby::gems]",
+    "recipe[jdk::default]"
   ]
 }
