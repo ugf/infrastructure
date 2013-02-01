@@ -29,7 +29,7 @@ attribute :returns, :kind_of => [ Integer, Array ]
 attribute :timeout, :kind_of => Integer
 
 # Chef::Resource::Script
-attribute :code, :kind_of => String
+attribute :source, :kind_of => String
 attribute :flags, :kind_of => String
 
 def initialize(*args)
