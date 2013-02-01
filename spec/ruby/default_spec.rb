@@ -24,6 +24,7 @@ describe 'ruby' do
   context 'when platform is ubuntu' do
 
     before :each do
+      stub_the.log
       stub_the.template
       stub_the.directory
       stub_the.ruby_block
