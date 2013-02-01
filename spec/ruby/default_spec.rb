@@ -36,6 +36,13 @@ describe 'ruby' do
       stub_the.node { { ruby_scripts_dir: '/rubyscripts', platform: 'ubuntu' } }
     end
 
+    it 'should log ruby already installed' do
+      mock(File).exists?(install_dir) {true}
+      mock_the.log 'Ruby already installed'
+
+      run_recipe 'ruby'
+    end
+
     it 'should create the download script' do
       mock_the.template("#{ruby_scripts_dir}/download_ruby.rb")
 
