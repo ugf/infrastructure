@@ -81,12 +81,14 @@ ruby_block 'downloading visual studio via denver2' do
   block do
     Dir.mkdir('c:\installs') unless File.exist?('c:\installs')
 
+    Chef::Log.info('net use on share')
     `net use \\\\denver2\\groups /user:devcorp\\svc.tv teamv`
 
+    Chef::Log.info('copying files')
     `xcopy \\\\denver2\\groups\\Build and Deployment\\newgen\\repository\\ugfinfrastructure\\VS_2012_Premium.zip c:\\installs`
 
+    Chef::Log.info('net use delete')
     `net use \\\\denver2\\groups /delete`
-
   end
   only_if { node[:core][:aws_access_key_id].empty? && node[:core][:aws_secret_access_key].empty? }
 end
