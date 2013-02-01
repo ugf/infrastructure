@@ -45,8 +45,9 @@ if '<%= @repository_source %>' == 's3'
   raise "could not find the following files: #{missing_files}" unless missing_files.empty?
 else
   repository = "\\\\denver2\\Groups\\Build and Deployment\\newgen\\repository"
-  `net use \\\\denver2 teamv /user:devcorp\\svc.tv`
+  `net use \\\\denver2\\groups /user:devcorp\\svc.tv teamv`
   install_files.each do |f|
     `copy "#{repository}\\#{s3_bucket}\\#{s3_repository}\\#{product}\\#{version}\\#{f}.zip" #{target_directory}`
   end
+  `net use \\\\denver2\\groups /delete`
 end
