@@ -81,7 +81,7 @@ ruby_block 'downloading visual studio via denver2' do
   block do
     Dir.mkdir('c:\installs') unless File.exist?('c:\installs')
 
-    `net use \\\\denver2\groups /user:devcorp\\\\svc.tv teamv`
+    `net use \\\\denver2\\groups /user:devcorp\\svc.tv teamv`
 
     `xcopy \\\\denver2\\groups\\Build and Deployment\\newgen\\repository\\ugfinfrastructure\\VS_2012_Premium.zip c:\\installs`
 
