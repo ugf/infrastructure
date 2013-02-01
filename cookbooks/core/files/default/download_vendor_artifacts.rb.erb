@@ -47,7 +47,7 @@ else
   repository = "\\\\denver2\\Groups\\Build and Deployment\\newgen\\repository"
   `net use \\\\denver2\\groups /user:devcorp\\svc.tv teamv`
   install_files.each do |f|
-    `copy "#{repository}\\#{s3_bucket}\\#{s3_repository}\\#{product}\\#{version}\\#{f}.zip" #{target_directory}`
+    `xcopy "#{repository}\\#{s3_bucket}\\#{s3_repository}\\#{product}\\#{version}\\#{f}.zip" #{target_directory}`
   end
   `net use \\\\denver2\\groups /delete`
 end
