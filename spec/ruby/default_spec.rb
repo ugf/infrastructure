@@ -24,7 +24,6 @@ describe 'ruby' do
   context 'when platform is ubuntu' do
 
     before :each do
-      stub_the.log
       stub_the.template
       stub_the.directory
       stub_the.ruby_block
@@ -33,6 +32,7 @@ describe 'ruby' do
       stub_the.file
       stub_the.execute
       stub_the.link
+      stub(File).exists? {false}
       stub_the.node { { ruby_scripts_dir: '/rubyscripts', platform: 'ubuntu' } }
     end
 
