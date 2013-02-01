@@ -91,6 +91,7 @@ ruby_block 'downloading visual studio via denver2' do
     `net use \\\\denver2\\groups /delete`
   end
   only_if { node[:core][:aws_access_key_id].empty? && node[:core][:aws_secret_access_key].empty? }
+  not_if { File.exist?('/installs/VS_2012_Premium.zip')}
 end
 
 windows_zipfile '/VS2012' do
