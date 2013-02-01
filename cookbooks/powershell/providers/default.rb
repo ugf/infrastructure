@@ -52,11 +52,11 @@ action :run do
     # Chef::Resource::Execute in Chef >= 0.10.8 has first-class Win32 support
     if Gem::Version.create(Chef::VERSION) >= Gem::Version.create("0.10.8")
       execute.cwd(cwd)
-      execute.environment(@new_resource.environment)
+      execute.environment(@new_resource.parameters)
     else
       # we have to fake `cwd` and `environment` on older versions of Chef
       prefix = "cd #{@new_resource.cwd} & #{prefix}" if @new_resource.cwd
-      command = create_env_wrapper(command, @new_resource.environment)
+      command = create_env_wrapper(command, @new_resource.parameters)
     end
 
     command = "#{prefix} #{flags.join(' ')} -Command \"#{command}\""
