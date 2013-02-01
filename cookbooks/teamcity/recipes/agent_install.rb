@@ -86,13 +86,14 @@ else
   end
 
   powershell 'Installing teamcity agent' do
+    parameters({ 'PASSWORD' => node[:windows][:administrator_password] })
     source <<-EOF
     copy-item c:\\installs\\buildAgent.properties c:\\BuildAgent\\conf\\buildAgent.properties
 
     cd c:\\BuildAgent\\bin
 
     cmd /c service.install.bat
-    cmd /c "sc config TCBuildAgent obj= .\\Administrator password= #{node[:windows][:administrator_password]} TYPE= own"
+    cmd /c "sc config TCBuildAgent obj= .\\Administrator password= $env:PASSWORD TYPE= own"
     cmd /c service.start.bat
     EOF
     not_if { File.exist?('c:\BuildAgent\conf\buildAgent.properties') }
