@@ -86,7 +86,7 @@ else
   end
 
   powershell 'Installing teamcity agent' do
-    script = <<-EOF
+    source <<-EOF
     copy-item c:\\installs\\buildAgent.properties c:\\BuildAgent\\conf\\buildAgent.properties
 
     cd c:\\BuildAgent\\bin
@@ -95,7 +95,6 @@ else
     cmd /c "sc config TCBuildAgent obj= .\\Administrator password= #{node[:windows][:administrator_password]} TYPE= own"
     cmd /c service.start.bat
     EOF
-    source(script)
     not_if { File.exist?('c:\BuildAgent\conf\buildAgent.properties') }
   end
 end
