@@ -9,8 +9,6 @@ class Chef::Recipe
   include DetectVagrant
 end
 
-include_recipe 'core::monkey_patch_powershell'
-
 emit_marker :begin
 
 installs_directory = 'c:/installs'
