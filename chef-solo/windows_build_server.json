@@ -1,3 +1,6 @@
 {
-  "run_list":[ "recipe[7zip::default]" ]
+  "run_list":[
+    "recipe[7zip::default]",
+    "recipe[aria2::default]"
+  ]
 }
