@@ -85,7 +85,7 @@ ruby_block 'downloading visual studio via denver2' do
     `net use \\\\denver2\\groups /user:devcorp\\svc.tv teamv`
 
     Chef::Log.info('copying files')
-    `xcopy \\\\denver2\\groups\\Build and Deployment\\newgen\\repository\\ugfinfrastructure\\VS_2012_Premium.zip c:\\installs`
+    `xcopy "\\\\denver2\\groups\\Build and Deployment\\newgen\\repository\\ugfinfrastructure\\VS_2012_Premium.zip" c:\\installs`
 
     Chef::Log.info('net use delete')
     `net use \\\\denver2\\groups /delete`
