@@ -74,9 +74,9 @@ else
     not_if { File.exist?(install_directory) }
   end
 
-  env('JAVA_HOME') { value 'c:\jdk\bin' }
-  env('JRE_HOME') { value 'c:\jdk\bin' }
-                           1
+  env('JAVA_HOME') { value 'c:\jdk' }
+  env('JRE_HOME') { value 'c:\jdk' }
+
   env('PATH') do
     action :modify
     delim ::File::PATH_SEPARATOR

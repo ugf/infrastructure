@@ -1,0 +1,87 @@
+{
+  "name": "elastic_search",
+  "description": "Installs basic tools to manage any instance",
+  "long_description": "",
+  "maintainer": "Cloud Infrastructure",
+  "maintainer_email": "csf@ultimatesoftware.com",
+  "license": "our license",
+  "platforms": {
+    "windows": ">= 0.0.0"
+  },
+  "dependencies": {
+    "core": ">= 0.0.0",
+    "rightscale": ">= 0.0.0",
+    "windows": ">= 0.0.0"
+  },
+  "recommendations": {
+  },
+  "suggestions": {
+  },
+  "conflicting": {
+  },
+  "providing": {
+  },
+  "replacing": {
+  },
+  "attributes": {
+    "core/aws_access_key_id": {
+      "display_name": "aws access key id",
+      "required": "required",
+      "recipes": [
+        "elastic_search::default"
+      ],
+      "choice": [
+
+      ],
+      "calculated": false,
+      "type": "string"
+    },
+    "core/aws_secret_access_key": {
+      "display_name": "aws secret access key",
+      "required": "required",
+      "recipes": [
+        "elastic_search::default"
+      ],
+      "choice": [
+
+      ],
+      "calculated": false,
+      "type": "string"
+    },
+    "core/repository_source": {
+      "display_name": "repository source",
+      "description": "i.e. denver2, s3",
+      "choice": [
+        "denver2",
+        "s3"
+      ],
+      "required": "optional",
+      "default": "s3",
+      "recipes": [
+        "elastic_search::default"
+      ],
+      "calculated": false,
+      "type": "string"
+    },
+    "core/s3_bucket": {
+      "display_name": "s3 bucket for the UGF platform",
+      "description": "i.e. ugfartifacts, ugfproduction",
+      "required": "optional",
+      "default": "ugfgate1",
+      "recipes": [
+        "elastic_search::default"
+      ],
+      "choice": [
+
+      ],
+      "calculated": false,
+      "type": "string"
+    }
+  },
+  "groupings": {
+  },
+  "recipes": {
+    "elastic_search::default": "Downloads and installs elastic_search"
+  },
+  "version": "0.0.1"
+}
