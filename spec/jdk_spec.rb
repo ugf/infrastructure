@@ -56,9 +56,10 @@ describe 'jdk' do
 
       mock_the.env('JAVA_HOME').yields
       mock_the.env('JRE_HOME').yields
-      mock_the.env('PATH').yields
+      mock_the.value('c:\jdk').times(2)
 
-      mock_the.value('c:\jdk\bin').times(3)
+      mock_the.env('PATH').yields
+      mock_the.value 'c:\jdk\bin'
 
       run_recipe 'jdk'
     end
