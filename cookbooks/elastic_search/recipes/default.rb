@@ -10,7 +10,7 @@ raise "Not implemented yet" if node[:platform] == "ubuntu"
 
 template "#{node[:ruby_scripts_dir]}/download_elastic_search.rb" do
   local true
-  source "#{node[:ruby_scripts_dir]}/download_vendor_artifacts.rb.erb"
+  source "#{node[:ruby_scripts_dir]}/download_vendor_artifacts.erb"
   variables(
     :aws_access_key_id => node[:core][:aws_access_key_id],
     :aws_secret_access_key => node[:core][:aws_secret_access_key],
