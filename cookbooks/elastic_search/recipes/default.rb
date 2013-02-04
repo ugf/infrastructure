@@ -46,7 +46,7 @@ execute 'Installing plugin bigdesk' do
 end
 
 execute 'Running elastic search' do
-  command 'START /B CMD /C CALL "/elasticsearch/bin/elasticsearch.bat"'
+  command 'START /B CMD /C CALL "c:\\elasticsearch\\bin\\elasticsearch.bat"'
 end
 
 emit_marker :end
