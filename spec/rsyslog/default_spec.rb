@@ -14,9 +14,9 @@ describe 'rsyslog' do
 
   it 'should raise exception for ubuntu' do
     stub_the.node { {platform: 'ubuntu' } }
-    mock_the.raise('Ubuntu not supported')
 
-    run_recipe 'rsyslog'
+    expect { run_recipe 'rsyslog' }.
+      to raise_error 'Ubuntu not supported'
   end
 
   it 'should create the download script' do

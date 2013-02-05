@@ -12,9 +12,9 @@ describe 'rsyslog configure' do
 
   it 'should raise exception for ubuntu' do
     stub_the.node { {platform: 'ubuntu' } }
-    mock_the.raise('Ubuntu not supported')
 
-    run_recipe 'rsyslog', 'configure'
+    expect { run_recipe 'rsyslog', 'configure' }.
+      to raise_error 'Ubuntu not supported'
   end
 
   it 'should create settings file' do
