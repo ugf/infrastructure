@@ -29,7 +29,8 @@
       "display_name": "aws access key id",
       "required": "required",
       "recipes": [
-        "ruby::default"
+        "ruby::install",
+        "ruby::devkit"
       ],
       "choice": [
 
@@ -41,7 +42,8 @@
       "display_name": "aws secret access key",
       "required": "required",
       "recipes": [
-        "ruby::default"
+        "ruby::install",
+        "ruby::devkit"
       ],
       "choice": [
 
@@ -55,7 +57,8 @@
       "required": "optional",
       "default": "ugfgate1",
       "recipes": [
-        "ruby::default"
+        "ruby::install",
+        "ruby::devkit"
       ],
       "choice": [
 
@@ -67,8 +70,9 @@
   "groupings": {
   },
   "recipes": {
-    "ruby::default": "Downloads and installs ruby",
+    "ruby::default": "Runs all ruby recipes",
     "ruby::devkit": "Downloads and installs devkit",
+    "ruby::install": "Downloads and installs ruby",
     "ruby::gems": "Installs ruby gems"
   },
   "version": "0.0.1"

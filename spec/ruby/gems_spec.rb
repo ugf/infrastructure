@@ -26,14 +26,14 @@ describe 'ruby gems' do
     'rr' => '1.0.4',
     'rspec' => '2.7.0',
     'simplecov' => '0.6.1',
-    'cucumber' => '1.2.1',
-    'rails' => '3.2.11'
+    'cucumber' => '1.2.1'
   } }
 
   context 'when platform is ubuntu' do
 
     before :each do
       gems['libv8'] = '3.11.8.4'
+      gems['rails'] = '3.2.11'
       stub_the.package
       stub_the.gem_package
       stub_the.execute

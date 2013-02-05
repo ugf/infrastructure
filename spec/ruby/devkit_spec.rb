@@ -1,9 +1,18 @@
 require_relative '../spec_helper'
 
+module DetectVagrant
+end
+
+module Chef
+  class Recipe
+  end
+end
+
 describe 'ruby devkit' do
   let(:ruby_scripts_dir) { '/rubyscripts' }
 
   before :each do
+    stub_the.emit_marker
     stub_the.include_recipe
     stub_the.template
     stub_the.powershell
