@@ -76,6 +76,18 @@
       ],
       "calculated": false,
       "type": "string"
+    },
+    "windows/administrator_password": {
+      "display_name": "administrator password",
+      "required": "required",
+      "recipes": [
+        "elastic_search::default"
+      ],
+      "choice": [
+
+      ],
+      "calculated": false,
+      "type": "string"
     }
   },
   "groupings": {

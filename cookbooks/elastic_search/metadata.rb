@@ -37,3 +37,8 @@ attribute 'core/s3_bucket',
   :required => 'optional',
   :default  => 'ugfgate1',
   :recipes => ['elastic_search::default']
+
+attribute 'windows/administrator_password',
+  :display_name => 'administrator password',
+  :required => 'required',
+  :recipes => ['elastic_search::default']
