@@ -45,12 +45,16 @@ execute 'Installing plugin bigdesk' do
   cwd '/elastic_search/bin'
 end
 
-windows_task 'Scheduling startup' do
+windows_task 'Start Elastic Search' do
   user 'Administrator'
   password node[:windows][:administrator_password]
   command 'c:\elastic_search\bin\elasticsearch.bat'
   run_level :highest
-  action :create, :run
+  action :create
+end
+
+windows_task 'Start Elastic Search' do
+  action :run
 end
 
 emit_marker :end
