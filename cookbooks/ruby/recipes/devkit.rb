@@ -17,7 +17,7 @@ template "#{node[:ruby_scripts_dir]}/download_devkit.rb" do
   not_if { File.exist?('/installs/devkit.zip') }
 end
 
-if node[:platform] != "ubuntu"
+if node[:platform] == "windows"
   powershell 'Download devkit' do
     script = <<'EOF'
     cd "c:\\Program Files (x86)\\RightScale\\RightLink\\sandbox\\ruby\\bin"
@@ -26,31 +26,27 @@ EOF
     source(script)
     not_if { File.exist?('/devkit') }
   end
+
+  windows_zipfile '/installs/devkit' do
+    source '/installs/devkit.zip'
+    action :unzip
+    not_if { File.exist?('/installs/devkit') }
+  end
+
+  windows_zipfile '/devkit' do
+    source '/installs/devkit/devkit.exe'
+    action :unzip
+    not_if { File.exist?('/devkit') }
+  end
+
+  execute 'Initializing devkit' do
+    command 'ruby dk.rb init'
+    cwd '/devkit'
+  end
+
+  execute 'Installing devkit' do
+    command 'ruby dk.rb install'
+    cwd '/devkit'
+  end
 end
 
-windows_zipfile '/installs/devkit' do
-  source '/installs/devkit.zip'
-  action :unzip
-  not_if { File.exist?('/installs/devkit') }
-end
-
-windows_zipfile '/devkit' do
-  source '/installs/devkit/devkit.exe'
-  action :unzip
-  not_if { File.exist?('/devkit') }
-end
-
-execute 'Initializing devkit' do
-  command 'ruby dk.rb init'
-  cwd '/devkit'
-end
-
-execute 'Installing devkit' do
-  command 'ruby dk.rb install'
-  cwd '/devkit'
-end
-
-#powershell 'Install devkit' do
-#  source('c:\\installs\\devkit\\devkit.exe /tasks=modpath /silent')
-#  not_if { File.exist?('/devkit') }
-#end
