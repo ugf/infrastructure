@@ -6,7 +6,7 @@ emit_marker :begin
 
 include_recipe 'core::download_vendor_artifacts_prereqs'
 
-raise "Not implemented yet" if node[:platform] == "ubuntu"
+raise 'Not implemented yet' if node[:platform] == 'ubuntu'
 
 template "#{node[:ruby_scripts_dir]}/download_elastic_search.rb" do
   local true

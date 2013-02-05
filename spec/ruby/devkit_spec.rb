@@ -1,12 +1,4 @@
-require_relative '../spec_helper'
-
-module DetectVagrant
-end
-
-module Chef
-  class Recipe
-  end
-end
+require 'spec_helper'
 
 describe 'ruby devkit' do
   let(:ruby_scripts_dir) { '/rubyscripts' }

@@ -1,5 +1,6 @@
 require 'rr'
 require 'rspec'
+require 'chef_stub'
 
 RSpec.configure do |c|
   c.mock_framework = :rr
@@ -31,3 +32,4 @@ end
 def stub_the
   stub main
 end
+
