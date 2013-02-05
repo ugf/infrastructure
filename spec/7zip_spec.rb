@@ -7,11 +7,8 @@ describe '7zip' do
   path = "#{dir}/#{zip7}"
 
   before :each do
+    stub_all
     stub(Dir).mkdir
-    stub_the.rightscale_marker
-    stub_the.cookbook_file
-    stub_the.powershell
-    stub_the.env
   end
 
   it 'copies the installer' do

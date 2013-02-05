@@ -2,16 +2,12 @@ require 'spec_helper'
 
 describe 'chrome' do
 
-  recipe = -> { load '../cookbooks/chrome/recipes/default.rb' }
   app = 'GoogleChromeStandaloneEnterprise.msi'
   dir = 'c:\\installs'
   path = "#{dir}\\#{app}"
 
   before :each do
-    stub_the.rightscale_marker
-    stub_the.cookbook_file
-    stub_the.windows_registry
-    stub_the.powershell
+    stub_all
   end
 
   it 'should copy the installer' do

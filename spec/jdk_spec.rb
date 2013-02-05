@@ -3,9 +3,7 @@ require 'spec_helper'
 describe 'jdk' do
 
   before :each do
-    stub_the.rightscale_marker
-    stub_the.include_recipe
-    stub_the.template
+    stub_all
   end
 
   context 'When the platform is windows' do
@@ -13,12 +11,9 @@ describe 'jdk' do
     let(:artifact) { 'jdk_windows' }
 
     before :each do
-      stub_the.powershell
-      stub_the.windows_zipfile
       stub_the.node { {platform: 'windows', ruby_scripts_dir: '/ruby192' } }
       stub_the.source
       stub(File).exist?
-      stub_the.env
     end
 
     it 'the installer is downloaded' do

@@ -7,10 +7,8 @@ describe 'aria2' do
   path = "#{dir}/#{aria2}"
 
   before :each do
+    stub_all
     stub(Dir).mkdir
-    stub_the.rightscale_marker
-    stub_the.cookbook_file
-    stub_the.windows_zipfile
   end
 
   it 'should copy the installer' do

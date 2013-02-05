@@ -4,12 +4,7 @@ describe 'Elastic search' do
   let(:ruby_scripts_dir) { '/rubyscripts' }
 
   before :each do
-    stub_the.emit_marker
-    stub_the.include_recipe
-    stub_the.template
-    stub_the.execute
-    stub_the.windows_zipfile
-    stub_the.windows_task
+    stub_all
     stub_the.node {{
       platform: 'windows',
       ruby_scripts_dir: ruby_scripts_dir,

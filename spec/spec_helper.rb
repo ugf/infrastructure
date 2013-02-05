@@ -33,3 +33,17 @@ def stub_the
   stub main
 end
 
+def stub_all
+  stub_the.emit_marker
+  stub_the.include_recipe
+  stub_the.template
+  stub_the.execute
+  stub_the.windows_zipfile
+  stub_the.windows_task
+  stub_the.cookbook_file
+  stub_the.powershell
+  stub_the.env
+  stub_the.rightscale_marker
+  stub_the.windows_registry
+end
+
