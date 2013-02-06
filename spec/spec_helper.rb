@@ -35,7 +35,7 @@ end
 
 def stub_all
   #[:emit_marker, :include_recipe, :template, :execute,
-  # :windows_zipfile, :windows_task, :cookbook_file,
+  # :windows_zipfile, 0:windows_task, :cookbook_file,
   # :powershell, :env, :rightscale_marker, :windows_registry].
   #    each { |method| stub_the.call method}
   stub_the.emit_marker
