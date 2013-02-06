@@ -34,10 +34,10 @@ end
 execute 'Installing ncover' do
   command <<-EOF
     msiexec /i ncover.msi /qn
-    \"#{ENV['PROGRAMFILES(X86)']}\\NCover\\ncover.registration\" //license license.lic
+    \"#{ENV['PROGRAMFILES']}\\NCover\\ncover.registration\" //license license.lic
   EOF
   cwd "#{download_directory}/#{artifact}"
-  not_if { File.exist?("#{ENV['PROGRAMFILES(X86)']}\\NCover") }
+  not_if { File.exist?("#{ENV['PROGRAMFILES']}\\NCover") }
 end
 
 rightscale_marker :end
