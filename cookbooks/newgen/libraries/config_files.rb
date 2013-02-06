@@ -27,11 +27,21 @@ module ConfigFiles
 
   def update_website_settings
     configs = FileList["#{node[:websites_directory]}/**/*.config"]
+
     url = node[:route53][:domain].nil? || node[:route53][:domain].empty? ?
-      "http://#{node[:newgen][:application_server]}" : "http://#{node[:route53][:prefix]}.#{node[:route53][:domain]}"
+      "http://#{node[:newgen][:application_server]}" :
+      "http://#{node[:route53][:prefix]}.#{node[:route53][:domain]}"
+
     replace_text_in_files(configs, 'http://localhost', url)
     replace_text_in_files(configs, ':55555', ':80')
     replace_text_in_files(configs, ':55556', ':81')
+
+    replace_text_in_files(configs,
+      'key = "searchHost" value = ".*?"',
+      'key = "searchHost" value = "localhost"')
+    replace_text_in_files(configs,
+      'key = "searchPort" value = ".*?"',
+      'key = "searchPort" value = "9200"')
   end
 
   def update_ui_settings
