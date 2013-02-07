@@ -76,6 +76,7 @@ describe 'Elastic search' do
     stub_the.password
     mock_the.command 'c:\elastic_search\bin\elasticsearch.bat'
     stub_the.run_level
+    stub_the.frequency
     mock_the.action :create
 
     run_recipe 'elastic_search'
