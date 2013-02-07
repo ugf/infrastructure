@@ -13,8 +13,8 @@ template "#{node[:ruby_scripts_dir]}/register_with_route53.rb" do
 end
 
 if node[:route53][:ip] && node[:route53][:domain]
-  powershell 'Registering with Route53' do
-    source("ruby #{node[:ruby_scripts_dir]}/register_with_route53.rb")
+  execute 'Registering with Route53' do
+    command "ruby #{node[:ruby_scripts_dir]}/register_with_route53.rb"
   end
   right_link_tag "route53:domain=#{node[:route53][:prefix]}.#{node[:route53][:domain]}"
 end
