@@ -50,6 +50,7 @@ windows_task 'Start Elastic Search' do
   password node[:windows][:administrator_password]
   command 'c:\elastic_search\bin\elasticsearch.bat'
   run_level :highest
+  frequency :on_logon
   action :create
 end
 
