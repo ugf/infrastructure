@@ -15,3 +15,13 @@ attribute 'tests/revision',
   :required => 'required',
   :recipes => ['tests::default', 'tests::application_server']
 
+attribute 'elmah/database_user',
+  :display_name => 'database user',
+  :required => 'required',
+  :recipes => ['tests::logging_server']
+
+attribute 'elmah/database_password',
+  :display_name => 'database password',
+  :required => 'required',
+  :recipes => ['tests::logging_server']
+
