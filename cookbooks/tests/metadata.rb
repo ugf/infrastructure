@@ -14,7 +14,7 @@ recipe 'tests::logging_server', 'Verifies the logging server is functional'
 attribute 'tests/revision',
   :display_name => 'tests revision',
   :required => 'required',
-  :recipes => ['tests::default', 'tests::application_server']
+  :recipes => ['tests::default', 'tests::application_server', 'tests::logging_server']
 
 attribute 'elmah/database_user',
   :display_name => 'database user',
