@@ -8,16 +8,16 @@ template "c:\\create_database.sql" do
   )
 end
 
-windows_batch 'Create elmah database' do
-  code "sqlcmd -E -ic:\\create_database.sql"
+execute 'Create elmah database' do
+  command "sqlcmd -E -ic:\\create_database.sql"
 end
 
 template "c:\\setup_database.sql" do
   source 'setup_database.sql.erb'
 end
 
-windows_batch 'Setup elmah database' do
-  code "sqlcmd -E -ic:\\setup_database.sql"
+execute 'Setup elmah database' do
+  command "sqlcmd -E -ic:\\setup_database.sql"
 end
 
 rightscale_marker :end
