@@ -31,9 +31,8 @@ windows_zipfile "#{download_directory}/#{artifact}" do
   not_if { File.exist?("#{download_directory}/#{artifact}") }
 end
 
-execute 'Installing git' do
-  command "#{artifact}.exe /verysilent"
-  cwd "#{download_directory}/#{artifact}"
+powershell 'Installing git' do
+  source "#{download_directory}/#{artifact}/#{artifact}.exe /verysilent"
 end
 
 rightscale_marker :end
