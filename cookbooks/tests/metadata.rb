@@ -9,6 +9,7 @@ depends 'rightscale'
 
 recipe 'tests::default', 'Downloads tests'
 recipe 'tests::application_server', 'Verifies the application server is functional'
+recipe 'tests::logging_server', 'Verifies the logging server is functional'
 
 attribute 'tests/revision',
   :display_name => 'tests revision',

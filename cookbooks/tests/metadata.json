@@ -63,7 +63,8 @@
   },
   "recipes": {
     "tests::default": "Downloads tests",
-    "tests::application_server": "Verifies the application server is functional"
+    "tests::application_server": "Verifies the application server is functional",
+    "tests::logging_server": "Verifies the logging server is functional"
   },
   "version": "0.0.1"
 }
