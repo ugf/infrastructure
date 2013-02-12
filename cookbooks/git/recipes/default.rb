@@ -32,7 +32,7 @@ windows_zipfile "#{download_directory}/#{artifact}" do
 end
 
 execute 'Installing git' do
-  command "#{artifact}.exe /silent"
+  command "#{artifact}.exe /verysilent"
   cwd "#{download_directory}/#{artifact}"
 end
 
