@@ -25,6 +25,8 @@ def main
   @main ||= TOPLEVEL_BINDING.eval 'self'
 end
 
+require_relative 'play_doh'
+
 def mock_the
   mock main
 end
