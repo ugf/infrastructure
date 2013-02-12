@@ -1,0 +1,18 @@
+USE [master]
+GO
+
+CREATE LOGIN [<%= @database_user %>] WITH PASSWORD='<%= @database_password %>', DEFAULT_DATABASE=[master], DEFAULT_LANGUAGE=[us_english], CHECK_EXPIRATION=OFF, CHECK_POLICY=OFF
+GO
+
+CREATE DATABASE [HealthCheck]
+GO
+
+USE [HealthCheck]
+GO
+
+CREATE USER [<%= @database_user %>] FOR LOGIN [<%= @database_user %>] WITH DEFAULT_SCHEMA=[dbo]
+GO
+
+EXEC sp_addrolemember 'db_ddladmin', '<%= @database_user %>'
+EXEC sp_addrolemember 'db_owner', '<%= @database_user %>'
+GO

@@ -1,0 +1,56 @@
+{
+  "name": "elmah",
+  "description": "Configures TeamCity",
+  "long_description": "",
+  "maintainer": "Cloud Infrastructure",
+  "maintainer_email": "csf@ultimatesoftware.com",
+  "license": "our license",
+  "platforms": {
+  },
+  "dependencies": {
+    "rightscale": ">= 0.0.0",
+    "windows": ">= 0.0.0"
+  },
+  "recommendations": {
+  },
+  "suggestions": {
+  },
+  "conflicting": {
+  },
+  "providing": {
+  },
+  "replacing": {
+  },
+  "attributes": {
+    "teamcity/database_user": {
+      "display_name": "database user",
+      "required": "required",
+      "recipes": [
+        "elmah::default"
+      ],
+      "choice": [
+
+      ],
+      "calculated": false,
+      "type": "string"
+    },
+    "teamcity/database_password": {
+      "display_name": "database password",
+      "required": "required",
+      "recipes": [
+        "elmah::default"
+      ],
+      "choice": [
+
+      ],
+      "calculated": false,
+      "type": "string"
+    }
+  },
+  "groupings": {
+  },
+  "recipes": {
+    "elmah::default": "Sets up elmah database"
+  },
+  "version": "0.0.1"
+}
