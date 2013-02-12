@@ -22,7 +22,7 @@
   "replacing": {
   },
   "attributes": {
-    "teamcity/database_user": {
+    "elmah/database_user": {
       "display_name": "database user",
       "required": "required",
       "recipes": [
@@ -34,7 +34,7 @@
       "calculated": false,
       "type": "string"
     },
-    "teamcity/database_password": {
+    "elmah/database_password": {
       "display_name": "database password",
       "required": "required",
       "recipes": [
