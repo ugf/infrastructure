@@ -11,12 +11,14 @@ describe '7zip' do
     stub(Dir).mkdir
   end
 
+  after :each do
+    run_recipe '7zip'
+  end
+
   it 'copies the installer' do
 
     mock_the.cookbook_file(path).yields
     mock_the.source zip7
-
-    run_recipe '7zip'
 
   end
 
@@ -27,8 +29,6 @@ describe '7zip' do
     mock_the.source "cmd /c #{path} /S"
     stub_the.not_if
 
-    run_recipe '7zip'
-
   end
 
   it 'sets the environment path' do
@@ -38,8 +38,6 @@ describe '7zip' do
     stub_the.action
     stub_the.delim
     mock_the.value "#{ENV['PROGRAMFILES(X86)']}\\7-zip"
-
-    run_recipe '7zip'
 
   end
 end
