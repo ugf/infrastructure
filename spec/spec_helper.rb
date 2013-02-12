@@ -51,5 +51,8 @@ def stub_all
   stub_the.env
   stub_the.rightscale_marker
   stub_the.windows_registry
+  stub_the.cwd
+  stub_the.only_if
+  stub_the.not_if
 end
 
