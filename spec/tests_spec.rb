@@ -37,6 +37,39 @@ describe 'Tests' do
 
     end
 
+  end
+
+  describe 'logging server' do
+
+    before :each do
+    end
+
+    it 'should run the tests' do
+
+      stub_the.node {{ elmah: {}}}
+      stub_the.execute(/Run/).yields
+
+      mock_the.command /cucumber.*--tags @logging_server/
+
+      run_recipe 'tests', 'logging_server'
+
+    end
+
+    it 'should set db credentials for tests' do
+
+      stub_the.node {{
+        elmah: {
+          database_user: 'logger',
+          database_password: 'logg3r',
+        }
+      }}
+
+      run_recipe 'tests', 'logging_server'
+
+      ENV['elmah/database_user'].should == 'logger'
+      ENV['elmah/database_password'].should == 'logg3r'
+
+    end
 
   end
 
