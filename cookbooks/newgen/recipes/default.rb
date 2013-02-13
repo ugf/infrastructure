@@ -11,6 +11,11 @@ execute 'Adding certificate' do
   cwd "#{node[:binaries_directory]}/certificate"
 end
 
+execute 'Grant access to certificate for Network Service' do
+  command 'WinHttpCertCfg.exe -g -c LOCAL_MACHINE\MY -s "passivests" -a "NetworkService"'
+  cwd '/Program Files (x86)/Windows Resource Kits/Tools'
+end
+
 powershell 'Copying websites' do
   parameters({
     'source' => "c:#{node[:binaries_directory].gsub('/', '\\')}",
@@ -47,8 +52,8 @@ powershell 'Deploying websites' do
     Stop-Website -Name 'Default Web Site'
     Set-ItemProperty 'IIS:\\Sites\\Default Web Site' ServerAutoStart False
 
-    deploy_website 'main website' 'main_website' "$env:WEBSITES_DIRECTORY\\main_website" ':80:'
-    deploy_website 'sts website' 'sts_website' "$env:WEBSITES_DIRECTORY\\sts_website" ':81:'
+    deploy_website 'main website' 'main_website' "$env:WEBSITES_DIRECTORY\\main_website" ':80:' 'networkservice'
+    deploy_website 'sts website' 'sts_website' "$env:WEBSITES_DIRECTORY\\sts_website" ':81:' 'networkservice'
   EOF
   source(script)
 end

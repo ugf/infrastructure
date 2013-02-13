@@ -41,7 +41,8 @@
   "recipes": {
     "windows::assign_logon_as_a_service_to_administrator": "assign logon as a service to administrator",
     "windows::set_administrator_password": "sets the administrator password",
-    "windows::set_rightlink_to_run_as_administrator": "sets the the rightlink service to run as administrator"
+    "windows::set_rightlink_to_run_as_administrator": "sets the the rightlink service to run as administrator",
+    "windows::install_winhttpcertcfg": "installs winhttpcertcfg"
   },
   "version": "0.0.1"
 }
