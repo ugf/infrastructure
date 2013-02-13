@@ -17,16 +17,16 @@ describe 'elmah' do
 
   it 'should generate create db script' do
 
-    stub_the.template(create_db_script_path).yields
-    stub_the.node {{
+    given.template(create_db_script_path).yields
+    given.node {{
       elmah: {
         database_user: 'logger',
         database_password: 'logg3r'
       }
     }}
 
-    mock_the.source "#{create_db_script}.erb"
-    mock_the.variables(
+    verify.source "#{create_db_script}.erb"
+    verify.variables(
       database_user: 'logger',
       database_password: 'logg3r'
     )
@@ -35,22 +35,22 @@ describe 'elmah' do
 
   it 'should generate the db' do
 
-    stub_the.execute('Create elmah database').yields
-    mock_the.command "sqlcmd -E -i#{create_db_script_path}"
+    given.execute(/Create/).yields
+    verify.command /sqlcmd.*create/
 
   end
 
   it 'should generate setup db script' do
 
-    stub_the.template(setup_db_script_path).yields
-    mock_the.source "#{setup_db_script}.erb"
+    given.template(setup_db_script_path).yields
+    verify.source "#{setup_db_script}.erb"
 
   end
 
   it 'should setup the db' do
 
-    stub_the.execute('Setup elmah database').yields
-    mock_the.command "sqlcmd -E -i#{setup_db_script_path}"
+    given.execute(/Setup/).yields
+    verify.command /sqlcmd.*setup/
 
   end
 
