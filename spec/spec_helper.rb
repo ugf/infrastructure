@@ -25,8 +25,6 @@ def main
   @main ||= TOPLEVEL_BINDING.eval 'self'
 end
 
-require_relative 'play_doh'
-
 def mock_the
   mock main
 end
@@ -34,6 +32,23 @@ end
 def stub_the
   stub main
 end
+
+module RR
+  module Adapters
+    module RRMethods
+
+      def given(object=nil)
+        stub object || main
+      end
+
+      def verify(object=nil)
+        mock object || main
+      end
+
+    end
+  end
+end
+
 
 def stub_all
   #[:emit_marker, :include_recipe, :template, :execute,
@@ -54,5 +69,7 @@ def stub_all
   stub_the.cwd
   stub_the.only_if
   stub_the.not_if
+  stub_the.action
+  stub_the.delim
 end
 

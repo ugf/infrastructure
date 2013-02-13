@@ -17,27 +17,22 @@ describe '7zip' do
 
   it 'copies the installer' do
 
-    mock_the.cookbook_file(path).yields
-    mock_the.source zip7
+    given.cookbook_file(path).yields
+    verify.source zip7
 
   end
 
   it 'runs the executable' do
 
-    stub_the.powershell.yields
-
-    mock_the.source "cmd /c #{path} /S"
-    stub_the.not_if
+    given.powershell.yields
+    verify.source /cmd.*#{path}/
 
   end
 
   it 'sets the environment path' do
 
-    mock_the.env('PATH').yields
-
-    stub_the.action
-    stub_the.delim
-    mock_the.value "#{ENV['PROGRAMFILES(X86)']}\\7-zip"
+    given.env('PATH').yields
+    verify.value /7-zip/
 
   end
 end

@@ -17,23 +17,23 @@ describe 'Tests' do
 
     it 'should remove previous dir' do
 
-      stub_the.execute(/Removing/).yields
-      mock_the.command /rd .* \"#{tests_directory}\"/
+      given.execute(/Removing/).yields
+      verify.command /rd .* \"#{tests_directory}\"/
 
     end
 
     it 'should download the tests' do
 
-      stub_the.execute(/Downloading/).yields
-      mock_the.command /git.*clone.*tests/
+      given.execute(/Downloading/).yields
+      verify.command /git.*clone.*tests/
 
     end
 
     it 'should pick the tests revision' do
 
-      stub_the.node {{tests: { revision: 42 }}}
-      stub_the.execute(/revision/).yields
-      mock_the.command /git.*checkout 42/
+      given.node {{tests: { revision: 42 }}}
+      given.execute(/revision/).yields
+      verify.command /git.*checkout 42/
 
     end
 
@@ -43,10 +43,10 @@ describe 'Tests' do
 
     it 'should run the tests' do
 
-      stub_the.node {{ elmah: {}}}
-      stub_the.execute(/Run/).yields
+      given.node {{ elmah: {}}}
+      given.execute(/Run/).yields
 
-      mock_the.command /cucumber.*--tags @logging_server/
+      verify.command /cucumber.*--tags @logging_server/
 
       run_recipe 'tests', 'logging_server'
 
@@ -54,7 +54,7 @@ describe 'Tests' do
 
     it 'should set db credentials for tests' do
 
-      stub_the.node {{
+      given.node {{
         elmah: {
           database_user: 'logger',
           database_password: 'logg3r',
@@ -74,10 +74,12 @@ describe 'Tests' do
 
     it 'should run the tests' do
 
-      stub_the.node {{}}
-      stub_the.execute(/Run/).yields
+      given.node {{}}
+      given.execute(/Run/).yields
 
-      mock_the.command /cucumber.*--tags @application_server/
+      p method :verify
+
+      verify.command /cucumber.*--tags @application_server/
 
       run_recipe 'tests', 'application_server'
 

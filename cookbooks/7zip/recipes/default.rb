@@ -13,7 +13,7 @@ powershell 'Installing 7zip' do
   not_if { File.exist?("#{ENV['PROGRAMFILES(X86)']}\\7-zip") }
 end
 
-env('PATH') do
+env 'PATH' do
   action :modify
   delim ::File::PATH_SEPARATOR
   value "#{ENV['PROGRAMFILES(X86)']}\\7-zip"
