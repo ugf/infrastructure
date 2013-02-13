@@ -97,4 +97,8 @@ powershell 'Installing Visual Studio Test Framework' do
   source(script)
 end
 
+execute 'Run aspnet_regiis' do
+  command 'C:\Windows\Microsoft.NET\Framework\v4.0.30319\aspnet_regiis.exe -i'
+end
+
 rightscale_marker :end
