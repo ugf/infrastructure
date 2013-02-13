@@ -7,13 +7,9 @@ describe 'elmah' do
   let(:setup_db_script) { 'setup_database.sql' }
   let(:setup_db_script_path) { "c:\\#{setup_db_script}" }
 
-  before :each do
-    stub_all
-  end
+  before { stub_all }
 
-  after :each do
-    run_recipe 'elmah'
-  end
+  after { run_recipe 'elmah' }
 
   it 'should generate create db script' do
 

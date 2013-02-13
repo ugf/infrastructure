@@ -13,6 +13,7 @@ recipe "windows::assign_logon_as_a_service_to_administrator", "assign logon as a
 recipe "windows::set_administrator_password", "sets the administrator password"
 recipe "windows::set_rightlink_to_run_as_administrator", "sets the the rightlink service to run as administrator"
 recipe "windows::install_winhttpcertcfg", "installs winhttpcertcfg"
+recipe "windows::share_temp_folder", "share the temp folder"
 
 attribute "windows/administrator_password",
   :display_name => "administrator password",
