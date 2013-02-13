@@ -8,14 +8,14 @@ describe 'share folder' do
   it 'should create the folder' do
 
     given.execute(/Create/).yields
-    verify.command /mkdir/
+    verify.command /mkdir.*temp/
 
   end
 
   it 'should share the folder' do
 
     given.execute(/Share/).yields
-    verify.command /net share/
+    verify.command /net share temp/
 
   end
 
