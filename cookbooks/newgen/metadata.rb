@@ -79,5 +79,17 @@ attribute "newgen/database_user",
   :required => "required",
   :recipes => ["newgen::default", "newgen::migrate", "newgen::smoke_tests"]
 
+attribute 'elmah/database_user',
+  :display_name => 'database user',
+  :required => 'required',
+  :recipes => ['newgen::default']
 
+attribute 'elmah/database_password',
+  :display_name => 'database password',
+  :required => 'required',
+  :recipes => ['newgen::default']
 
+attribute 'elmah/logging_server',
+  :display_name => 'logging server',
+  :required => 'required',
+  :recipes => ['newgen::default']

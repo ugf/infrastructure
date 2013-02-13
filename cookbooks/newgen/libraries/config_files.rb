@@ -55,9 +55,9 @@ module ConfigFiles
 
     elmah_connstr_matcher = 'name="elmah" connectionString='
 
-    elmah_connstr = "#{elmah_connstr_matcher}\"Data Source=#{ENV['logging.server']};" +
+    elmah_connstr = "#{elmah_connstr_matcher}\"Data Source=#{node[:elmah][:logging_server]};" +
       "Initial Catalog=Shared;Integrated Security=false;" +
-      "User Id=#{ENV['logging.user']};Password=#{ENV['logging.password']}" +
+      "User Id=#{node[:elmah][:database_user]};Password=#{node[:elmah][:database_password]}" +
       "MultipleActiveResultSets=True\""
 
     replace_text_in_files(configs, "#{elmah_connstr_matcher}\".*?\"", elmah_connstr)

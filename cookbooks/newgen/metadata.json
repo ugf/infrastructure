@@ -187,6 +187,42 @@
       ],
       "calculated": false,
       "type": "string"
+    },
+    "elmah/database_user": {
+      "display_name": "database user",
+      "required": "required",
+      "recipes": [
+        "newgen::default"
+      ],
+      "choice": [
+
+      ],
+      "calculated": false,
+      "type": "string"
+    },
+    "elmah/database_password": {
+      "display_name": "database password",
+      "required": "required",
+      "recipes": [
+        "newgen::default"
+      ],
+      "choice": [
+
+      ],
+      "calculated": false,
+      "type": "string"
+    },
+    "elmah/logging_server": {
+      "display_name": "logging server",
+      "required": "required",
+      "recipes": [
+        "newgen::default"
+      ],
+      "choice": [
+
+      ],
+      "calculated": false,
+      "type": "string"
     }
   },
   "groupings": {
