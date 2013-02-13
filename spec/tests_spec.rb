@@ -37,6 +37,13 @@ describe 'Tests' do
 
     end
 
+    it 'should create an output folder' do
+
+      given.execute(/Create output/).yields
+      verify.command /mkdir/
+
+    end
+
   end
 
   describe 'logging server' do
@@ -46,7 +53,7 @@ describe 'Tests' do
       given.node {{ elmah: {}}}
       given.execute(/Run/).yields
 
-      verify.command /cucumber.*--tags @logging_server/
+      verify.command /cucumber.*@logging_server.*temp/
 
       run_recipe 'tests', 'logging_server'
 
@@ -79,7 +86,7 @@ describe 'Tests' do
 
       p method :verify
 
-      verify.command /cucumber.*--tags @application_server/
+      verify.command /cucumber.*application_server.*temp/
 
       run_recipe 'tests', 'application_server'
 

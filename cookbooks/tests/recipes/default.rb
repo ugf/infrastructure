@@ -20,6 +20,11 @@ execute 'Checkout tests revision' do
   not_if { node[:tests][:revision] == 'head' }
 end
 
+execute 'Create output folder' do
+  command 'mkdir c:\temp'
+  not_if { Dir.exists? 'c:\temp' }
+end
+
 rightscale_marker :end
 
 
