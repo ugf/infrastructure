@@ -3,10 +3,10 @@ include_recipe 'tests::default'
 rightscale_marker :begin
 
 TAGS = '-t @application_server'
-OUT = 'c:\temp\infrastructure_results.html'
+OUT = '-f pretty -f html -o c:\temp\infrastructure_results.html'
 
 execute 'Running tests' do
-  command "cucumber #{node[:tests_directory]} #{TAGS} -f html -o #{OUT}"
+  command "cucumber #{node[:tests_directory]} #{TAGS} #{OUT}"
   cwd '/'
 end
 
