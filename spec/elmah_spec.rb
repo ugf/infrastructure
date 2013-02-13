@@ -8,7 +8,6 @@ describe 'elmah' do
   let(:setup_db_script_path) { "c:\\#{setup_db_script}" }
 
   before { stub_all }
-
   after { run_recipe 'elmah' }
 
   it 'should generate create db script' do
