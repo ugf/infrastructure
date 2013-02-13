@@ -42,11 +42,26 @@ module ConfigFiles
     replace_text_in_files(configs,
       'key = "searchPort" value = ".*?"',
       'key = "searchPort" value = "9200"')
+
+    config_elmah configs
   end
 
   def update_ui_settings
     configs = FileList["#{node[:ui_tests_directory]}/**/*.config"]
     replace_text_in_files(configs, '55555', '80')
+  end
+
+  def config_elmah(configs)
+
+    elmah_connstr_matcher = 'name="elmah" connectionString='
+
+    elmah_connstr = "#{elmah_connstr_matcher}\"Data Source=#{ENV['logging.server']};" +
+      "Initial Catalog=Shared;Integrated Security=false;" +
+      "User Id=#{ENV['logging.user']};Password=#{ENV['logging.password']}" +
+      "MultipleActiveResultSets=True\""
+
+    replace_text_in_files(configs, "#{elmah_connstr_matcher}\".*?\"", elmah_connstr)
+
   end
 
 end
