@@ -22,7 +22,7 @@ end
 
 execute 'Create output folder' do
   command 'mkdir c:\temp'
-  not_if { Dir.exists? 'c:\temp' }
+  not_if { File.exist? 'c:\temp' }
 end
 
 rightscale_marker :end

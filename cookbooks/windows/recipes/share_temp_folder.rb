@@ -4,7 +4,7 @@ DIR = 'c:\temp'
 
 execute 'Create temp folder' do
   command "mkdir #{DIR}"
-  not_if { Dir.exists? DIR }
+  not_if { File.exist? DIR }
 end
 
 execute 'Share temp folder' do

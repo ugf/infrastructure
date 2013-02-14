@@ -15,7 +15,7 @@ describe '7zip' do
     run_recipe '7zip'
   end
 
-  it 'copies the installer' do
+  it 'should copy the installer' do
 
     given.cookbook_file(path).yields
     verify.source zip7
