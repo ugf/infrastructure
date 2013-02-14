@@ -34,6 +34,30 @@
       ],
       "calculated": false,
       "type": "string"
+    },
+    "windows/new_user_name": {
+      "display_name": "new user name",
+      "required": "required",
+      "recipes": [
+        "windows::create_user"
+      ],
+      "choice": [
+
+      ],
+      "calculated": false,
+      "type": "string"
+    },
+    "windows/new_user_password": {
+      "display_name": "new user password",
+      "required": "required",
+      "recipes": [
+        "windows::create_user"
+      ],
+      "choice": [
+
+      ],
+      "calculated": false,
+      "type": "string"
     }
   },
   "groupings": {
@@ -43,7 +67,8 @@
     "windows::set_administrator_password": "sets the administrator password",
     "windows::set_rightlink_to_run_as_administrator": "sets the the rightlink service to run as administrator",
     "windows::install_winhttpcertcfg": "installs winhttpcertcfg",
-    "windows::share_temp_folder": "share the temp folder"
+    "windows::share_temp_folder": "share the temp folder",
+    "windows::create_user": "create a new windows user"
   },
   "version": "0.0.1"
 }
