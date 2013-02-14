@@ -1,0 +1,32 @@
+{
+  "name": "samba",
+  "description": "Samba pa ti",
+  "long_description": "",
+  "maintainer": "Cloud Infrastructure",
+  "maintainer_email": "csf@ultimatesoftware.com",
+  "license": "our license",
+  "platforms": {
+    "ubuntu": ">= 0.0.0"
+  },
+  "dependencies": {
+    "rightscale": ">= 0.0.0"
+  },
+  "recommendations": {
+  },
+  "suggestions": {
+  },
+  "conflicting": {
+  },
+  "providing": {
+  },
+  "replacing": {
+  },
+  "attributes": {
+  },
+  "groupings": {
+  },
+  "recipes": {
+    "samba::default": "install samba"
+  },
+  "version": "0.0.1"
+}
