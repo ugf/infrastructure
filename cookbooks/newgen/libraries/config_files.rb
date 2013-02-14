@@ -36,12 +36,12 @@ module ConfigFiles
     replace_text_in_files(configs, ':55555', ':80')
     replace_text_in_files(configs, ':55556', ':81')
 
-    replace_text_in_files(configs,
-      'key = "searchHost" value = ".*?"',
-      'key = "searchHost" value = "localhost"')
-    replace_text_in_files(configs,
-      'key = "searchPort" value = ".*?"',
-      'key = "searchPort" value = "9200"')
+    replace_text_in_files(configs, 'key = "searchHost" value = ".*?"', 'key = "searchHost" value = "localhost"')
+    replace_text_in_files(configs, 'key = "searchPort" value = ".*?"', 'key = "searchPort" value = "9200"')
+
+    replace_text_in_files(configs, 'compilation debug="true".*', 'compilation debug="false" targetFramework="4.5" />')
+    replace_text_in_files(configs, '<dotless minifyCss="false" cache="false" web="true" debug="true">', '<dotless minifyCss="true" cache="true" web="true" debug="false">')
+    replace_text_in_files(configs, '<dotless minifyCss="false" cache="true" web="false" />', '<dotless minifyCss="true" cache="true" web="true" debug="false" />')
 
     config_elmah configs
   end
