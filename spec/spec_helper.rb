@@ -71,5 +71,6 @@ def stub_all
   stub_the.not_if
   stub_the.action
   stub_the.delim
+  stub_the.ruby_block
 end
 
