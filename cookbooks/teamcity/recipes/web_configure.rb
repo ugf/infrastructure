@@ -65,6 +65,8 @@ template "#{teamcity_path}\\config\\ldap-config.properties" do
   source 'ldap-config.properties.erb'
 end
 
+env('TEAMCITY_SERVER_MEM_OPTS') { value '-Xmx1300m -XX:MaxPermSize=270m' }
+
 powershell('Configure TeamCity service') do
   script = <<'EOF'
     $service = 'TeamCity'
