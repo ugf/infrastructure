@@ -81,7 +81,13 @@ describe 'Tests' do
 
     it 'should run the tests' do
 
-      given.node {{}}
+      given.node {{
+        route53: {
+          ip: 'ip',
+          prefix: 'prefix',
+          domain: 'domain'
+        }
+      }}
       given.execute(/Run/).yields
 
       p method :verify
@@ -90,6 +96,9 @@ describe 'Tests' do
 
       run_recipe 'tests', 'application_server'
 
+      ENV['route53/ip'].should == 'ip'
+      ENV['route53/prefix'].should == 'prefix'
+      ENV['route53/domain'].should == 'domain'
     end
 
   end
