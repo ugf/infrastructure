@@ -2,7 +2,7 @@ rightscale_marker :begin
 
 root = 'c:\geminabox'
 data = "#{root}\\data"
-Dir.mkdir data unless File.exist? data
+Dir.mkdir(data) unless File.exist? data
 
 cookbook_file "#{root}\\config.ru" do
   source 'config.ru'
