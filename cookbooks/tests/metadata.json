@@ -94,6 +94,18 @@
       ],
       "calculated": false,
       "type": "string"
+    },
+    "windows/new_user_name": {
+      "display_name": "new user name",
+      "required": "required",
+      "recipes": [
+        "tests::application_server"
+      ],
+      "choice": [
+
+      ],
+      "calculated": false,
+      "type": "string"
     }
   },
   "groupings": {

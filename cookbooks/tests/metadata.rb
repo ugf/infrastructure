@@ -41,3 +41,8 @@ attribute "route53/ip",
   :required => "optional",
   :recipes => ['tests::application_server']
 
+attribute 'windows/new_user_name',
+  :display_name => 'new user name',
+  :required => 'required',
+  :recipes => ['tests::application_server']
+

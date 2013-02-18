@@ -9,6 +9,8 @@ ENV['route53/ip'] = node[:route53][:ip]
 ENV['route53/prefix'] = node[:route53][:prefix]
 ENV['route53/domain'] = node[:route53][:domain]
 
+ENV['windows/new_user_name'] = node[:windows][:new_user_name]
+
 execute 'Running tests' do
   command "cucumber #{node[:tests_directory]} #{TAGS} #{OUT}"
   cwd '/'

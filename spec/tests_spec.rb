@@ -86,6 +86,9 @@ describe 'Tests' do
           ip: 'ip',
           prefix: 'prefix',
           domain: 'domain'
+        },
+        windows: {
+          new_user_name: 'new user'
         }
       }}
       given.execute(/Run/).yields
