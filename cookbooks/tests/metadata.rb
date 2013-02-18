@@ -26,3 +26,18 @@ attribute 'elmah/database_password',
   :required => 'required',
   :recipes => ['tests::logging_server']
 
+attribute "route53/domain",
+  :display_name => "route 53 domain",
+  :required => "optional",
+  :recipes => ['tests::application_server']
+
+attribute "route53/prefix",
+  :display_name => "route 53 prefix",
+  :required => "optional",
+  :recipes => ['tests::application_server']
+
+attribute "route53/ip",
+  :display_name => "route 53 ip",
+  :required => "optional",
+  :recipes => ['tests::application_server']
+

@@ -16,6 +16,7 @@ recipe 'ruby::default', 'Runs all ruby recipes'
 recipe 'ruby::devkit', 'Downloads and installs devkit'
 recipe 'ruby::install', 'Downloads and installs ruby'
 recipe 'ruby::gems', 'Installs ruby gems'
+recipe 'ruby::geminabox', 'Installs Gem in a Box'
 
 attribute 'core/aws_access_key_id',
   :display_name => 'aws access key id',
@@ -33,3 +34,8 @@ attribute 'core/s3_bucket',
   :required => 'optional',
   :default  => 'ugfgate1',
   :recipes => ['ruby::default', 'ruby::install', 'ruby::devkit']
+
+attribute 'windows/administrator_password',
+  :display_name => 'administrator password',
+  :required => 'required',
+  :recipes => ['ruby::geminabox']
