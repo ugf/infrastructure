@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe 'setting up a teamcity web server' do
 
-  it "should set the memory options" do
+  it 'should set the memory options' do
     stub_all
 
     given.node {
