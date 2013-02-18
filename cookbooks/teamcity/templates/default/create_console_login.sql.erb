@@ -1,0 +1,17 @@
+USE [master]
+GO
+
+DROP LOGIN [<%= @console_user %>]
+GO
+
+CREATE LOGIN [<%= @console_user %>] WITH PASSWORD='<%= @console_password %>', DEFAULT_DATABASE=[TeamCity], DEFAULT_LANGUAGE=[us_english], CHECK_EXPIRATION=OFF, CHECK_POLICY=OFF
+GO
+
+USE [TeamCity]
+GO
+
+DROP USER [<%= @console_user %>]
+GO
+
+CREATE USER [<%= @console_user %>] FOR LOGIN [<%= @console_user %>] WITH DEFAULT_SCHEMA=[db_datareader]
+GO

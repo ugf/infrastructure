@@ -110,7 +110,7 @@ if node[:platform] == "ubuntu"
       cwd install_dir
     end
 
-    executables = ['ruby', 'gem', 'rake', 'rspec', 'rdoc', 'ri', 'bundle', 'cucumber', 'rails']
+    executables = ['ruby', 'gem', 'rake', 'rspec', 'rdoc', 'ri', 'bundle', 'cucumber', 'rails', 'rackup']
 
     executables.each do |exe|
       file "/usr/bin/#{exe}" do
