@@ -94,6 +94,30 @@
       "calculated": false,
       "type": "string"
     },
+    "teamcity/console_password": {
+      "display_name": "console password",
+      "required": "required",
+      "recipes": [
+        "teamcity::db_configure"
+      ],
+      "choice": [
+
+      ],
+      "calculated": false,
+      "type": "string"
+    },
+    "teamcity/console_user": {
+      "display_name": "console user",
+      "required": "required",
+      "recipes": [
+        "teamcity::db_configure"
+      ],
+      "choice": [
+
+      ],
+      "calculated": false,
+      "type": "string"
+    },
     "teamcity/database_server": {
       "display_name": "database server",
       "required": "required",
@@ -106,8 +130,8 @@
       "calculated": false,
       "type": "string"
     },
-    "teamcity/database_user": {
-      "display_name": "database user",
+    "teamcity/database_password": {
+      "display_name": "database password",
       "required": "required",
       "recipes": [
         "teamcity::web_configure",
@@ -119,8 +143,8 @@
       "calculated": false,
       "type": "string"
     },
-    "teamcity/database_password": {
-      "display_name": "database password",
+    "teamcity/database_user": {
+      "display_name": "database user",
       "required": "required",
       "recipes": [
         "teamcity::web_configure",

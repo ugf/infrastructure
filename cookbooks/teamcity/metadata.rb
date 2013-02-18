@@ -60,18 +60,28 @@ attribute 'teamcity/agent_type',
   :default => 'unit',
   :recipes => ['teamcity::agent_install']
 
+attribute 'teamcity/console_password',
+  :display_name => 'console password',
+  :required => 'required',
+  :recipes => ['teamcity::db_configure']
+
+attribute 'teamcity/console_user',
+  :display_name => 'console user',
+  :required => 'required',
+  :recipes => ['teamcity::db_configure']
+
 attribute 'teamcity/database_server',
   :display_name => 'database server',
   :required => 'required',
   :recipes => ['teamcity::web_configure']
 
-attribute 'teamcity/database_user',
-  :display_name => 'database user',
+attribute 'teamcity/database_password',
+  :display_name => 'database password',
   :required => 'required',
   :recipes => ['teamcity::web_configure', 'teamcity::db_configure']
 
-attribute 'teamcity/database_password',
-  :display_name => 'database password',
+attribute 'teamcity/database_user',
+  :display_name => 'database user',
   :required => 'required',
   :recipes => ['teamcity::web_configure', 'teamcity::db_configure']
 
