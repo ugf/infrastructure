@@ -3,8 +3,13 @@ rightscale_marker :begin
 root = '/geminabox'
 data = "#{root}/data"
 
+#unless File.exist? data do
+#  Dir.mkdir root
+#  Dir.mkdir data
+#end
+
 execute 'Setup' do
-  command "mkdir #{data}"
+  command "mkdir -p #{data}"
   not_if { File.exist? data }
 end
 
