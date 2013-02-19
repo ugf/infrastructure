@@ -31,7 +31,8 @@
       "recipes": [
         "ruby::default",
         "ruby::install",
-        "ruby::devkit"
+        "ruby::devkit",
+        "ruby::gem_utils"
       ],
       "choice": [
 
@@ -45,7 +46,8 @@
       "recipes": [
         "ruby::default",
         "ruby::install",
-        "ruby::devkit"
+        "ruby::devkit",
+        "ruby::gem_utils"
       ],
       "choice": [
 
@@ -61,30 +63,7 @@
       "recipes": [
         "ruby::default",
         "ruby::install",
-        "ruby::devkit"
-      ],
-      "choice": [
-
-      ],
-      "calculated": false,
-      "type": "string"
-    },
-    "gem_utils/gem_utils_artifacts": {
-      "display_name": "gem_utils artifacts",
-      "required": "required",
-      "recipes": [
-        "ruby::gem_utils"
-      ],
-      "choice": [
-
-      ],
-      "calculated": false,
-      "type": "string"
-    },
-    "gem_utils/gem_utils_revision": {
-      "display_name": "gem_utils revision",
-      "required": "required",
-      "recipes": [
+        "ruby::devkit",
         "ruby::gem_utils"
       ],
       "choice": [
@@ -98,6 +77,7 @@
       "required": "optional",
       "default": "Infrastructure",
       "recipes": [
+        "ruby::default",
         "ruby::gem_utils"
       ],
       "choice": [
@@ -106,11 +86,25 @@
       "calculated": false,
       "type": "string"
     },
-    "windows/administrator_password": {
-      "display_name": "administrator password",
-      "required": "optional",
+    "gem_utils/gem_utils_artifacts": {
+      "display_name": "gem_utils artifacts",
+      "required": "required",
       "recipes": [
-        "ruby::geminabox"
+        "ruby::default",
+        "ruby::gem_utils"
+      ],
+      "choice": [
+
+      ],
+      "calculated": false,
+      "type": "string"
+    },
+    "gem_utils/gem_utils_revision": {
+      "display_name": "gem_utils revision",
+      "required": "required",
+      "recipes": [
+        "ruby::default",
+        "ruby::gem_utils"
       ],
       "choice": [
 
@@ -126,7 +120,6 @@
     "ruby::devkit": "Downloads and installs devkit",
     "ruby::install": "Downloads and installs ruby",
     "ruby::gems": "Installs ruby gems",
-    "ruby::geminabox": "Installs Gem in a Box",
     "ruby::gem_utils": "Download and install utils"
   },
   "version": "0.0.1"
