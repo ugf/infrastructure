@@ -69,9 +69,46 @@
       "calculated": false,
       "type": "string"
     },
+    "gem_utils/gem_utils_artifacts": {
+      "display_name": "gem_utils artifacts",
+      "required": "required",
+      "recipes": [
+        "ruby::gem_utils"
+      ],
+      "choice": [
+
+      ],
+      "calculated": false,
+      "type": "string"
+    },
+    "gem_utils/gem_utils_revision": {
+      "display_name": "gem_utils revision",
+      "required": "required",
+      "recipes": [
+        "ruby::gem_utils"
+      ],
+      "choice": [
+
+      ],
+      "calculated": false,
+      "type": "string"
+    },
+    "deployment_services/s3_api_repository": {
+      "display_name": "s3 repository for the services api",
+      "required": "optional",
+      "default": "Infrastructure",
+      "recipes": [
+        "ruby::gem_utils"
+      ],
+      "choice": [
+
+      ],
+      "calculated": false,
+      "type": "string"
+    },
     "windows/administrator_password": {
       "display_name": "administrator password",
-      "required": "required",
+      "required": "optional",
       "recipes": [
         "ruby::geminabox"
       ],
@@ -89,7 +126,8 @@
     "ruby::devkit": "Downloads and installs devkit",
     "ruby::install": "Downloads and installs ruby",
     "ruby::gems": "Installs ruby gems",
-    "ruby::geminabox": "Installs Gem in a Box"
+    "ruby::geminabox": "Installs Gem in a Box",
+    "ruby::gem_utils": "Download and install utils"
   },
   "version": "0.0.1"
 }

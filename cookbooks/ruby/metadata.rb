@@ -17,6 +17,7 @@ recipe 'ruby::devkit', 'Downloads and installs devkit'
 recipe 'ruby::install', 'Downloads and installs ruby'
 recipe 'ruby::gems', 'Installs ruby gems'
 recipe 'ruby::geminabox', 'Installs Gem in a Box'
+recipe 'ruby::gem_utils', 'Download and install utils'
 
 attribute 'core/aws_access_key_id',
   :display_name => 'aws access key id',
@@ -35,7 +36,23 @@ attribute 'core/s3_bucket',
   :default  => 'ugfgate1',
   :recipes => ['ruby::default', 'ruby::install', 'ruby::devkit']
 
+attribute "gem_utils/gem_utils_artifacts",
+  :display_name => "gem_utils artifacts",
+  :required => "required",
+  :recipes => ["ruby::gem_utils"]
+
+attribute "gem_utils/gem_utils_revision",
+  :display_name => "gem_utils revision",
+  :required => "required",
+  :recipes => ["ruby::gem_utils"]
+
+attribute "deployment_services/s3_api_repository",
+  :display_name => "s3 repository for the services api",
+  :required => "optional",
+  :default  => "Infrastructure",
+  :recipes  => ["ruby::gem_utils"]
+
 attribute 'windows/administrator_password',
   :display_name => 'administrator password',
-  :required => 'required',
+  :required => 'optional',
   :recipes => ['ruby::geminabox']
