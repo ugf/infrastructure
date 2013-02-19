@@ -56,7 +56,7 @@ module ConfigFiles
     elmah_connstr_matcher = 'name="elmah" connectionString='
 
     elmah_connstr = "#{elmah_connstr_matcher}\"Data Source=#{node[:elmah][:logging_server]};" +
-      "Initial Catalog=Shared;Integrated Security=false;" +
+      "Initial Catalog=HealthCheck;Integrated Security=false;" +
       "User Id=#{node[:elmah][:database_user]};Password=#{node[:elmah][:database_password]};" +
       "MultipleActiveResultSets=True\""
 
