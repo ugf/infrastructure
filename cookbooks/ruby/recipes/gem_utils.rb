@@ -31,12 +31,12 @@ end
 
 execute 'Build utils' do
   command 'gem build utils.gemspec'
-  cwd node[:infrastructure_directory]
+  cwd "#{node[:infrastructure_directory]}/#{node[:gem_utils][:gem_utils_artifacts]}"
 end
 
 execute 'Install utils' do
   command 'gem install utils-0.0.1.gem'
-  cwd node[:infrastructure_directory]
+  cwd "#{node[:infrastructure_directory]}/#{node[:gem_utils][:gem_utils_artifacts]}"
 end
 
 rightscale_marker :end
