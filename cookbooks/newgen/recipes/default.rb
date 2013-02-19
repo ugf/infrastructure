@@ -36,8 +36,8 @@ end
 
 ruby_block 'Updating config files' do
   block do
-    update_website_settings
     update_database_settings node[:websites_directory]
+    update_website_settings
   end
 end
 

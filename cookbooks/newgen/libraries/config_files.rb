@@ -57,7 +57,7 @@ module ConfigFiles
 
     elmah_connstr = "#{elmah_connstr_matcher}\"Data Source=#{node[:elmah][:logging_server]};" +
       "Initial Catalog=Shared;Integrated Security=false;" +
-      "User Id=#{node[:elmah][:database_user]};Password=#{node[:elmah][:database_password]}" +
+      "User Id=#{node[:elmah][:database_user]};Password=#{node[:elmah][:database_password]};" +
       "MultipleActiveResultSets=True\""
 
     replace_text_in_files(configs, "#{elmah_connstr_matcher}\".*?\"", elmah_connstr)
