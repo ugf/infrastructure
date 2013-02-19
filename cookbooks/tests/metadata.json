@@ -35,10 +35,23 @@
       "calculated": false,
       "type": "string"
     },
+    "elmah/logging_server": {
+      "display_name": "logging server",
+      "required": "required",
+      "recipes": [
+        "tests::application_server"
+      ],
+      "choice": [
+
+      ],
+      "calculated": false,
+      "type": "string"
+    },
     "elmah/database_user": {
       "display_name": "database user",
       "required": "required",
       "recipes": [
+        "tests::application_server",
         "tests::logging_server"
       ],
       "choice": [
@@ -51,6 +64,7 @@
       "display_name": "database password",
       "required": "required",
       "recipes": [
+        "tests::application_server",
         "tests::logging_server"
       ],
       "choice": [

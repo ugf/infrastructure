@@ -16,15 +16,20 @@ attribute 'tests/revision',
   :required => 'required',
   :recipes => ['tests::default', 'tests::application_server', 'tests::logging_server']
 
+attribute 'elmah/logging_server',
+  :display_name => 'logging server',
+  :required => 'required',
+  :recipes => ['tests::application_server']
+
 attribute 'elmah/database_user',
   :display_name => 'database user',
   :required => 'required',
-  :recipes => ['tests::logging_server']
+  :recipes => ['tests::application_server', 'tests::logging_server']
 
 attribute 'elmah/database_password',
   :display_name => 'database password',
   :required => 'required',
-  :recipes => ['tests::logging_server']
+  :recipes => ['tests::application_server', 'tests::logging_server']
 
 attribute "route53/domain",
   :display_name => "route 53 domain",
