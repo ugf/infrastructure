@@ -82,6 +82,11 @@ describe 'Tests' do
     it 'should run the tests' do
 
       given.node {{
+        elmah: {
+          logging_server: 'logging server',
+          database_user: 'database user',
+          database_password: 'database password'
+        },
         route53: {
           ip: 'ip',
           prefix: 'prefix',
@@ -98,6 +103,10 @@ describe 'Tests' do
       verify.command /cucumber.*application_server.*temp/
 
       run_recipe 'tests', 'application_server'
+
+      ENV['elmah/logging_server'].should == 'logging server'
+      ENV['elmah/database_user'].should == 'database user'
+      ENV['elmah/database_password'].should == 'database password'
 
       ENV['route53/ip'].should == 'ip'
       ENV['route53/prefix'].should == 'prefix'
