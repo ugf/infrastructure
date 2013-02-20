@@ -94,6 +94,11 @@ describe 'Tests' do
         },
         windows: {
           new_user_name: 'new user'
+        },
+        newgen: {
+          database_server: 'db_server',
+          database_password: 'db_password',
+          database_user: 'db_user'
         }
       }}
       given.execute(/Run/).yields
@@ -111,6 +116,10 @@ describe 'Tests' do
       ENV['route53/ip'].should == 'ip'
       ENV['route53/prefix'].should == 'prefix'
       ENV['route53/domain'].should == 'domain'
+
+      ENV['newgen/database_server'].should == 'db_server'
+      ENV['newgen/database_password'].should == 'db_password'
+      ENV['newgen/database_user'].should == 'db_user'
     end
 
   end
