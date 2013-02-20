@@ -40,15 +40,15 @@ attribute 'deployment_services/s3_api_repository',
   :display_name => 's3 repository for the services api',
   :required => 'optional',
   :default  => 'Infrastructure',
-  :recipes  => ['ruby::default', 'ruby::gem_utils']
+  :recipes  => ['ruby::gem_utils']
 
 attribute 'gem_utils/gem_utils_artifacts',
   :display_name => 'gem_utils artifacts',
   :required => 'required',
-  :recipes => ['ruby::default', 'ruby::gem_utils']
+  :recipes => ['ruby::gem_utils']
 
 attribute 'gem_utils/gem_utils_revision',
   :display_name => 'gem_utils revision',
   :required => 'required',
-  :recipes => ['ruby::default', 'ruby::gem_utils']
+  :recipes => ['ruby::gem_utils']
 

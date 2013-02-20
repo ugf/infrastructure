@@ -77,7 +77,6 @@
       "required": "optional",
       "default": "Infrastructure",
       "recipes": [
-        "ruby::default",
         "ruby::gem_utils"
       ],
       "choice": [
@@ -90,7 +89,6 @@
       "display_name": "gem_utils artifacts",
       "required": "required",
       "recipes": [
-        "ruby::default",
         "ruby::gem_utils"
       ],
       "choice": [
@@ -103,7 +101,6 @@
       "display_name": "gem_utils revision",
       "required": "required",
       "recipes": [
-        "ruby::default",
         "ruby::gem_utils"
       ],
       "choice": [
