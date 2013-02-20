@@ -1,2 +1,2 @@
 default[:ruby_scripts_dir] = '/rubyscripts'
-default[:infrastructure_directory] = '/deployscripts_infrastructure'
+default[:gem_utils_dir] = '/gem_utils'

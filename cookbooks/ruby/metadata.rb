@@ -36,18 +36,18 @@ attribute 'core/s3_bucket',
   :default  => 'ugfgate1',
   :recipes => ['ruby::default', 'ruby::install', 'ruby::devkit', 'ruby::gem_utils']
 
-attribute 'deployment_services/s3_api_repository',
-  :display_name => 's3 repository for the services api',
+attribute 'ruby/s3_gem_utils_repository',
+  :display_name => 's3 repository for the utils gem',
   :required => 'optional',
-  :default  => 'Infrastructure',
+  :default  => 'Utils',
   :recipes  => ['ruby::gem_utils']
 
-attribute 'gem_utils/gem_utils_artifacts',
+attribute 'ruby/gem_utils_artifacts',
   :display_name => 'gem_utils artifacts',
   :required => 'required',
   :recipes => ['ruby::gem_utils']
 
-attribute 'gem_utils/gem_utils_revision',
+attribute 'ruby/gem_utils_revision',
   :display_name => 'gem_utils revision',
   :required => 'required',
   :recipes => ['ruby::gem_utils']

@@ -8,11 +8,11 @@ template "#{node[:ruby_scripts_dir]}/download_gem_utils.rb" do
   variables(
     :aws_access_key_id => node[:core][:aws_access_key_id],
     :aws_secret_access_key => node[:core][:aws_secret_access_key],
-    :artifacts => node[:gem_utils][:gem_utils_artifacts],
-    :target_directory => node[:infrastructure_directory],
-    :revision => node[:gem_utils][:gem_utils_revision],
+    :artifacts => node[:ruby][:gem_utils_artifacts],
+    :target_directory => node[:gem_utils_dir],
+    :revision => node[:ruby][:gem_utils_revision],
     :s3_bucket => node[:core][:s3_bucket],
-    :s3_repository => node[:deployment_services][:s3_api_repository],
+    :s3_repository => node[:ruby][:s3_gem_utils_repository],
     :s3_directory => 'Utils'
   )
 end
@@ -29,14 +29,9 @@ else
   end
 end
 
-execute 'Build utils' do
-  command 'gem build utils.gemspec'
-  cwd "#{node[:infrastructure_directory]}/#{node[:gem_utils][:gem_utils_artifacts]}"
-end
-
-execute 'Install utils' do
-  command 'gem install utils-0.0.1.gem'
-  cwd "#{node[:infrastructure_directory]}/#{node[:gem_utils][:gem_utils_artifacts]}"
+execute 'push gem utils' do
+  command 'gem inabox utils-0.0.1.gem -g http://localhost:9292'
+  cwd "#{node[:gem_utils_dir]}/#{node[:ruby][:gem_utils_artifacts]}"
 end
 
 rightscale_marker :end
