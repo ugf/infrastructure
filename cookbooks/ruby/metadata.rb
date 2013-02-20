@@ -17,6 +17,7 @@ recipe 'ruby::devkit', 'Downloads and installs devkit'
 recipe 'ruby::install', 'Downloads and installs ruby'
 recipe 'ruby::gems', 'Installs ruby gems'
 recipe 'ruby::gem_utils', 'Download and install utils'
+recipe 'ruby::geminabox', 'Install Gem in a Box'
 
 attribute 'core/aws_access_key_id',
   :display_name => 'aws access key id',
