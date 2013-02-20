@@ -17,7 +17,7 @@ execute 'Install' do
 end
 
 execute 'Start' do
-  command 'rackup -D'
+  command 'rackup -D -p 80'
   cwd root
 end
 

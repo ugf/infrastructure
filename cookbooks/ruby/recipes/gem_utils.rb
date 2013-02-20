@@ -30,7 +30,7 @@ else
 end
 
 execute 'push gem utils' do
-  command 'gem inabox utils-0.0.1.gem -g http://localhost:9292'
+  command 'gem inabox utils-0.0.1.gem -g http://localhost'
   cwd "#{node[:gem_utils_dir]}/#{node[:ruby][:gem_utils_artifacts]}"
 end
 

@@ -39,7 +39,7 @@ attribute 'core/s3_bucket',
 attribute 'ruby/s3_gem_utils_repository',
   :display_name => 's3 repository for the utils gem',
   :required => 'optional',
-  :default  => 'Utils',
+  :default  => 'Infrastructure',
   :recipes  => ['ruby::gem_utils']
 
 attribute 'ruby/gem_utils_artifacts',
