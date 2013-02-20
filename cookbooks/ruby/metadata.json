@@ -120,7 +120,8 @@
     "ruby::devkit": "Downloads and installs devkit",
     "ruby::install": "Downloads and installs ruby",
     "ruby::gems": "Installs ruby gems",
-    "ruby::gem_utils": "Download and install utils"
+    "ruby::gem_utils": "Download and install utils",
+    "ruby::geminabox": "Install Gem in a Box"
   },
   "version": "0.0.1"
 }
