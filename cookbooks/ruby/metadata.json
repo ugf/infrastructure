@@ -73,9 +73,9 @@
       "type": "string"
     },
     "ruby/s3_gem_utils_repository": {
-      "display_name": "s3 repository for the services api",
+      "display_name": "s3 repository for the utils gem",
       "required": "optional",
-      "default": "Utils",
+      "default": "Infrastructure",
       "recipes": [
         "ruby::gem_utils"
       ],
