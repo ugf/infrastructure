@@ -15,6 +15,10 @@ ENV['route53/domain'] = node[:route53][:domain]
 
 ENV['windows/new_user_name'] = node[:windows][:new_user_name]
 
+ENV['newgen/database_server'] = node[:newgen][:database_server]
+ENV['newgen/database_password'] = node[:newgen][:database_password]
+ENV['newgen/database_user'] = node[:newgen][:database_user]
+
 execute 'Running tests' do
   command "cucumber #{node[:tests_directory]} #{TAGS} #{OUT}"
   cwd '/'

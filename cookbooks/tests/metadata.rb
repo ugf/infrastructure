@@ -31,6 +31,21 @@ attribute 'elmah/database_password',
   :required => 'required',
   :recipes => ['tests::application_server', 'tests::logging_server']
 
+attribute "newgen/database_password",
+  :display_name => "database password",
+  :required => "required",
+  :recipes => ["tests::application_server"]
+
+attribute "newgen/database_server",
+  :display_name => "database server",
+  :required => "required",
+  :recipes => ["tests::application_server"]
+
+attribute "newgen/database_user",
+  :display_name => "database user",
+  :required => "required",
+  :recipes => ["tests::application_server"]
+
 attribute "route53/domain",
   :display_name => "route 53 domain",
   :required => "optional",
