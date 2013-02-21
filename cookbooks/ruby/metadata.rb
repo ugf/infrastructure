@@ -16,39 +16,39 @@ recipe 'ruby::default', 'Runs all ruby recipes'
 recipe 'ruby::devkit', 'Downloads and installs devkit'
 recipe 'ruby::install', 'Downloads and installs ruby'
 recipe 'ruby::gems', 'Installs ruby gems'
-recipe 'ruby::gem_utils', 'Download and install utils'
+recipe 'ruby::push_gem_utils', 'Download and install utils'
 recipe 'ruby::geminabox', 'Install Gem in a Box'
 
 attribute 'core/aws_access_key_id',
   :display_name => 'aws access key id',
   :required => 'required',
-  :recipes => ['ruby::default', 'ruby::install', 'ruby::devkit', 'ruby::gem_utils']
+  :recipes => ['ruby::default', 'ruby::install', 'ruby::devkit', 'ruby::push_gem_utils']
 
 attribute 'core/aws_secret_access_key',
   :display_name => 'aws secret access key',
   :required => 'required',
-  :recipes => ['ruby::default', 'ruby::install', 'ruby::devkit', 'ruby::gem_utils']
+  :recipes => ['ruby::default', 'ruby::install', 'ruby::devkit', 'ruby::push_gem_utils']
 
 attribute 'core/s3_bucket',
   :display_name => 's3 bucket for the UGF platform',
   :description => 'i.e. ugfartifacts, ugfproduction',
   :required => 'optional',
   :default  => 'ugfgate1',
-  :recipes => ['ruby::default', 'ruby::install', 'ruby::devkit', 'ruby::gem_utils']
+  :recipes => ['ruby::default', 'ruby::install', 'ruby::devkit', 'ruby::push_gem_utils']
 
 attribute 'ruby/s3_gem_utils_repository',
   :display_name => 's3 repository for the utils gem',
   :required => 'optional',
   :default  => 'Infrastructure',
-  :recipes  => ['ruby::gem_utils']
+  :recipes  => ['ruby::push_gem_utils']
 
 attribute 'ruby/gem_utils_artifacts',
   :display_name => 'gem_utils artifacts',
   :required => 'required',
-  :recipes => ['ruby::gem_utils']
+  :recipes => ['ruby::push_gem_utils']
 
 attribute 'ruby/gem_utils_revision',
   :display_name => 'gem_utils revision',
   :required => 'required',
-  :recipes => ['ruby::gem_utils']
+  :recipes => ['ruby::push_gem_utils']
 
