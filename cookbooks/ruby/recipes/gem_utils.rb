@@ -17,16 +17,8 @@ template "#{node[:ruby_scripts_dir]}/download_gem_utils.rb" do
   )
 end
 
-if node[:platform] == "ubuntu"
-  bash 'Downloading artifacts' do
-    code <<-EOF
-      ruby #{node[:ruby_scripts_dir]}/download_gem_utils.rb
-    EOF
-  end
-else
-  powershell "Downloading artifacts" do
-    source("ruby #{node[:ruby_scripts_dir]}/download_gem_utils.rb")
-  end
+execute 'Downloading artifacts' do
+  command "ruby #{node[:ruby_scripts_dir]}/download_gem_utils.rb"
 end
 
 execute 'push gem utils' do
