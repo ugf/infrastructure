@@ -26,7 +26,6 @@ function deploy_website($name, $pool, $directory, $port) {
     Set-ItemProperty "IIS:\\AppPools\\$pool" -name processModel -value @{identityType='SpecificUser'; userName='administrator'; password='<%= @administrator_password %>'}
   }
 
-  Set-ItemProperty "IIS:\\AppPools\\$pool" -name processModel -value @{identityType='NetworkService'}
   Set-ItemProperty "IIS:\\AppPools\\$pool" -name managedRuntimeVersion -value v4.0
 
   New-Item "IIS:\\Sites\\$name" -physicalPath $directory -bindings @{protocol="http";bindingInformation=$port}
