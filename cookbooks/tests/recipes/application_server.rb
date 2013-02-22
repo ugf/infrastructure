@@ -2,9 +2,6 @@ include_recipe 'tests::default'
 
 rightscale_marker :begin
 
-TAGS = '-t @application_server'
-OUT = '-f pretty -f html -o c:\temp\infrastructure_results.html'
-
 ENV['elmah/logging_server'] = node[:elmah][:logging_server]
 ENV['elmah/database_user'] = node[:elmah][:database_user]
 ENV['elmah/database_password'] = node[:elmah][:database_password]
@@ -19,8 +16,11 @@ ENV['newgen/database_server'] = node[:newgen][:database_server]
 ENV['newgen/database_password'] = node[:newgen][:database_password]
 ENV['newgen/database_user'] = node[:newgen][:database_user]
 
+TAGS = '-t @application_server'
+OUT = '-f pretty -f html -o c:\temp\infrastructure_results.html'
+
 execute 'Running tests' do
-  command "cucumber #{node[:tests_directory]} #{TAGS} #{OUT}"
+  command "bundle exec cucumber #{node[:tests_directory]} #{TAGS} #{OUT}"
   cwd '/'
 end
 
