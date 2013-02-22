@@ -25,6 +25,11 @@ execute 'Create output folder' do
   not_if { File.exist? 'c:\temp' }
 end
 
+execute 'Bundle Install' do
+  command 'bundle install'
+  cwd "#{node[:tests_directory]}"
+end
+
 rightscale_marker :end
 
 
