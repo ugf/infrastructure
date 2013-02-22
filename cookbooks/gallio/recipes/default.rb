@@ -33,4 +33,8 @@ windows_zipfile "#{node[:installs_directory]}/#{artifact}" do
   not_if { File.exist?("#{node[:installs_directory]}/#{artifact}") }
 end
 
+windows_package 'Install gallio' do
+  source "#{node[:installs_directory]}/#{artifact}/GallioBundle-3.4.14.0-Setup-x64.msi"
+end
+
 rightscale_marker :end

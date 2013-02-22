@@ -73,5 +73,6 @@ def stub_all
   stub_the.delim
   stub_the.ruby_block
   stub_the.windows_batch
+  stub_the.windows_package
 end
 

@@ -41,5 +41,11 @@ describe 'Gallio' do
       verify.source "#{installs_directory}/#{artifact}.zip"
       verify.action :unzip
     end
+
+    it 'should install gallio' do
+      given.node {{installs_directory: installs_directory}}
+      given.windows_package('Install gallio').yields
+      verify.source "#{installs_directory}/#{artifact}/GallioBundle-3.4.14.0-Setup-x64.msi"
+    end
   end
 end
