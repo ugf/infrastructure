@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe 'Gallio' do
   let(:ruby_scripts_dir) { '/rubyscripts' }
-  let(:installs_directory) { '/installs' }
+  let(:installs_directory) { 'c:\\installs' }
   let(:artifact) { 'gallio' }
 
   before :each do
@@ -45,7 +45,7 @@ describe 'Gallio' do
     it 'should install gallio' do
       given.node {{installs_directory: installs_directory}}
       given.windows_package('Install gallio').yields
-      verify.source "#{installs_directory}/#{artifact}/GallioBundle-3.4.14.0-Setup-x64.msi"
+      verify.source "#{installs_directory}\\#{artifact}\\GallioBundle-3.4.14.0-Setup-x64.msi"
     end
   end
 end
