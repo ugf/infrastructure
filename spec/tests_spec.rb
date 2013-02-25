@@ -6,6 +6,7 @@ describe 'Tests' do
   let(:tests_directory) { '/infrastructure_tests' }
 
   before :each do
+    given.node { { tests_directory: tests_directory } }
     stub_all
   end
 
@@ -31,7 +32,7 @@ describe 'Tests' do
 
     it 'should pick the tests revision' do
 
-      given.node {{tests: { revision: 42 }}}
+      given.node { { tests: { revision: 42 } } }
       given.execute(/revision/).yields
       verify.command /git.*checkout 42/
 
@@ -50,7 +51,7 @@ describe 'Tests' do
 
     it 'should run the tests' do
 
-      given.node {{ elmah: {}}}
+      given.node { { elmah: {} } }
       given.execute(/Run/).yields
 
       verify.command /cucumber.*@logging_server.*temp/
@@ -61,12 +62,12 @@ describe 'Tests' do
 
     it 'should set db credentials for tests' do
 
-      given.node {{
+      given.node { {
         elmah: {
           database_user: 'logger',
           database_password: 'logg3r',
         }
-      }}
+      } }
 
       run_recipe 'tests', 'logging_server'
 
@@ -81,7 +82,7 @@ describe 'Tests' do
 
     it 'should run the tests' do
 
-      given.node {{
+      given.node { {
         elmah: {
           logging_server: 'logging server',
           database_user: 'database user',
@@ -100,7 +101,7 @@ describe 'Tests' do
           database_password: 'db_password',
           database_user: 'db_user'
         }
-      }}
+      } }
       given.execute(/Run/).yields
 
       p method :verify
