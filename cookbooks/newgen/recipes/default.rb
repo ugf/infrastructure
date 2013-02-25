@@ -6,7 +6,10 @@ include_recipe 'newgen::download'
 
 rightscale_marker :begin
 
-directory 'c:\logs'
+execute 'Create logs folder' do
+  command 'mkdir c:\logs'
+  not_if { File.exist? 'c:\logs' }
+end
 
 execute 'Adding certificate' do
   command 'certutil -f -p password -importpfx passiveSTS.pfx'
