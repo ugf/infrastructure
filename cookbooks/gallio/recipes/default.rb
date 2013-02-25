@@ -16,7 +16,7 @@ template "#{node[:ruby_scripts_dir]}/download_gallio.rb" do
     :s3_bucket => node[:core][:s3_bucket],
     :s3_repository => 'Vendor',
     :product => artifact,
-    :version => '3.4.14.0',
+    :version => '3.3.458.0',
     :artifacts => artifact,
     :target_directory => node[:installs_directory]
   )
