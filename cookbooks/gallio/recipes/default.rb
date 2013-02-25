@@ -34,7 +34,7 @@ windows_zipfile "#{node[:installs_directory]}/#{artifact}" do
 end
 
 windows_package 'Install gallio' do
-  source "#{node[:installs_directory]}\\#{artifact}\\GallioBundle-3.4.14.0-Setup-x64.msi"
+  source "#{node[:installs_directory]}\\#{artifact}\\GallioBundle-3.3.458.0-Setup-x64.msi"
 end
 
 rightscale_marker :end
