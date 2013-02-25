@@ -56,6 +56,7 @@ def stub_all
   # :powershell, :env, :rightscale_marker, :windows_registry].
   #    each { |method| stub_the.call method}
   stub_the.emit_marker
+  stub_the.directory
   stub_the.include_recipe
   stub_the.template
   stub_the.execute

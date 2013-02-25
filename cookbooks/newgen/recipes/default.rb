@@ -6,6 +6,8 @@ include_recipe 'newgen::download'
 
 rightscale_marker :begin
 
+directory 'c:\logs'
+
 execute 'Adding certificate' do
   command 'certutil -f -p password -importpfx passiveSTS.pfx'
   cwd "#{node[:binaries_directory]}/certificate"
