@@ -1,7 +1,7 @@
 rightscale_marker :begin
 
 git = "\"#{ENV['PROGRAMFILES(X86)']}\\Git\\bin\\git\""
-tests_directory = '/infrastructure_tests'
+tests_directory = node[:tests_directory]
 
 execute 'Removing previous clone' do
   command "rd /s /q \"#{tests_directory}\""
@@ -27,7 +27,7 @@ end
 
 execute 'Bundle Install' do
   command 'bundle install'
-  cwd "#{node[:tests_directory]}"
+  cwd tests_directory
 end
 
 rightscale_marker :end
