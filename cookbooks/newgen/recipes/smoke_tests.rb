@@ -29,7 +29,7 @@ ruby_block 'Updating config files' do
 end
 
 execute 'Run Gallio Smoke Tests' do
-  command "\"c:\\Program Files\\Gallio\\bin\\Gallio.Echo.exe\" /rd:C:\\temp\\SmokeTests /rt:Html /rnf:index /filter:CategoryName:Smoke \"#{node[:ui_tests_directory]}\\bin\\UltimateSoftware.Echo.Automation.NewGen.UIAutomationTests.dll\""
+  command "\"c:\\Program Files\\Gallio\\bin\\Gallio.Echo.exe\" /rd:C:\\temp\\SmokeTests /rt:Html /rnf:index /filter:CategoryName:Smoke \"c:#{node[:ui_tests_directory].gsub('/', '\\')}\\bin\\UltimateSoftware.Echo.Automation.NewGen.UIAutomationTests.dll\""
   cwd node[:ui_tests_directory]
 end
 
