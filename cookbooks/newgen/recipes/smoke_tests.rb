@@ -28,7 +28,11 @@ ruby_block 'Updating config files' do
   end
 end
 
-# "c:\Program Files\Gallio\bin\Gallio.Echo.exe" /rd:C:\BuildAgent\work\2d8e03a32104b497\Reports\Tests /rt:Xml-Inline /rnf:index /filter:CategoryName:Smoke "C:\BuildAgent\work\2d8e03a32104b497\bin\UltimateSoftware.Echo.Automation.NewGen.UIAutomationTests.dll"
+execute 'Run Gallio Smoke Tests' do
+  command "\"c:\\Program Files\\Gallio\\bin\\Gallio.Echo.exe\" /rd:C:\\temp\\SmokeTests /rt:Html /rnf:index /filter:CategoryName:Smoke \"#{node[:ui_tests_directory]}\\bin\\UltimateSoftware.Echo.Automation.NewGen.UIAutomationTests.dll\""
+  cwd node[:ui_tests_directory]
+end
+
 execute 'Run tests' do
   command '"%VS110COMNTOOLS%\..\IDE\mstest" /testcontainer:bin/UltimateSoftware.Echo.Automation.NewGen.UITests.dll /category:smoke /testsettings:bin\UIAutomation.CI.testsettings'
   cwd node[:ui_tests_directory]
