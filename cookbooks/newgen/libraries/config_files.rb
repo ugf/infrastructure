@@ -65,3 +65,9 @@ module ConfigFiles
   end
 
 end
+
+class Chef
+  class Resource
+    include ConfigFiles
+  end
+end

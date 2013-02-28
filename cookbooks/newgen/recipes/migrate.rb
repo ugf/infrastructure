@@ -1,9 +1,5 @@
 rightscale_marker :begin
 
-class Chef::Resource
-  include ConfigFiles
-end
-
 require 'rake'
 
 include_recipe 'newgen::download'

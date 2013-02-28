@@ -1,7 +1,3 @@
-class Chef::Resource
-  include ConfigFiles
-end
-
 include_recipe 'newgen::download'
 
 rightscale_marker :begin

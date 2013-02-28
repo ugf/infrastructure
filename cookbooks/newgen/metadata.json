@@ -152,6 +152,7 @@
       "recipes": [
         "newgen::default",
         "newgen::migrate",
+        "newgen::search",
         "newgen::smoke_tests"
       ],
       "choice": [
@@ -166,6 +167,7 @@
       "recipes": [
         "newgen::default",
         "newgen::migrate",
+        "newgen::search",
         "newgen::smoke_tests"
       ],
       "choice": [
@@ -180,6 +182,7 @@
       "recipes": [
         "newgen::default",
         "newgen::migrate",
+        "newgen::search",
         "newgen::smoke_tests"
       ],
       "choice": [
@@ -231,6 +234,7 @@
     "newgen::default": "Deploys New Gen websites",
     "newgen::download": "Downloads binaries",
     "newgen::migrate": "Runs migrate",
+    "newgen::search": "Runs search migrate",
     "newgen::smoke_tests": "Runs smoke tests"
   },
   "version": "0.0.1"
