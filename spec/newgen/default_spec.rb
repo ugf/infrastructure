@@ -17,7 +17,7 @@ describe 'newgen' do
     given.execute('Adding certificate').yields
     given.node {
       {
-          binaries_directory: 'cert_directory'
+        binaries_directory: 'cert_directory'
       }
     }
 
