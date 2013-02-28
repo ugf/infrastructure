@@ -33,9 +33,4 @@ execute 'Run Gallio Smoke Tests' do
   cwd node[:ui_tests_directory]
 end
 
-execute 'Run tests' do
-  command '"%VS110COMNTOOLS%\..\IDE\mstest" /testcontainer:bin/UltimateSoftware.Echo.Automation.NewGen.UITests.dll /category:smoke /testsettings:bin\UIAutomation.CI.testsettings'
-  cwd node[:ui_tests_directory]
-end
-
 rightscale_marker :end
