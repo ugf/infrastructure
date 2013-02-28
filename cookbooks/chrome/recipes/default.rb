@@ -4,6 +4,7 @@ installs_directory = 'c:\\installs'
 
 Dir.mkdir(installs_directory) unless File.exist?(installs_directory)
 
+#todo: download from s3 instead of cookbook file
 cookbook_file "#{installs_directory}\\GoogleChromeStandaloneEnterprise.msi" do
   source 'GoogleChromeStandaloneEnterprise.msi'
   not_if { File.exist?("#{installs_directory}\\GoogleChromeStandaloneEnterprise.msi") }
