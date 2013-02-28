@@ -52,9 +52,9 @@ feature_list =
     'WAS-WindowsActivationService'
   ].join(' /featurename:')
 
-#todo: make idempotent
 powershell 'Install IIS' do
   source("dism.exe /online /enable-feature #{feature_list} /norestart")
+  not_if  { File.exist?('c:\inetpub') }
 end
 
 rightscale_marker :end

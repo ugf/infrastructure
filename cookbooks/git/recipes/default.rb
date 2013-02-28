@@ -31,9 +31,9 @@ windows_zipfile "#{download_directory}/#{artifact}" do
   not_if { File.exist?("#{download_directory}/#{artifact}") }
 end
 
-#todo: make idempotent
 powershell 'Installing git' do
   source "#{download_directory}/#{artifact}/#{artifact}.exe /verysilent"
+  not_if { File.exist?("#{ENV['programfilesx86']}\\Git") }
 end
 
 rightscale_marker :end
