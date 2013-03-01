@@ -91,12 +91,6 @@ attribute 'teamcity/data_volume_size',
   :default => '300',
   :recipes => ['teamcity::web_setup_volumes']
 
-attribute 'teamcity/do_agent_install',
-  :display_name => 'tests revision',
-  :required => 'optional',
-  :default => 'true',
-  :recipes => ['teamcity::agent_install']
-
 attribute 'teamcity/force_create_volumes',
   :display_name => 'force create volumes',
   :required => 'optional',

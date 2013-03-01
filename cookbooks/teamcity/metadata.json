@@ -169,19 +169,6 @@
       "calculated": false,
       "type": "string"
     },
-    "teamcity/do_agent_install": {
-      "display_name": "tests revision",
-      "required": "optional",
-      "default": "true",
-      "recipes": [
-        "teamcity::agent_install"
-      ],
-      "choice": [
-
-      ],
-      "calculated": false,
-      "type": "string"
-    },
     "teamcity/force_create_volumes": {
       "display_name": "force create volumes",
       "required": "optional",
