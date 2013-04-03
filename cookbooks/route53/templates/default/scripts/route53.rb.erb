@@ -26,11 +26,6 @@ class HostedZones
   end
 
   def create_resource_record(prefix, domain, ip_addresses)
-    records = resource_records(domain)['ResourceRecordSets'].find { |e| e["Type"] == "A" && e["Name"].start_with?(prefix) }
-    unless records.nil?
-      old_ips = records['ResourceRecords']
-      delete_resource_record(prefix, domain, old_ips) if old_ips.count > 0
-    end
     change_resource_record(prefix, domain, ip_addresses, 'CREATE')
   end
 
